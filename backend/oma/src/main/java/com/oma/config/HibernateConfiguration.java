@@ -32,6 +32,7 @@ public class HibernateConfiguration {
         return sessionFactoryBean;
     }
 
+
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();

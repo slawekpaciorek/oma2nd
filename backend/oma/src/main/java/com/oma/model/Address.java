@@ -11,7 +11,6 @@ import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 public class Address {
 
@@ -31,4 +30,10 @@ public class Address {
     @Column
     private int mobilePhoneNumber;
 
+    public Address(String streetNameAndNumber, String zipCode, String city, int mobilePhoneNumber) {
+        this.streetNameAndNumber = streetNameAndNumber;
+        this.zipCode = zipCode;
+        City = city;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
 }
