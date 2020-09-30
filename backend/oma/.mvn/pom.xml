@@ -11,6 +11,7 @@
     <properties>
         <jdk.version>11</jdk.version>
         <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+        <logback.classic.version>1.2.3</logback.classic.version>
     </properties>
 
     <dependencies>
@@ -49,9 +50,9 @@
             <version>1.1.0.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>1.7.28</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.classic.version}</version>
         </dependency>
     </dependencies>
 
