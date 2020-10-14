@@ -29,12 +29,10 @@ public class EmailSenderService{
     @Autowired
     private Environment environment;
 
-    public void sendGreetingEmail(String to, String subject, Map<String,Object> templateModel) throws MessagingException {
-        String message = "Witamy w aplikacje, niedługo dostaniesz wiadomość dotyczącą rejestracji oraz regulamin i instrukcję korzystania z aplikacji";
+    public void sendEmailWithoutAttachments(String to, String subject, Map<String,Object> templateModel, String templateName) throws MessagingException {
         Context context = new Context();
-        templateModel.put("greeting", message);
         context.setVariables(templateModel);
-        String htmlBody = templateEngine.process("greetingTemplate.html", context);
+        String htmlBody = templateEngine.process(templateName, context);
 
         sendHtmlMessage(to, subject, htmlBody);
     }

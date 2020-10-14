@@ -19,8 +19,10 @@ public class EmailServiceTest {
     public void shouldSendGreetingMail() throws MessagingException {
         String to = "example@example";
         String subject = "Greeting Test";
+        String message = "Witamy w aplikacje, niedługo dostaniesz wiadomość dotyczącą rejestracji oraz regulamin i instrukcję korzystania z aplikacji";
         Map<String, Object> templateModel = new HashMap<>();
-        emailSenderService.sendGreetingEmail(to, subject, templateModel);
+        templateModel.put("greeting", message);
+        emailSenderService.sendEmailWithoutAttachments(to, subject, templateModel, "greetingTemplate.html");
     }
 }
 
