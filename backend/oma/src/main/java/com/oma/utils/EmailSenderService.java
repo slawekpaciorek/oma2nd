@@ -1,6 +1,9 @@
 package com.oma.utils;
 
+import com.sun.mail.smtp.SMTPMessage;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -11,7 +14,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
 
+import static com.sun.mail.smtp.SMTPMessage.*;
+
 @Component
+@Data
 public class EmailSenderService{
 
     @Autowired
@@ -20,33 +26,31 @@ public class EmailSenderService{
     @Autowired
     private JavaMailSender javaMailSender;
 
-    private final String MESSAGE_SENDER;
+    @Autowired
+    private Environment environment;
 
-
-    public void sendMessageWithTemplate(String to,String subject, Map<String, Object> templateModel) throws MessagingException{
-
+    public void sendGreetingEmail(String to, String subject, Map<String,Object> templateModel) throws MessagingException {
+        String message = "Witamy w aplikacje, niedługo dostaniesz wiadomość dotyczącą rejestracji oraz regulamin i instrukcję korzystania z aplikacji";
         Context context = new Context();
+        templateModel.put("greeting", message);
         context.setVariables(templateModel);
-        String htmlBody = templateEngine.process("SimpleTestTemplate.html", context);
-        
+        String htmlBody = templateEngine.process("greetingTemplate.html", context);
+
         sendHtmlMessage(to, subject, htmlBody);
-        
     }
 
-    private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
+    protected void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
+        messageHelper.setFrom("email@example.com");
         messageHelper.setTo(to);
-        messageHelper.setFrom(MESSAGE_SENDER);
         messageHelper.setSubject(subject);
         messageHelper.setText(htmlBody, true);
 
-        javaMailSender.send(message);
-    }
+        SMTPMessage smtpMessage = new SMTPMessage(message);
 
-    public EmailSenderService(String messageSender) {
-        MESSAGE_SENDER = messageSender;
+        javaMailSender.send(smtpMessage);
     }
 
 }
