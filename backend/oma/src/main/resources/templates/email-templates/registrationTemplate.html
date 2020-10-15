@@ -1,0 +1,28 @@
+<div th:replace="header.html"></div>
+<section title="main">
+    <h2 class="h2 p-3 w-100 text-center pt-3">Rejestracja użytkownika w OMA - Order Management Application</h2>
+    <div class="container p-3">
+        Właśnie dokonano rejstracji nowego użytkownika. Jeśli otrzymali Państwo poniższą wiadomośc oznacza to że do rejestracji został użyty Państwa adres email.
+        Poniżej szczegóły rejstracji.
+    </div>
+    <div class="container p-3">
+        <div>
+            <span class="lead">Nazwa użytkownika : </span><span th:text="${user.username}"></span>
+        </div>
+        <div>
+            <span class="lead">Imię : </span><span th:text="${user.name}"></span>
+        </div>
+        <div>
+            <span class="lead">Numer kontaktowy : </span><span th:text="${user.mobilePhone}"></span>
+        </div>
+        <div>
+            <span class="lead">Firma : </span><span th:text="${user.Company.name}"></span>
+        </div>
+    </div>
+    <div class="container p-3">
+        <p>Możesz skorzystać z następujących funkcji</p>
+        <button class="btn.btn-secondary">Logowanie do aplikacji</button>
+        <button class="btn.btn-secondary">Ustawienie / Zmiana hasła</button>
+    </div>
+</section>
+<div th:replace="footer.html"></div>
