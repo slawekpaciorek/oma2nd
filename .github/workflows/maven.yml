@@ -23,5 +23,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Verify MySQL connection from host
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port 3306 -u root -p password -e "create database if not exist oma"
     - name: Build with Maven
       run: mvn -B package --file backend/oma/pom.xml
