@@ -20,4 +20,16 @@ public class AddressServiceImplementation implements AddressService {
     public List<Address> getAllAddresses() {
         return addressDAO.getAllAddresses();
     }
+
+    @Override
+    @Transactional
+    public void saveAddress(Address address) {
+        addressDAO.saveAddress(address);
+    }
+
+    @Override
+    @Transactional
+    public Address getAddressForId(long id) {
+        return addressDAO.getAddressForId(id);
+    }
 }

@@ -7,4 +7,7 @@ public interface AddressDAO {
 
     List<Address> getAllAddresses();
 
+    void saveAddress(Address address);
+
+    Address getAddressForId(long id);
 }
