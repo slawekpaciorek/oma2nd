@@ -10,4 +10,6 @@ public interface AddressDAO {
     void saveAddress(Address address);
 
     Address getAddressForId(long id);
+
+    void updateAddress(long id, Address address);
 }

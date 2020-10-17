@@ -92,4 +92,17 @@ public class AddressServiceTest {
 //        then
         assertEquals(address, result);
     }
+
+    @Test
+    public void shouldUpdateAddressWithId(){
+//        given
+        Address input = new Address("Basic Input");
+        Address update = new Address("Updated Input");
+//        when
+        addressService.saveAddress(input);
+        addressService.updateAddressForId(input.getId(), update);
+        Address expected = addressService.getAddressForId(input.getId());
+//        then
+        assertEquals(expected.getStreetNameAndNumber(), update.getStreetNameAndNumber());
+    }
 }

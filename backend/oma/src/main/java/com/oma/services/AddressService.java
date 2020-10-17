@@ -10,4 +10,6 @@ public interface AddressService {
     void saveAddress(Address address);
 
     Address getAddressForId(long id);
+
+    void updateAddressForId(long id, Address update);
 }

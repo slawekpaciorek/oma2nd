@@ -34,4 +34,15 @@ public class AddressDAOImplementation implements AddressDAO {
         query.setParameter("id", id);
         return (Address) query.getSingleResult();
     }
+
+    @Override
+    public void updateAddress(long id, Address address) {
+        Session session = sessionFactory.getCurrentSession();
+        Address temp = getAddressForId(id);
+        temp.setCity(address.getCity());
+        temp.setStreetNameAndNumber(address.getStreetNameAndNumber());
+        temp.setMobilePhoneNumber(address.getMobilePhoneNumber());
+        temp.setZipCode(address.getZipCode());
+        session.update(temp);
+    }
 }

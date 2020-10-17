@@ -32,4 +32,10 @@ public class AddressServiceImplementation implements AddressService {
     public Address getAddressForId(long id) {
         return addressDAO.getAddressForId(id);
     }
+
+    @Override
+    @Transactional
+    public void updateAddressForId(long id, Address address) {
+        addressDAO.updateAddress(id, address);
+    }
 }
