@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "mailSender.username",
+      "type": "java.lang.String",
+      "description": "username for mail sender"
+  }
+] }

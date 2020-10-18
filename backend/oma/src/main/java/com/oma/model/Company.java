@@ -35,4 +35,7 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
 
+    public Company(String name) {
+        this.name = name;
+    }
 }
