@@ -12,4 +12,6 @@ public interface AddressService {
     Address getAddressForId(long id);
 
     void updateAddressForId(long id, Address update);
+
+    void removeAddressWithId(long id);
 }

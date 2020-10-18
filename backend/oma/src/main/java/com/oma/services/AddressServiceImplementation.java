@@ -6,6 +6,7 @@ import com.oma.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class AddressServiceImplementation implements AddressService {
 
     @Override
     @Transactional
-    public Address getAddressForId(long id) {
+    public Address getAddressForId(long id){
         return addressDAO.getAddressForId(id);
     }
 
@@ -37,5 +38,11 @@ public class AddressServiceImplementation implements AddressService {
     @Transactional
     public void updateAddressForId(long id, Address address) {
         addressDAO.updateAddress(id, address);
+    }
+
+    @Override
+    @Transactional
+    public void removeAddressWithId(long id) {
+        addressDAO.removeAddress(id);
     }
 }

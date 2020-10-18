@@ -1,18 +1,19 @@
 package com.oma.services;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
 import com.oma.model.Address;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
-import java.util.Comparator;
+import javax.persistence.NoResultException;
+import javax.swing.text.html.Option;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,5 +105,16 @@ public class AddressServiceTest {
         Address expected = addressService.getAddressForId(input.getId());
 //        then
         assertEquals(expected.getStreetNameAndNumber(), update.getStreetNameAndNumber());
+    }
+    @Test
+    public void shouldRemoveAddressWithIdFromDB(){
+//        given
+        Address addressToRemove = new Address("AddressToRemove");
+//        when
+        addressService.saveAddress(addressToRemove);
+        long id = addressToRemove.getId();
+        addressService.removeAddressWithId(id);
+//        then
+        assertThrows(Exception.class, ()-> addressService.getAddressForId(id));
     }
 }

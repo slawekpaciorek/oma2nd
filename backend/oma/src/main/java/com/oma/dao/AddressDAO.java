@@ -12,4 +12,6 @@ public interface AddressDAO {
     Address getAddressForId(long id);
 
     void updateAddress(long id, Address address);
+
+    void removeAddress(long id);
 }

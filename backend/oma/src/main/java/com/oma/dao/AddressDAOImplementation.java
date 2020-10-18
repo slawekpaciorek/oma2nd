@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class AddressDAOImplementation implements AddressDAO {
     }
 
     @Override
-    public Address getAddressForId(long id) {
+    public Address getAddressForId(long id){
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Address address where address.id = :id", Address.class);
         query.setParameter("id", id);
@@ -44,5 +45,12 @@ public class AddressDAOImplementation implements AddressDAO {
         temp.setMobilePhoneNumber(address.getMobilePhoneNumber());
         temp.setZipCode(address.getZipCode());
         session.update(temp);
+    }
+
+    @Override
+    public void removeAddress(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Address address = getAddressForId(id);
+        session.remove(address);
     }
 }
