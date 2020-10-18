@@ -1,19 +1,17 @@
 package com.oma.services;
 
-import java.util.*;
-
 import com.oma.model.Address;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.NoResultException;
-import javax.swing.text.html.Option;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,6 +90,15 @@ public class AddressServiceTest {
         Address result = addressService.getAddressForId(id);
 //        then
         assertEquals(address, result);
+    }
+
+    @Test
+    public void shouldCatchExceptionForIncorrectIdNumber(){
+//        given
+        long id= addressService.getAllAddresses().stream().mapToLong(Address::getId).sum();
+//        then
+        assertThrows(Exception.class, ()->addressService.getAddressForId(id));
+
     }
 
     @Test

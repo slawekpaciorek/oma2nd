@@ -1,12 +1,10 @@
 package com.oma.services;
 
 import com.oma.dao.AddressDAO;
-import com.oma.dao.AddressDAOImplementation;
 import com.oma.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.List;
 
