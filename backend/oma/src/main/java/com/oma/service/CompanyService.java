@@ -1,22 +1,28 @@
 package com.oma.service;
 
-import com.oma.dao.CompanyDAO;
+
 import com.oma.model.Company;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 
 @Service
 public interface CompanyService {
 
-    List<Company>companyList = new CopyOnWriteArrayList<>();
+    List<Company>companyList = new ArrayList<>();
 
-    //get All
+    //get All company
     List<Company> getAllCompany();
+
+    Company getCompanyFromID(long id);
     //add Company
-    public void addCompany(Company company);
+    Company getCompanyFromName(String name);
+    Company getCompanyForTaxNumberId(int id);
+    void addCompany(Company company);
+    //update Company
+    Company update(long id, Company company);
     //remove Company
-    public void removeCompany(Company company);
+    void removeCompany(Company company);
 }
