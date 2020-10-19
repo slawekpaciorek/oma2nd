@@ -9,4 +9,24 @@ class CompanyDAOImplementationTest {
     @Test
     void getAllCompany() {
     }
+
+    @Test
+    void saveCompany() {
+    }
+
+    @Test
+    void getCompanyForID() {
+    }
+
+    @Test
+    void getCompanyForTaxNumberId() {
+    }
+
+    @Test
+    void updateCompany() {
+    }
+
+    @Test
+    void removeCompany() {
+    }
 }

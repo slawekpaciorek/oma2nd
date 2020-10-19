@@ -38,14 +38,26 @@ public class CompanyDAOImplementation implements CompanyDAO {
         return (Company) query.getSingleResult();
     }
 
-
     @Override
-    public void updateCompany(Company company) {
-        //TO DO
+    public Company getCompanyForTaxNumberId(int id) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        Query query = factoryCurrentSession.createQuery("from Company company where company.taxNumberId",
+                Company.class);
+        query.setParameter("taxId",id);
+        return (Company) query.getSingleResult();
     }
 
     @Override
-    public void removeCompany(long id) {
-        //TO DO
+    public void updateCompany(long id,Company company) {
+//        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+//        Company companyForID = getCompanyForID(id);
+//        companyForID.
     }
+
+    @Override
+    public void removeCompany(long id, Company company) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        factoryCurrentSession.remove(company);
+    }
+
 }
