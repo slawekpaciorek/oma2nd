@@ -43,6 +43,8 @@ cmake-build-*/
 *.iws
 # IntelliJ
 out/
+frontend/.idea
+frontend/.idea/*
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 # JIRA plugin
