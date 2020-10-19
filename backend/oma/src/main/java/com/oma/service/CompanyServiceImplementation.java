@@ -17,6 +17,11 @@ public class CompanyServiceImplementation implements CompanyService {
 
     @Override
     public List<Company> getAllCompany() {
+        for (Company company1 : companyList) {
+            if (company1 == null){
+                System.out.println("Nie ma w bazie");
+            }
+        }
         return companyDAO.getAllCompany();
     }
 
