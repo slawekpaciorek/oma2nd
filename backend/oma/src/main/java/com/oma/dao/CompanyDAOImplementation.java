@@ -1,9 +1,12 @@
 package com.oma.dao;
 
 import com.oma.model.Company;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -24,7 +27,11 @@ public class CompanyDAOImplementation implements CompanyDAO {
 
     @Override
     public Company getCompanyForID(long id) {
-        return null;
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        Query query = factoryCurrentSession.createQuery("from Company company where company",
+                Company.class);
+        query.setParameter("id",id);
+        return (Company) query.getSingleResult();
     }
 
     @Override
