@@ -1,10 +1,7 @@
 package com.oma.config;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.mysql.cj.jdbc.Driver;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
