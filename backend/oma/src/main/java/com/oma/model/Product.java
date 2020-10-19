@@ -11,7 +11,6 @@ import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 public class Product {
 
@@ -28,4 +27,9 @@ public class Product {
     @Column
     private String catalogId;
 
+    public Product(String name, String tradeId, String catalogId) {
+        this.name = name;
+        this.tradeId = tradeId;
+        this.catalogId = catalogId;
+    }
 }
