@@ -25,4 +25,12 @@ public class ProductDAOImplementation implements ProductDAO {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Product", Product.class).getResultList();
     }
+
+    @Override
+    public Product getByID(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Product) session.createQuery("from Product product where product.id=:id")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

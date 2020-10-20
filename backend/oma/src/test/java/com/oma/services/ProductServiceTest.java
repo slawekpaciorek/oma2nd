@@ -64,6 +64,35 @@ public class ProductServiceTest {
         session.getTransaction().commit();
         List<Product> expected = productService.getProducts();
 //        then
-        Assertions.assertEquals(products, expected);
+        for(Product temp : expected){
+            Assertions.assertTrue(products.contains(temp));
+        }
+    }
+
+    @Test
+    public void shouldCheckForProductWithID(){
+//        given
+        Product expected = new Product("example", "trade_example", "cat_example");
+//        when
+        productService.saveProduct(expected);
+        long id = expected.getId();
+        Product result = productService.getProductByID(id);
+//        then
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldUpdateProductWithID(){
+//        given
+        Product expected = new Product("example", "trade_example", "cat_example");
+        Product updatedVersion = new Product("example", "trade_example", "cat_example2");
+//        when
+        productService.saveProduct(expected);
+        long id = expected.getId();
+        expected.setCatalogId(updatedVersion.getCatalogId());
+        productService.updateProduct(expected);
+        Product result = productService.getProductByID(id);
+//        then
+        Assertions.assertEquals(result, updatedVersion);
     }
 }
