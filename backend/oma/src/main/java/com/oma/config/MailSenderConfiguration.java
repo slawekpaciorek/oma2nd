@@ -32,7 +32,7 @@ public class MailSenderConfiguration {
         properties.put("mail.transport.protocol", environment.getProperty("spring.mail.properties.mail.transport.protocol"));
         properties.put("mail.smtp.auth", environment.getProperty("spring.mail.properties.mail.smtp.auth"));
         properties.put("mail.smtp.starttls.enable", environment.getProperty("spring.mail.properties.mail.smtp.starttls.enable"));
-        properties.put("mail.debug", "true");
+        properties.put("mail.debug", "false");
 
 
         return javaMailSender;
