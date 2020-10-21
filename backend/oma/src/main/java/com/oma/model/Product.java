@@ -28,4 +28,5 @@ public class Product {
     @Column
     private String catalogId;
 
+
 }

@@ -48,10 +48,14 @@ public class User {
     @OneToMany(mappedBy = "createdBy")
     private List<ProductsOrder> ordersCreated;
 
-    public User(String username, String name, int mobilePhone) {
+    public User(String username, String name, int mobilePhone,Company company) {
         this.username = username;
         this.name = name;
         this.mobilePhone = mobilePhone;
+        this.company = company;
+    }
+
+    public User() {
 
     }
 

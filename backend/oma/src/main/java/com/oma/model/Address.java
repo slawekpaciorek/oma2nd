@@ -29,10 +29,12 @@ public class Address {
     @Column
     private int mobilePhoneNumber;
 
-    public Address(String streetNameAndNumber, String zipCode, String city, int mobilePhoneNumber) {
-        this.streetNameAndNumber = streetNameAndNumber;
-        this.zipCode = zipCode;
-        City = city;
-        this.mobilePhoneNumber = mobilePhoneNumber;
+
+    public long getIdAddress() {
+        return id;
+    }
+
+    public void setIdAddress(long id) {
+        this.id = id;
     }
 }

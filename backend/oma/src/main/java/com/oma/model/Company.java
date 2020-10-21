@@ -94,6 +94,7 @@ public class Company {
     public void setDeliveryPoints(List<DeliveryPoint> deliveryPoints) {
         this.deliveryPoints = deliveryPoints;
     }
+
     //Wygenerowany equals i hashCode 20.10.2020.. środa
     @Override
     public boolean equals(Object o) {

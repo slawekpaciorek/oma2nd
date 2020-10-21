@@ -29,8 +29,8 @@ public class EmailServiceTest {
 
     @Test
     public void shouldSendRegistrationMail() throws MessagingException {
-        Company company = new Company("Example Company");
-        User user = new User("example@example", "example", 700800900, company);
+        Company company = new Company();
+        User user = new User("example@example", "example", 700800900,company);
         Map<String, Object> templateModel = new HashMap<>();
         templateModel.put("user" , user);
         String to = "mail@example.com";
