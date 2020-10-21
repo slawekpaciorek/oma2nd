@@ -42,6 +42,9 @@ public class UserServiceTest {
         //given
         User expected = new User();
         expected.setPassword("Testy");
+        expected.setName("Kamil");
+        expected.setUsername("Kamil");
+        expected.setMobilePhone(788788788);
         //when
         userService.addUser(expected);
         User result = (User)session.createQuery("from User user where user.username=:username and user.name=:name " +
