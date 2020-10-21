@@ -40,7 +40,7 @@ public class UserServiceTest {
     @Test
     public void shouldSaveUserInDB(){
         //given
-        User expected = new User("Kamil","Example",711788788,company);
+        User expected = new User();
         expected.setPassword("Testy");
         //when
         userService.addUser(expected);
