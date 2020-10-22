@@ -48,9 +48,6 @@ public class User {
     @OneToMany(mappedBy = "createdBy")
     private List<ProductsOrder> ordersCreated;
 
-    public User(String name) {
-        this.name = name;
-    }
 
     public long getId() {
         return id;

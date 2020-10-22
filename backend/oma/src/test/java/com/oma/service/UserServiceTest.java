@@ -43,11 +43,13 @@ public class UserServiceTest {
     @Test
     public void shouldSaveUserInDB(){
         //given
-        User expected = new User("Paweł");
-//        expected.setPassword("Testy");
-//        expected.setName("Waldek");
-        expected.setUsername("War");
-        expected.setMobilePhone(987789987);
+
+        User expected = new User();
+        expected.setPassword("Testy");
+        expected.setName("Kamil");
+        expected.setUsername("Kamil");
+        expected.setMobilePhone(788788788);
+
         //when
         userService.addUser(expected);
         User result = (User)session.createQuery("from User user where user.username=:username and user.name=:name " +
@@ -67,9 +69,9 @@ public class UserServiceTest {
         List<User> expected = new ArrayList<>();
         //user.setUsername("Wołek");
        // user.setUsername("QWERTY");
-        expected.add(new User("Mietek"));
-        expected.add(new User("Andrzej"));
-        expected.add(new User("Paweł"));
+        expected.add(new User());
+        expected.add(new User());
+        expected.add(new User());
         //when
         session.beginTransaction();
         for (User users : expected) {
