@@ -65,13 +65,11 @@ public class UserServiceTest {
     @Test
     public void shouldGetAllUserFromDb(){
        //given
-        //User user = new User("Karol");
+        User user = new User();
         List<User> expected = new ArrayList<>();
-        //user.setUsername("Wołek");
-       // user.setUsername("QWERTY");
-        expected.add(new User());
-        expected.add(new User());
-        expected.add(new User());
+        user.setUsername("Wołek");
+        user.setUsername("QWERTY");
+
         //when
         session.beginTransaction();
         for (User users : expected) {
