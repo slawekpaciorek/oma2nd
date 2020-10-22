@@ -80,4 +80,17 @@ public class UserServiceTest {
        //then
         Assertions.assertEquals(expected,actual);
     }
+    @Test
+    public void shouldUserById(){
+        User expected = new User();
+        expected.setUsername("Mandżuria_example");
+        expected.setName("Name_example");
+
+        userService.addUser(expected);
+        long userId = expected.getId();
+
+       User result = userService.findUserById(userId);
+
+        Assertions.assertEquals(expected,result);
+    }
 }

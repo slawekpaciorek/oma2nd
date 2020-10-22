@@ -30,5 +30,12 @@ public class UserDAOImplementation implements UserDAO{
         return factoryCurrentSession.createQuery("from User").getResultList();
     }
 
-
+    @Override
+    @Transactional
+    public User findUserById(long id) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        return (User) factoryCurrentSession.createQuery("from User user where user.id=:id")
+                .setParameter("id",id)
+                .getSingleResult();
+    }
 }

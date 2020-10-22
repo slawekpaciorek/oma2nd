@@ -27,4 +27,10 @@ public class UserServiceImplementation implements UserService{
         return userDAO.getAll();
     }
 
+    @Override
+    @Transactional
+    public User findUserById(long id) {
+        return userDAO.findUserById(id);
+    }
+
 }

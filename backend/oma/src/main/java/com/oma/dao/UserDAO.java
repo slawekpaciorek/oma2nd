@@ -13,4 +13,6 @@ public interface UserDAO {
     void saveUser(User user);
 
     List<User> getAll();
+
+    User findUserById(long id);
 }
