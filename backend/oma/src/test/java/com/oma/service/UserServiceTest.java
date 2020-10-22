@@ -83,7 +83,7 @@ public class UserServiceTest {
     @Test
     public void shouldUserById(){
         User expected = new User();
-        expected.setUsername("Mandżuria_example");
+        //expected.setUsername("Mandżuria_example");
         expected.setName("Name_example");
 
         userService.addUser(expected);
