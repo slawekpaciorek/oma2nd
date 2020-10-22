@@ -11,4 +11,8 @@ public interface CompanyDAO {
     List<Company>company = new ArrayList<>();
 
     void save(Company company);
+
+    List<Company> getAll();
+
+    Company getCompanyById(long id);
 }

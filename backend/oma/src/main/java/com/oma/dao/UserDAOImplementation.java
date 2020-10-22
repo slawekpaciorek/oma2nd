@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
 @Repository
 public class UserDAOImplementation implements UserDAO{
 
@@ -19,4 +22,13 @@ public class UserDAOImplementation implements UserDAO{
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.save(user);
     }
+
+    @Override
+    @Transactional
+    public List<User> getAll() {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        return factoryCurrentSession.createQuery("from User").getResultList();
+    }
+
+
 }

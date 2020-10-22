@@ -11,4 +11,8 @@ public interface CompanyService {
     List<Company>companies = new ArrayList<>();
 
     void saveCompany(Company company);
+
+    List<Company> getAllCompany();
+
+    Company getCompanyById(long id);
 }

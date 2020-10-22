@@ -11,4 +11,6 @@ public interface UserDAO {
     List<User> user = new ArrayList<>();
 
     void saveUser(User user);
+
+    List<User> getAll();
 }
