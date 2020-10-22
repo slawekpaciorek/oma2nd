@@ -1,0 +1,45 @@
+div.component{
+  min-height: 100vh;
+  width: 100%;
+}
+
+.header{
+  min-height: 10vh;
+  width: 100%;
+  background-color: white;
+}
+.main{
+  min-height: 80vh;
+  width: 100%;
+}
+
+.footer{
+  height: 8vh;
+  width: 100%;
+}
+
+.logo img{
+  max-height: 8.5vh;
+}
+
+.main-button{
+  min-height: 25vh;
+  width: 80%;
+}
+
+.main-button a{
+  font-size: 1.4rem ;
+}
+
+.main-button:hover{
+  background-color: dimgray;
+}
+
+.main-button:hover a{
+  color: whitesmoke !important;
+}
+
+.main-button:hover a:hover{
+  text-decoration: none;
+}
+

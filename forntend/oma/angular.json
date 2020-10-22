@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "oma"
+    }
+  },
+  "defaultProject": "oma",
+  "cli": {
+    "analytics": "04146931-91d9-4180-a69b-01f5073205a3"
+  }
 }
