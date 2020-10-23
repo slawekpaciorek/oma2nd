@@ -3,6 +3,7 @@ package com.oma;
 import com.oma.model.Address;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,14 @@ class OrderManagementApplicationTests {
 
     @Autowired
     SessionFactory sessionFactory;
+
+    @BeforeEach
+    public void cleanUp(){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.createQuery("delete Address ").executeUpdate();
+        session.getTransaction().commit();
+    }
 
     @Test
     public void simpleOperationOnDB(){
