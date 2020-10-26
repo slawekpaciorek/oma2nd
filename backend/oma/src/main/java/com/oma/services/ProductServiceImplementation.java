@@ -38,4 +38,16 @@ public class ProductServiceImplementation implements ProductService {
     public void updateProduct(Product product) {
         productDAO.save(product);
     }
+
+    @Override
+    @Transactional
+    public void deleteProduct(long id) {
+        productDAO.remove(id);
+    }
+
+    @Override
+    @Transactional
+    public Product getProductByCatNumber(String catalogId) {
+        return productDAO.getByCatNumber(catalogId);
+    }
 }

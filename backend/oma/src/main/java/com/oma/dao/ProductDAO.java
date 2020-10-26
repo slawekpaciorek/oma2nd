@@ -11,4 +11,8 @@ public interface ProductDAO {
     List<Product> getAll();
 
     Product getByID(long id);
+
+    void remove(long id);
+
+    Product getByCatNumber(String catalogId);
 }

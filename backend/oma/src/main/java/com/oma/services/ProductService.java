@@ -13,4 +13,8 @@ public interface ProductService {
     Product getProductByID(long id);
 
     void updateProduct(Product product);
+
+    void deleteProduct(long id);
+
+    Product getProductByCatNumber(String catalogId);
 }

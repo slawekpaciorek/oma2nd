@@ -7,9 +7,12 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 public class ProductServiceTest {
@@ -95,4 +98,29 @@ public class ProductServiceTest {
 //        then
         Assertions.assertEquals(result, updatedVersion);
     }
+
+    @Test
+    public void shouldDeleteProductWithID(){
+//        given
+        Product product = new Product("example", "trade_ex", "cat_example");
+//        when
+        productService.saveProduct(product);
+        long id = product.getId();
+        productService.deleteProduct(id);
+//        then
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> productService.getProductByID(id));
+    }
+
+    @Test
+    void shouldFindProductWithCatNr() {
+        //  given
+        Product product = new Product("example", "trade_exa", "cat_exa");
+        //  when
+        session.save(product);
+        //  then
+        Assertions.assertEquals(
+                productService.getProductByID(product.getId()),
+                productService.getProductByCatNumber(product.getCatalogId()));
+    }
+
 }

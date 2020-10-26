@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -31,6 +32,20 @@ public class ProductDAOImplementation implements ProductDAO {
         Session session = sessionFactory.getCurrentSession();
         return (Product) session.createQuery("from Product product where product.id=:id")
                 .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public void remove(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(getByID(id));
+    }
+
+    @Override
+    public Product getByCatNumber(String catalogId) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Product p where p.catalogId = :catNumber",Product.class)
+                .setParameter("catNumber", catalogId)
                 .getSingleResult();
     }
 }
