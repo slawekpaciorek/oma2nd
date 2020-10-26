@@ -32,7 +32,6 @@ public class HibernateConfiguration {
         return sessionFactoryBean;
     }
 
-
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -41,13 +40,6 @@ public class HibernateConfiguration {
         dataSource.setUsername(environment.getProperty("spring.datasource.username"));
         dataSource.setPassword(environment.getProperty("spring.datasource.password"));
         return dataSource;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(){
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactoryBean().getObject());
-        return transactionManager;
     }
 
 

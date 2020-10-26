@@ -36,4 +36,8 @@ public class Address {
         City = city;
         this.mobilePhoneNumber = mobilePhoneNumber;
     }
+
+    public Address(String streetName){
+        this.streetNameAndNumber = streetName;
+    }
 }
