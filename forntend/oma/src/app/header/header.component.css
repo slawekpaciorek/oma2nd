@@ -1,0 +1,9 @@
+.header{
+  min-height: 10vh;
+  width: 100%;
+  background-color: white;
+}
+
+.logo img{
+  max-height: 8.5vh;
+}

@@ -1,0 +1,21 @@
+.main-button{
+  min-height: 18vh;
+  width: 80%;
+}
+
+.main-button a{
+  font-size: 1.4rem ;
+}
+
+.main-button:hover{
+  background-color: dimgray;
+}
+
+.main-button:hover a{
+  color: whitesmoke !important;
+}
+
+.main-button:hover a:hover{
+  text-decoration: none;
+}
+
