@@ -116,7 +116,7 @@ public class ProductServiceTest {
         //  given
         Product product = new Product("example", "trade_exa", "cat_exa");
         //  when
-        session.save(product);
+        productService.saveProduct(product);
         //  then
         Assertions.assertEquals(
                 productService.getProductByID(product.getId()),
