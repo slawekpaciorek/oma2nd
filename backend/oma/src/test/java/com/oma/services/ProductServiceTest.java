@@ -108,7 +108,7 @@ public class ProductServiceTest {
         long id = product.getId();
         productService.deleteProduct(id);
 //        then
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> productService.getProductByID(id));
+        Assertions.assertThrows(Exception.class, () -> productService.getProductByID(id));
     }
 
     @Test
