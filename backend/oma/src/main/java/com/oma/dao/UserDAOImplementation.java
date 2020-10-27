@@ -38,4 +38,18 @@ public class UserDAOImplementation implements UserDAO{
                 .setParameter("id",id)
                 .getSingleResult();
     }
+
+    @Override
+    @Transactional
+    public void updateUser(long id,User user) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        factoryCurrentSession.saveOrUpdate(user);
+    }
+
+    @Override
+    @Transactional
+    public void removeUser(long id, User user) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        factoryCurrentSession.remove(user);
+    }
 }

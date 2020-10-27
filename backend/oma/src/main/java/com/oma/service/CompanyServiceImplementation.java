@@ -27,7 +27,20 @@ public class CompanyServiceImplementation implements CompanyService {
     }
 
     @Override
+    @Transactional
     public Company getCompanyById(long id) {
         return companyDAO.getCompanyById(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateCompany(long id,Company company) {
+        companyDAO.updateCompany(id,company);
+    }
+
+    @Override
+    @Transactional
+    public void removeCompany(long id, Company company) {
+        companyDAO.removeCompany(id,company);
     }
 }

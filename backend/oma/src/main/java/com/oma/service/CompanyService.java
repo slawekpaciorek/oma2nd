@@ -15,4 +15,8 @@ public interface CompanyService {
     List<Company> getAllCompany();
 
     Company getCompanyById(long id);
+
+    void updateCompany(long id,Company company);
+
+    void removeCompany(long id, Company company);
 }

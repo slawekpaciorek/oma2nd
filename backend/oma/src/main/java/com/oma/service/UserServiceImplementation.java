@@ -33,4 +33,16 @@ public class UserServiceImplementation implements UserService{
         return userDAO.findUserById(id);
     }
 
+    @Override
+    @Transactional
+    public void updateUser(long id,User user) {
+        userDAO.updateUser(id,user);
+    }
+
+    @Override
+    @Transactional
+    public void removeUser(long id, User user) {
+        userDAO.removeUser(id,user);
+    }
+
 }

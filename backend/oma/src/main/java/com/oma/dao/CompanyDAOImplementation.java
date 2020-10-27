@@ -37,4 +37,22 @@ public class CompanyDAOImplementation implements CompanyDAO {
                 .setParameter("id",id)
                 .getSingleResult();
     }
+
+    @Override
+    @Transactional
+    public void updateCompany(long id,Company company) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        Company update = getCompanyById(id);
+           update.setName(company.getName());
+
+           factoryCurrentSession.merge(company);
+            factoryCurrentSession.update(company);
+   }
+
+    @Override
+    @Transactional
+    public void removeCompany(long id, Company company) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        factoryCurrentSession.remove(company);
+    }
 }
