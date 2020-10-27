@@ -108,7 +108,7 @@ public class ProductServiceTest {
         long id = product.getId();
         productService.deleteProduct(id);
 //        then
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> productService.getProductByID(id));
+        Assertions.assertThrows(Exception.class, () -> productService.getProductByID(id));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ProductServiceTest {
         //  given
         Product product = new Product("example", "trade_exa", "cat_exa");
         //  when
-        session.save(product);
+        productService.saveProduct(product);
         //  then
         Assertions.assertEquals(
                 productService.getProductByID(product.getId()),
