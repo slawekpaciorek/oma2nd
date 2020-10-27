@@ -94,29 +94,29 @@ public class UserServiceTest {
         Assertions.assertEquals(expected,result);
     }
     
-//    @Test
-//    public void shouldUpdateUser(){
-//        User expected = new User();
-//        expected.setName("Kamil");
-//        expected.setUsername("War");
-//        expected.setMobilePhone(543543543);
-//        userService.addUser(expected);
-//        long id = expected.getId();
-//        session.beginTransaction();
-//        userService.updateUser(id,expected);
-//        User update = (User)session.createQuery("from User user where user.username=:username and user.name=:name " +
-//                "and user.mobilePhone=:mobilPhone")
-//                .setParameter("username",expected.getUsername())
-//                .setParameter("name",expected.getName())
-//                .setParameter("mobilPhone",expected.getMobilePhone())
-//                .getSingleResult();
-//        session.getTransaction().commit();
-//        update.setName("Wiesiek");
-//        update.setMobilePhone(678678678);
-////        userService.addUser(update);
-//        userService.removeUser(id,expected);
+    @Test
+    public void shouldUpdateUser(){
+        User expected = new User();
+        expected.setName("Kamil");
+        expected.setUsername("War");
+        expected.setMobilePhone(543543543);
+        userService.addUser(expected);
+        long id = expected.getId();
+        session.beginTransaction();
+        userService.updateUser(id,expected);
+        User update = (User)session.createQuery("from User user where user.username=:username and user.name=:name " +
+                "and user.mobilePhone=:mobilPhone")
+                .setParameter("username",expected.getUsername())
+                .setParameter("name",expected.getName())
+                .setParameter("mobilPhone",expected.getMobilePhone())
+                .getSingleResult();
+        session.getTransaction().commit();
+        update.setName("Wiesiek");
+        update.setMobilePhone(678678678);
+//        userService.addUser(update);
+        userService.removeUser(id,expected);
 //        Assertions.assertEquals(expected,update);
-//    }
+    }
 
     @Test
     public void removeUser(){
