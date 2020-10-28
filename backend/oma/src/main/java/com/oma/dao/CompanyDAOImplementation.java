@@ -44,9 +44,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         Company update = getCompanyById(id);
            update.setName(company.getName());
-
-           factoryCurrentSession.merge(company);
-            factoryCurrentSession.update(company);
+           factoryCurrentSession.update(update);
    }
 
     @Override

@@ -83,21 +83,21 @@ public class CompanyServiceTest {
         Assertions.assertEquals(company,result);
 
     }
-//    @Test
-//    public void shouldUpdateCompany(){
-//        Company expected = new Company();
-////        expected.setName("Example_1");
-//
-//        Company update = new Company();
-//        session.beginTransaction();
-//        companyService.saveCompany(expected);
-//        long id = expected.getId();
-//        expected.setId(update.getId());
-//        companyService.updateCompany(id,update);
-//        companyService.getCompanyById(id);
-//        session.getTransaction().commit();
-//        Assertions.assertEquals(expected,update);
-//    }
+    @Test
+    public void shouldUpdateCompany(){
+    //given
+        Company firstVersion = new Company();
+        firstVersion.setName("AXA");
+
+        Company update = new Company();
+        update.setName("Update");
+        //when
+        companyService.saveCompany(firstVersion);
+        companyService.updateCompany(firstVersion.getId(),update);
+        Company expected = companyService.getCompanyById(firstVersion.getId());
+        //then
+        Assertions.assertEquals(expected.getName(),update.getName());
+    }
     @Test
     public void shouldRemoveCompany(){
         Company expected = new Company();

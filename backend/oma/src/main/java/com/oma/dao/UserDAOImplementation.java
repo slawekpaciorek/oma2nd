@@ -43,7 +43,10 @@ public class UserDAOImplementation implements UserDAO{
     @Transactional
     public void updateUser(long id,User user) {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-        factoryCurrentSession.saveOrUpdate(user);
+        User upd = findUserById(id);
+        upd.setName(user.getName());
+        upd.setMobilePhone(user.getMobilePhone());
+        factoryCurrentSession.update(upd);
     }
 
     @Override
