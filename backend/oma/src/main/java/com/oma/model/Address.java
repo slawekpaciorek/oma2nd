@@ -37,4 +37,8 @@ public class Address {
     public void setIdAddress(long id) {
         this.id = id;
     }
+
+    public Address(String streetName){
+        this.streetNameAndNumber = streetName;
+    }
 }
