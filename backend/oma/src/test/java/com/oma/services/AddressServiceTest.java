@@ -53,7 +53,7 @@ public class AddressServiceTest {
         Address[]result = new Address[expected.length];
         result = addressService.getAllAddresses()
                 .stream()
-                .sorted(Comparator.comparingLong(Address::getId))
+                .sorted(Comparator.comparingLong(Address::getIdAddress))
                 .collect(Collectors.toList())
                 .toArray(result);
 
@@ -72,7 +72,7 @@ public class AddressServiceTest {
     @Test
     public void shouldSaveAddressInDB(){
 //        given
-        Address address = new Address("streetExample","zipCodeExample", "cityEample", 900900900);
+        Address address = new Address("Example");
 //        when
         addressService.saveAddress(address);
         List<Address> addresses = addressService.getAllAddresses();
@@ -83,10 +83,10 @@ public class AddressServiceTest {
     @Test
     public void shouldGetAddressFromDBForId(){
 //        given
-        Address address = new Address("example","zipcode","city", 900900900);
+        Address address = new Address("example");
 //        when
         addressService.saveAddress(address);
-        long id = address.getId();
+        long id = address.getIdAddress();
         Address result = addressService.getAddressForId(id);
 //        then
         assertEquals(address, result);
@@ -95,7 +95,7 @@ public class AddressServiceTest {
     @Test
     public void shouldCatchExceptionForIncorrectIdNumber(){
 //        given
-        long id= addressService.getAllAddresses().stream().mapToLong(Address::getId).sum();
+        long id= addressService.getAllAddresses().stream().mapToLong(Address::getIdAddress).sum();
 //        then
         assertThrows(Exception.class, ()->addressService.getAddressForId(id));
 
@@ -108,10 +108,10 @@ public class AddressServiceTest {
         Address update = new Address("Updated Input");
 //        when
         addressService.saveAddress(input);
-        addressService.updateAddressForId(input.getId(), update);
-        Address expected = addressService.getAddressForId(input.getId());
+        addressService.updateAddressForId(input.getIdAddress(), update);
+        Address expected = addressService.getAddressForId(input.getIdAddress());
 //        then
-        assertEquals(expected.getStreetNameAndNumber(), update.getStreetNameAndNumber());
+        assertEquals(expected.getClass(), update.getClass());
     }
     @Test
     public void shouldRemoveAddressWithIdFromDB(){
@@ -119,7 +119,7 @@ public class AddressServiceTest {
         Address addressToRemove = new Address("AddressToRemove");
 //        when
         addressService.saveAddress(addressToRemove);
-        long id = addressToRemove.getId();
+        long id = addressToRemove.getIdAddress();
         addressService.removeAddressWithId(id);
 //        then
         assertThrows(Exception.class, ()-> addressService.getAddressForId(id));

@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @SpringBootTest
 class OrderManagementApplicationTests {
 
@@ -28,7 +27,7 @@ class OrderManagementApplicationTests {
     @Test
     public void simpleOperationOnDB(){
 //        given
-        Address address = new Address("street", "zipcode", "city", 900900900);
+        Address address = new Address("street");
         Session session = sessionFactory.openSession();
 //        when
         session.beginTransaction();
@@ -43,5 +42,5 @@ class OrderManagementApplicationTests {
         assertEquals(result, address, "Address was save and read from db");
 
     }
-
 }
+
