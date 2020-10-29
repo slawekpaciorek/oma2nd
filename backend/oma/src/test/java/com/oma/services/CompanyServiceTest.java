@@ -1,4 +1,4 @@
-package com.oma.service;
+package com.oma.services;
 
 import com.oma.model.Company;
 import org.hibernate.Session;

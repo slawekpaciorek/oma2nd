@@ -1,4 +1,4 @@
-package com.oma.service;
+package com.oma.services;
 
 import com.oma.model.User;
 import org.springframework.stereotype.Service;
