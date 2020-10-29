@@ -1,6 +1,8 @@
 package com.oma.utils;
 
 import com.sun.mail.smtp.SMTPMessage;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -29,12 +31,16 @@ public class EmailSenderService{
     @Autowired
     private Environment environment;
 
+    private final Logger log = LoggerFactory.getLogger(EmailSenderService.class);
+
     public void sendEmailWithoutAttachments(String to, String subject, Map<String,Object> templateModel, String templateName) throws MessagingException {
         Context context = new Context();
         context.setVariables(templateModel);
+        log.trace("Set variables - template mode.");
         String htmlBody = templateEngine.process(templateName, context);
 
         sendHtmlMessage(to, subject, htmlBody);
+        log.trace("[sended email, no adds] Email sended properly.");
     }
 
     protected void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
@@ -49,6 +55,7 @@ public class EmailSenderService{
         SMTPMessage smtpMessage = new SMTPMessage(message);
 
         javaMailSender.send(smtpMessage);
+        log.trace("[sended html email] Email sended properly.");
     }
 
 }
