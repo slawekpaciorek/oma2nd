@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fd788f71-e6d4-47f1-a2c7-a5bc9890526b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="AnnotationType" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hpyZWhEyojACB3goqLfcgysM7r" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/oma/services" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.31026527" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/email-templates" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.oma.dao" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.oma" />
+      <recent name="com.oma.dao" />
+      <recent name="com.oma.services" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.OrderManagementApplicationTests.simpleOperationOnDB">
+    <configuration name="OrderManagementApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="oma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oma" />
+      <option name="MAIN_CLASS_NAME" value="com.oma.OrderManagementApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderManagementApplicationTests.simpleOperationOnDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="oma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oma" />
+      <option name="MAIN_CLASS_NAME" value="com.oma.OrderManagementApplicationTests" />
+      <option name="METHOD_NAME" value="simpleOperationOnDB" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceTest.shouldDeleteProductWithID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="oma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oma.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oma.services" />
+      <option name="MAIN_CLASS_NAME" value="com.oma.services.ProductServiceTest" />
+      <option name="METHOD_NAME" value="shouldDeleteProductWithID" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceTest.shouldFindProductWithCatNr" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="oma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oma.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oma.services" />
+      <option name="MAIN_CLASS_NAME" value="com.oma.services.ProductServiceTest" />
+      <option name="METHOD_NAME" value="shouldFindProductWithCatNr" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceTest.shouldUpdateProductWithID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="oma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oma.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oma.services" />
+      <option name="MAIN_CLASS_NAME" value="com.oma.services.ProductServiceTest" />
+      <option name="METHOD_NAME" value="shouldUpdateProductWithID" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderManagementApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="oma" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.oma.OrderManagementApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.OrderManagementApplicationTests.simpleOperationOnDB" />
+        <item itemvalue="JUnit.OrderManagementApplicationTests" />
+        <item itemvalue="JUnit.ProductServiceTest.shouldFindProductWithCatNr" />
+        <item itemvalue="JUnit.ProductServiceTest.shouldDeleteProductWithID" />
+        <item itemvalue="JUnit.ProductServiceTest.shouldUpdateProductWithID" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@oma-locall" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:@oma-locall" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@79ec3127" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fd788f71-e6d4-47f1-a2c7-a5bc9890526b" name="Default Changelist" comment="" />
+      <created>1600722387631</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600722387631</updated>
+      <workItem from="1600722401735" duration="1270000" />
+      <workItem from="1600795526242" duration="1619000" />
+      <workItem from="1600800383219" duration="557000" />
+      <workItem from="1600887527377" duration="46153000" />
+      <workItem from="1602105271482" duration="612000" />
+      <workItem from="1602332431381" duration="1768000" />
+      <workItem from="1602432355536" duration="9599000" />
+      <workItem from="1602449412672" duration="1296000" />
+      <workItem from="1602519883336" duration="4167000" />
+      <workItem from="1602588475532" duration="11241000" />
+      <workItem from="1602623659463" duration="642000" />
+      <workItem from="1602678526607" duration="14103000" />
+      <workItem from="1602773628047" duration="4710000" />
+      <workItem from="1602885462193" duration="4282000" />
+      <workItem from="1602953670275" duration="23640000" />
+      <workItem from="1603123282066" duration="16879000" />
+      <workItem from="1603227333317" duration="684000" />
+      <workItem from="1603300783609" duration="293000" />
+      <workItem from="1603301939166" duration="4349000" />
+      <workItem from="1603378349319" duration="945000" />
+      <workItem from="1603382937828" duration="634000" />
+      <workItem from="1603403302975" duration="569000" />
+      <workItem from="1603467669418" duration="7158000" />
+      <workItem from="1603739960028" duration="3262000" />
+      <workItem from="1603817429922" duration="3257000" />
+      <workItem from="1604749812477" duration="3744000" />
+      <workItem from="1604760883791" duration="1743000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../../forntend/basic.js" />
+        <option value="$PROJECT_DIR$/../../forntend/training/01-helloworlds/myhelloworld.js" />
+      </list>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="527" y="215" width="800" height="684" key="#File_and_Code_Templates" timestamp="1603635953618">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="527" y="215" width="800" height="684" key="#File_and_Code_Templates/0.27.1864.1053@0.27.1864.1053" timestamp="1603635953618" />
+    <state x="527" y="215" width="800" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603220992697">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="527" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1603220992697" />
+    <state x="528" y="215" width="800" height="681" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1867.1053@0.27.1867.1053" timestamp="1601159598795" />
+    <state x="648" y="350" width="557" height="413" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602778502424">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="648" y="350" width="557" height="413" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1864.1053@0.27.1864.1053" timestamp="1602778502424" />
+    <state x="740" y="272" width="374" height="594" key="#com.intellij.ide.util.MemberChooser" timestamp="1603741671707">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="680" y="96" width="549" height="858" key="#com.intellij.ide.util.MemberChooser.inPresentationMode" timestamp="1603184072506">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="680" y="96" width="549" height="858" key="#com.intellij.ide.util.MemberChooser.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184072506" />
+    <state x="740" y="272" width="374" height="594" key="#com.intellij.ide.util.MemberChooser/0.27.1864.1053@0.27.1864.1053" timestamp="1603741671707" />
+    <state x="741" y="272" width="374" height="566" key="#com.intellij.ide.util.MemberChooser/0.27.1867.1053@0.27.1867.1053" timestamp="1601324537679" />
+    <state x="660" y="334" width="524" height="451" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1602335369086">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="660" y="334" width="524" height="451" key="#com.intellij.ide.util.PackageChooserDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1602335369086" />
+    <state x="680" y="405" width="504" height="305" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1603304350207">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="680" y="405" width="504" height="305" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.27.1864.1053@0.27.1864.1053" timestamp="1603304350207" />
+    <state x="679" y="120" width="496" height="873" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603044156404">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="679" y="120" width="496" height="873" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1603044156404" />
+    <state x="702" y="283" width="424" height="520" key="FileChooserDialogImpl" timestamp="1604773363373">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="702" y="283" width="424" height="520" key="FileChooserDialogImpl/0.27.1864.1053@0.27.1864.1053" timestamp="1604773363373" />
+    <state x="703" y="283" width="450" height="545" key="FileChooserDialogImpl/0.27.1867.1053@0.27.1867.1053" timestamp="1601061131485" />
+    <state width="1818" height="275" key="GridCell.Tab.0.bottom" timestamp="1604760656382">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.bottom.inPresentationMode" timestamp="1603184952597">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.bottom.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184952597" />
+    <state width="1818" height="275" key="GridCell.Tab.0.bottom/0.27.1864.1053@0.27.1864.1053" timestamp="1604760656382" />
+    <state width="1821" height="334" key="GridCell.Tab.0.bottom/0.27.1867.1053@0.27.1867.1053" timestamp="1601678421572" />
+    <state width="1818" height="275" key="GridCell.Tab.0.center" timestamp="1604760656382">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.center.inPresentationMode" timestamp="1603184952595">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.center.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184952595" />
+    <state width="1818" height="275" key="GridCell.Tab.0.center/0.27.1864.1053@0.27.1864.1053" timestamp="1604760656382" />
+    <state width="1821" height="334" key="GridCell.Tab.0.center/0.27.1867.1053@0.27.1867.1053" timestamp="1601678421571" />
+    <state width="1818" height="275" key="GridCell.Tab.0.left" timestamp="1604760656381">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.left.inPresentationMode" timestamp="1603184952594">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.left.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184952594" />
+    <state width="1818" height="275" key="GridCell.Tab.0.left/0.27.1864.1053@0.27.1864.1053" timestamp="1604760656381" />
+    <state width="1821" height="334" key="GridCell.Tab.0.left/0.27.1867.1053@0.27.1867.1053" timestamp="1601678421570" />
+    <state width="1818" height="275" key="GridCell.Tab.0.right" timestamp="1604760656382">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.right.inPresentationMode" timestamp="1603184952596">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1920" height="606" key="GridCell.Tab.0.right.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184952596" />
+    <state width="1818" height="275" key="GridCell.Tab.0.right/0.27.1864.1053@0.27.1864.1053" timestamp="1604760656382" />
+    <state width="1821" height="334" key="GridCell.Tab.0.right/0.27.1867.1053@0.27.1867.1053" timestamp="1601678421571" />
+    <state width="1821" height="334" key="GridCell.Tab.1.bottom" timestamp="1601412133038">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state width="1821" height="334" key="GridCell.Tab.1.bottom/0.27.1867.1053@0.27.1867.1053" timestamp="1601412133038" />
+    <state width="1821" height="334" key="GridCell.Tab.1.center" timestamp="1601412133037">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state width="1821" height="334" key="GridCell.Tab.1.center/0.27.1867.1053@0.27.1867.1053" timestamp="1601412133037" />
+    <state width="1821" height="334" key="GridCell.Tab.1.left" timestamp="1601412133037">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state width="1821" height="334" key="GridCell.Tab.1.left/0.27.1867.1053@0.27.1867.1053" timestamp="1601412133037" />
+    <state width="1821" height="334" key="GridCell.Tab.1.right" timestamp="1601412133038">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state width="1821" height="334" key="GridCell.Tab.1.right/0.27.1867.1053@0.27.1867.1053" timestamp="1601412133038" />
+    <state x="466" y="211" width="923" height="688" key="Maven.ArtifactSearchDialog" timestamp="1601675849103">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state x="466" y="211" width="923" height="688" key="Maven.ArtifactSearchDialog/0.27.1867.1053@0.27.1867.1053" timestamp="1601675849103" />
+    <state x="421" y="188" width="1021" height="737" key="SettingsEditor" timestamp="1604773655181">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="421" y="188" width="1021" height="737" key="SettingsEditor/0.27.1864.1053@0.27.1864.1053" timestamp="1604773655181" />
+    <state x="422" y="188" width="1022" height="734" key="SettingsEditor/0.27.1867.1053@0.27.1867.1053" timestamp="1600796451573" />
+    <state x="703" y="336" width="446" height="447" key="chooseDestDirectoryDialog" timestamp="1603044128753">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="703" y="336" width="446" height="447" key="chooseDestDirectoryDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1603044128753" />
+    <state x="794" y="233" width="362" height="657" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1601411732435">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state x="794" y="233" width="362" height="657" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1867.1053@0.27.1867.1053" timestamp="1601411732435" />
+    <state x="795" y="295" width="268" height="520" key="com.intellij.database.view.ui.DbObjectDialog" timestamp="1603221018573">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="795" y="295" key="com.intellij.database.view.ui.DbObjectDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1603221018573" />
+    <state x="796" y="295" width="268" height="520" key="com.intellij.database.view.ui.DbObjectDialog/0.27.1867.1053@0.27.1867.1053" timestamp="1601159562619" />
+    <state x="588" y="381" key="com.intellij.ide.util.TipDialog" timestamp="1600722432848">
+      <screen x="0" y="27" width="1867" height="1053" />
+    </state>
+    <state x="588" y="381" key="com.intellij.ide.util.TipDialog/0.27.1867.1053@0.27.1867.1053" timestamp="1600722432848" />
+    <state x="706" y="268" width="442" height="577" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1602335371072">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="706" y="268" width="442" height="577" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.27.1864.1053@0.27.1864.1053" timestamp="1602335371072" />
+    <state x="806" y="409" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1603033979437">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="806" y="409" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.27.1864.1053@0.27.1864.1053" timestamp="1603033979437" />
+    <state x="242" y="167" width="1372" height="749" key="new project wizard" timestamp="1603171124989">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="242" y="167" width="1372" height="749" key="new project wizard/0.27.1864.1053@0.27.1864.1053" timestamp="1603171124989" />
+    <state x="242" y="167" width="1372" height="777" key="new project wizard/0.27.1867.1053@0.27.1867.1053" timestamp="1601664281634" />
+    <state x="596" y="252" width="672" height="677" key="run.anything.popup" timestamp="1603740677728">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="455" y="227" key="run.anything.popup.inPresentationMode" timestamp="1603184106842">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="455" y="227" key="run.anything.popup.inPresentationMode/0.27.1864.1053@0.27.1864.1053" timestamp="1603184106842" />
+    <state x="596" y="252" width="672" height="677" key="run.anything.popup/0.27.1864.1053@0.27.1864.1053" timestamp="1603740677728" />
+    <state x="595" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1603032778085">
+      <screen x="0" y="27" width="1864" height="1053" />
+    </state>
+    <state x="595" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1864.1053@0.27.1864.1053" timestamp="1603032778085" />
+    <state x="596" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1867.1053@0.27.1867.1053" timestamp="1601163084661" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/oma/model/User.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
