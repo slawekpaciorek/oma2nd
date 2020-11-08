@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Company {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private long id;
 
     @Column
@@ -35,65 +35,15 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
 
-//Dodane gettery i settery
+//  Constructors
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Company(String name, int taxNumber) {
         this.name = name;
+        this.taxNumberId = taxNumber;
     }
 
-    public int getTaxNumberId() {
-        return taxNumberId;
-    }
+    //Wygenerowany equals i hashCode
 
-    public void setTaxNumberId(int taxNumberId) {
-        this.taxNumberId = taxNumberId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress() {
-        this.address = address;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<ProductsOrder> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<ProductsOrder> orders) {
-        this.orders = orders;
-    }
-
-    public List<DeliveryPoint> getDeliveryPoints() {
-        return deliveryPoints;
-    }
-
-    public void setDeliveryPoints(List<DeliveryPoint> deliveryPoints) {
-        this.deliveryPoints = deliveryPoints;
-    }
-
-    //Wygenerowany equals i hashCode 20.10.2020.. środa
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

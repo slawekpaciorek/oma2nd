@@ -19,4 +19,14 @@ public interface CompanyService {
     void updateCompany(long id,Company company);
 
     void removeCompany(long id, Company company);
+
+    default List<Company> getDefaultCompanies(){
+
+        List<Company>companies = new ArrayList<>();
+        companies.add(new Company("example", 900345670));
+        companies.add(new Company("example1", 900345681));
+        companies.add(new Company("example2", 900345692));
+
+        return companies;
+    }
 }

@@ -16,10 +16,9 @@ public class CompanyDAOImplementation implements CompanyDAO {
     SessionFactory sessionFactory;
 
     @Override
-    @Transactional
     public void save(Company company) {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-        factoryCurrentSession.save(company);
+        factoryCurrentSession.saveOrUpdate(company);
     }
 
     @Override
