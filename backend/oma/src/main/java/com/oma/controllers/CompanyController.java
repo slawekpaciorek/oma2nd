@@ -4,12 +4,14 @@ import com.oma.model.Company;
 import com.oma.services.CompanyService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("company")
+@CrossOrigin("http://localhost:4200")
 public class CompanyController {
 
     @Autowired
@@ -17,6 +19,8 @@ public class CompanyController {
 
     @GetMapping(value = "/all-companies", produces = "application/json")
     public List<Company> getAllCompanies(){
-        return companyService.getAllCompany();
+        return companyService.getDefaultCompanies();
+//        return companyService.getAllWithAddresses();
     }
+
 }

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <table class="table mx-auto p-5">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th>Company id</th>
+          <th>Company name</th>
+          <th>Company tax number id</th>
+          <th>Company address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr class="text-center" *ngFor="let tempCompany of companies">
+        <td>{{tempCompany.id}}</td>
+        <td>{{tempCompany.name}}</td>
+        <td>{{tempCompany.taxNumberId}}</td>
+        <td>
+          {{tempCompany.address.streetNameAndNumber}}<br/>
+          {{tempCompany.address.zipCode}} {{tempCompany.address.city}}<br/>
+          {{tempCompany.address.mobilePhoneNumber}}
+        </td>
+        <td>
+          <button class="btn border-success mx-2">Edytuj</button>
+          <button class="btn border-danger mx-2">Usuń</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

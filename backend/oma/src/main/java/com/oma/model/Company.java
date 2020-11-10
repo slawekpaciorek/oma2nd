@@ -3,6 +3,7 @@ package com.oma.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class Company {
     private int taxNumberId;    //NIP
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},fetch = FetchType.LAZY)
-    @JoinColumn(name = "Address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "company")
@@ -37,9 +38,10 @@ public class Company {
 
 //  Constructors
 
-    public Company(String name, int taxNumber) {
+    public Company(String name, int taxNumber, Address address) {
         this.name = name;
         this.taxNumberId = taxNumber;
+        this.address = address;
     }
 
     //Wygenerowany equals i hashCode
@@ -49,7 +51,7 @@ public class Company {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return id == company.id &&
+        return taxNumberId == company.taxNumberId &&
                 name.equals(company.name);
     }
 

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -24,10 +25,16 @@ public class Address {
     private String zipCode;
 
     @Column
-    private String City;
+    private String city;
 
     @Column
     private int mobilePhoneNumber;
+
+    public Address(String streetNameAndNumber, String zipCode, String city) {
+        this.streetNameAndNumber = streetNameAndNumber;
+        this.zipCode = zipCode;
+        this.city = city;
+    }
 
 
     public long getIdAddress() {
