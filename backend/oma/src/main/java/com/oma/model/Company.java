@@ -1,5 +1,6 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @NoArgsConstructor
 //@RequiredArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company {
 
     @Id
@@ -42,6 +44,13 @@ public class Company {
         this.name = name;
         this.taxNumberId = taxNumber;
         this.address = address;
+    }
+
+    public Company(String name, int taxNumberId, Address address, List<User> users) {
+        this.name = name;
+        this.taxNumberId = taxNumberId;
+        this.address = address;
+        this.users = users;
     }
 
     //Wygenerowany equals i hashCode

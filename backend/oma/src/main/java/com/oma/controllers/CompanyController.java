@@ -2,16 +2,18 @@ package com.oma.controllers;
 
 import com.oma.model.Company;
 import com.oma.services.CompanyService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("company")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin({"http://localhost:4200", "http://localhost:5555"})
 public class CompanyController {
 
     @Autowired
@@ -21,6 +23,16 @@ public class CompanyController {
     public List<Company> getAllCompanies(){
         return companyService.getDefaultCompanies();
 //        return companyService.getAllWithAddresses();
+    }
+
+    @PostMapping(value = "/add", consumes = "application/json")
+    public ResponseEntity<Object> saveCompanyInDB(@RequestBody Company company){
+        Company temp = companyService.saveCompany(company);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(temp.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
 }

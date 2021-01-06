@@ -6,52 +6,21 @@ import {Injectable} from '@angular/core';
 import {Adapter} from '../core/adapter';
 
 export class Company {
-  private _id: number;
-  private _name: string;
-  private _taxNumberId: number;
-  private _address: Address;
-  private _users: User[];
-  private _orders: Order[];
-  private _deliveryPoint: DeliveryPoint;
+  id: number;
+  name: string;
+  taxNumberId: number;
+  address: Address;
+  users: User[];
+  orders: Order[];
+  deliveryPoint: DeliveryPoint;
 
-  constructor(id: number, name: string, taxNumberId: number, address: any) {
-    this._id = id;
-    this._name = name;
-    this._taxNumberId = taxNumberId;
-    this._address = new AddressAdapter().adapt(address);
-  }
-
-
-  get id(): number {
-    return this._id;
-  }
-
-  set id(value: number) {
-    this._id = value;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get taxNumberId(): number {
-    return this._taxNumberId;
-  }
-
-  set taxNumberId(value: number) {
-    this._taxNumberId = value;
-  }
-
-  get address(): Address {
-    return this._address;
-  }
-
-  set address(value: Address) {
-    this._address = value;
+  constructor(id?: number, companyName?: string, taxNumberId?: number, address?: any) {
+      if(id&&address){
+        this.id = id;
+        this.address = address;
+      }
+      this.name = companyName;
+      this.taxNumberId = taxNumberId;
   }
 }
 

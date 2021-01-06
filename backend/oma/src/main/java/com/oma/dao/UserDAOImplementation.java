@@ -20,7 +20,7 @@ public class UserDAOImplementation implements UserDAO{
     @Transactional
     public void saveUser(User user) {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-        factoryCurrentSession.save(user);
+        factoryCurrentSession.saveOrUpdate(user);
     }
 
     @Override

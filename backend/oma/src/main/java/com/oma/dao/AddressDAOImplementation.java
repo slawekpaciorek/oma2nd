@@ -24,7 +24,7 @@ public class AddressDAOImplementation implements AddressDAO {
     @Override
     public void saveAddress(Address address) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(address);
+        session.saveOrUpdate(address);
     }
 
     @Override

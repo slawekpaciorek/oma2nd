@@ -13,6 +13,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {CompanyService} from './services/company.service';
 import { CompanyListComponent } from './component/company-list/company-list.component';
 import {CommonModule} from '@angular/common';
+import { CompanyFormComponent } from './component/company-form/company-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,17 +24,20 @@ import {CommonModule} from '@angular/common';
     MainViewComponent,
     FooterComponent,
     HeaderComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    CompanyFormComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'user-view', component: UserViewComponent},
       {path: 'admin-view', component: AdminViewComponent},
       {path: 'company', component: CompanyListComponent},
-      {path: 'company/all-companies', component: CompanyListComponent}
+      {path: 'company/all-companies', component: CompanyListComponent},
+      {path: 'company/add', component: CompanyFormComponent}
     ]),
     HttpClientModule
   ],

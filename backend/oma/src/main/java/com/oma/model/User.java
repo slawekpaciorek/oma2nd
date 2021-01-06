@@ -1,5 +1,6 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 //@RequiredArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @Id
@@ -47,7 +49,6 @@ public class User {
 
     @OneToMany(mappedBy = "createdBy")
     private List<ProductsOrder> ordersCreated;
-
 
     public long getId() {
         return id;

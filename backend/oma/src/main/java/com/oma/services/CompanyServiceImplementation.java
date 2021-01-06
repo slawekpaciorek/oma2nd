@@ -3,12 +3,10 @@ package com.oma.services;
 import com.oma.dao.AddressDAO;
 import com.oma.dao.CompanyDAO;
 import com.oma.model.Company;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,10 +20,11 @@ public class CompanyServiceImplementation implements CompanyService {
 
     @Override
     @Transactional
-    public void saveCompany(Company company) {
+    public Company saveCompany(Company company) {
         if(company.getAddress()!=null)
             addressDAO.saveAddress(company.getAddress());
         companyDAO.save(company);
+        return company;
     }
 
     @Override
