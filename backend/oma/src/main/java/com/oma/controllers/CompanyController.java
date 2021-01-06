@@ -21,18 +21,13 @@ public class CompanyController {
 
     @GetMapping(value = "/all-companies", produces = "application/json")
     public List<Company> getAllCompanies(){
-        return companyService.getDefaultCompanies();
-//        return companyService.getAllWithAddresses();
+//        return companyService.getDefaultCompanies();
+        return companyService.getAllWithAddresses();
     }
 
     @PostMapping(value = "/add", consumes = "application/json")
-    public ResponseEntity<Object> saveCompanyInDB(@RequestBody Company company){
-        Company temp = companyService.saveCompany(company);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(temp.getId()).toUri();
-
-        return ResponseEntity.created(location).build();
+    public void saveCompanyInDB(@RequestBody Company company){
+        companyService.saveCompany(company);
     }
 
 }

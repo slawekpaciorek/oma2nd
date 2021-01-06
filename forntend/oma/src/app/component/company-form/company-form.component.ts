@@ -50,8 +50,6 @@ export class CompanyFormComponent implements OnInit {
       null
     );
 
-    this.companyService.saveCompany(company).subscribe(result => company = result);
-
     let address = new Address(
       null,
         this.companyFormGroup.get('address').value.streetNameAndNumber,
@@ -72,9 +70,9 @@ export class CompanyFormComponent implements OnInit {
     user.privileges = "manager";
     company.address = address;
     company.users = [user];
-    console.log(company);
-    console.log(JSON.stringify(company));
-
+    this.companyService.saveCompany(company).subscribe(result => company = result);
+    console.log(company.name + " saved with success");
+    this.router.navigate(['/admin-view'])
   }
 
 }

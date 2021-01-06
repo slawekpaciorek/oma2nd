@@ -13,13 +13,13 @@
       </thead>
       <tbody>
       <tr class="text-center" *ngFor="let tempCompany of companies">
-        <td>{{tempCompany._id}}</td>
-        <td>{{tempCompany._name}}</td>
-        <td>{{tempCompany._taxNumberId}}</td>
+        <td>{{tempCompany.id}}</td>
+        <td>{{tempCompany.name}}</td>
+        <td>{{tempCompany.taxNumberId}}</td>
         <td class="text-right">
-          {{tempCompany._address._streetNameAndNumber}}<br/>
-          {{tempCompany._address._zipCode}} {{tempCompany._address._city}}<br/>
-          {{tempCompany._address._mobilePhoneNumber}}
+          {{tempCompany.address.streetNameAndNumber}}<br/>
+          {{tempCompany.address.zipCode}} {{tempCompany.address.city}}<br/>
+          {{tempCompany.address.mobilePhoneNumber}}
         </td>
         <td class="text-right">
           <button class="btn border-success mx-2 text-success">
