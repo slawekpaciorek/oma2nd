@@ -1,5 +1,6 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,13 +24,14 @@ public class Company {
     private String name;
 
     @Column(unique = true)
-    private int taxNumberId;    //NIP
+    private String taxNumberId;    //NIP
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<User> users;
 
     @OneToMany(mappedBy = "company")
@@ -40,13 +42,13 @@ public class Company {
 
 //  Constructors
 
-    public Company(String name, int taxNumber, Address address) {
+    public Company(String name, String taxNumber, Address address) {
         this.name = name;
         this.taxNumberId = taxNumber;
         this.address = address;
     }
 
-    public Company(String name, int taxNumberId, Address address, List<User> users) {
+    public Company(String name, String taxNumberId, Address address, List<User> users) {
         this.name = name;
         this.taxNumberId = taxNumberId;
         this.address = address;

@@ -69,7 +69,7 @@ export class CompanyFormComponent implements OnInit {
 
     user.privileges = "manager";
     company.address = address;
-    company.users = [user];
+    company.users = [user]
     this.companyService.saveCompany(company).subscribe(result => company = result);
     console.log(company.name + " saved with success");
     this.router.navigate(['/admin-view'])

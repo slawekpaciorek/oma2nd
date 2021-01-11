@@ -27,7 +27,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Transactional
     public List<Company> getAll() {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-       return factoryCurrentSession.createQuery("from Company", Company.class).getResultList();
+        return factoryCurrentSession.createQuery("from Company", Company.class).getResultList();
     }
 
     @Override

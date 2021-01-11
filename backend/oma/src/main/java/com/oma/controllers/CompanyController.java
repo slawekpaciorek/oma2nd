@@ -22,11 +22,13 @@ public class CompanyController {
     @GetMapping(value = "/all-companies", produces = "application/json")
     public List<Company> getAllCompanies(){
 //        return companyService.getDefaultCompanies();
-        return companyService.getAllWithAddresses();
+        List<Company> companies = companyService.getAllCompany();
+        return companies;
     }
 
     @PostMapping(value = "/add", consumes = "application/json")
     public void saveCompanyInDB(@RequestBody Company company){
+        company.getUsers().forEach(x->x.setCompany(company));
         companyService.saveCompany(company);
     }
 

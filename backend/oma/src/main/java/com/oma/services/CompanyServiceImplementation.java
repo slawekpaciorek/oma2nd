@@ -2,6 +2,8 @@ package com.oma.services;
 
 import com.oma.dao.AddressDAO;
 import com.oma.dao.CompanyDAO;
+import com.oma.dao.UserDAO;
+import com.oma.dao.UserDAOImplementation;
 import com.oma.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,16 @@ public class CompanyServiceImplementation implements CompanyService {
     @Autowired
     private AddressDAO addressDAO;
 
+    @Autowired
+    private UserDAO userDAO;
+
     @Override
     @Transactional
     public Company saveCompany(Company company) {
         if(company.getAddress()!=null)
             addressDAO.saveAddress(company.getAddress());
+        if(company.getUsers().size()>0)
+            company.getUsers().forEach(x -> userDAO.saveUser(x));
         companyDAO.save(company);
         return company;
     }
@@ -56,4 +63,5 @@ public class CompanyServiceImplementation implements CompanyService {
     public List<Company> getAllWithAddresses() {
         return companyDAO.getAllWithAddresses();
     }
+
 }

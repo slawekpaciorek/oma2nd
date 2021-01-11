@@ -8,13 +8,13 @@ import {Adapter} from '../core/adapter';
 export class Company {
   id: number;
   name: string;
-  taxNumberId: number;
+  taxNumberId: string;
   address: Address;
   users: User[];
   orders: Order[];
   deliveryPoint: DeliveryPoint;
 
-  constructor(id?: number, companyName?: string, taxNumberId?: number, address?: any) {
+  constructor(id?: number, companyName?: string, taxNumberId?: string, address?: any) {
       if(id&&address){
         this.id = id;
         this.address = address;

@@ -26,10 +26,11 @@ public interface CompanyService {
     default List<Company> getDefaultCompanies(){
 
         List<Company>companies = new ArrayList<>();
-        companies.add(new Company("Trading Inc", 900345670, new Address("9th 243, b2", "00-400", "New York")));
-        companies.add(new Company("Cleaning&Trading Co", 900345681, new Address("ZingHan", "d3-090", "Hong-Kong")));
-        companies.add(new Company("It Support", 900345692, new Address("Marszalkowska st 297", "01-001", "Warsaw")));
+        companies.add(new Company("Trading Inc", "900345670", new Address("9th 243, b2", "00-400", "New York")));
+        companies.add(new Company("Cleaning&Trading Co", "900345681", new Address("ZingHan", "d3-090", "Hong-Kong")));
+        companies.add(new Company("It Support", "900345692", new Address("Marszalkowska st 297", "01-001", "Warsaw")));
 
         return companies;
     }
+
 }

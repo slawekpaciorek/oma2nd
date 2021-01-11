@@ -50,6 +50,14 @@ public class User {
     @OneToMany(mappedBy = "createdBy")
     private List<ProductsOrder> ordersCreated;
 
+
+    public User(String name, String username, String privileges, int mobilePhone) {
+        this.name = name;
+        this.username = username;
+        this.privileges = UserPrivileges.valueOf(privileges);
+        this.mobilePhone = mobilePhone;
+    }
+
     public long getId() {
         return id;
     }
