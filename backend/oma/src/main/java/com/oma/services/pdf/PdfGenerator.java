@@ -5,7 +5,6 @@ import org.w3c.dom.Document;
 
 import java.io.ByteArrayInputStream;
 
-@Service
 public class PdfGenerator {
 
     public ByteArrayInputStream omaToPdf(){
