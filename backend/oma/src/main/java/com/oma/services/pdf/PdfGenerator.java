@@ -1,5 +1,6 @@
 package com.oma.services.pdf;
 
+
 import org.w3c.dom.Document;
 
 import java.io.ByteArrayInputStream;
@@ -13,7 +14,6 @@ public class PdfGenerator {
     }
 
     private Document getNewDocument(){
-        Document document;
         return null;
     }
 }
