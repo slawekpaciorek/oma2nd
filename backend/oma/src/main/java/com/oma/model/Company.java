@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class Company {
 
     @Id
     @GeneratedValue()
-    private long id;
+    private Long id;
 
     @Column
     private String name;
@@ -30,8 +31,8 @@ public class Company {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "company")
-    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JoinColumn(referencedColumnName = "id")
     private List<User> users;
 
     @OneToMany(mappedBy = "company")
@@ -39,6 +40,12 @@ public class Company {
 
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
+
+    public void addUser(User user) {
+        if(users==null)
+            users = new ArrayList<>();
+        users.add(user);
+    }
 
 //  Constructors
 

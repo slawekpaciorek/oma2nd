@@ -14,7 +14,6 @@ public class UserServiceImplementation implements UserService{
     @Autowired
     UserDAO userDAO;
 
-
     @Override
     @Transactional
     public void addUser(User user) {
@@ -45,4 +44,8 @@ public class UserServiceImplementation implements UserService{
         userDAO.removeUser(id,user);
     }
 
+    @Override
+    public List<User> getUserForCompany(long companyId) {
+        return userDAO.findUserForCompany(companyId);
+    }
 }

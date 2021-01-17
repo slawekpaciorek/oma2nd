@@ -35,12 +35,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserPrivileges privileges;
 
-    @ManyToOne(
-            cascade = {CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-    })
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "Company_id", referencedColumnName = "id")
     private Company company;
 

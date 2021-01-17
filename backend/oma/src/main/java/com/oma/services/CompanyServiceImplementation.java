@@ -28,9 +28,11 @@ public class CompanyServiceImplementation implements CompanyService {
     public Company saveCompany(Company company) {
         if(company.getAddress()!=null)
             addressDAO.saveAddress(company.getAddress());
-        if(company.getUsers().size()>0)
-            company.getUsers().forEach(x -> userDAO.saveUser(x));
         companyDAO.save(company);
+        if(company.getUsers().size()>0){
+            company.getUsers().forEach(x->x.setCompany(company));
+            company.getUsers().forEach(x->userDAO.saveUser(x));
+        }
         return company;
     }
 

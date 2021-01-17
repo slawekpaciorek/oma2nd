@@ -55,4 +55,13 @@ public class UserDAOImplementation implements UserDAO{
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.remove(user);
     }
+
+    @Override
+    @Transactional
+    public List<User> findUserForCompany(long companyId) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        return factoryCurrentSession.createQuery("from User user where user.company.id=:companyId")
+                .setParameter("companyId", companyId)
+                .getResultList();
+    }
 }
