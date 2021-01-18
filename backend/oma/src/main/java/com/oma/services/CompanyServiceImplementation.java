@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyServiceImplementation implements CompanyService {
@@ -29,7 +30,7 @@ public class CompanyServiceImplementation implements CompanyService {
         if(company.getAddress()!=null)
             addressDAO.saveAddress(company.getAddress());
         companyDAO.save(company);
-        if(company.getUsers().size()>0){
+        if(company.getUsers()!=null){
             company.getUsers().forEach(x->x.setCompany(company));
             company.getUsers().forEach(x->userDAO.saveUser(x));
         }

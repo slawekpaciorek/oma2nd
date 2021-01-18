@@ -69,8 +69,12 @@ public class Company {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return taxNumberId == company.taxNumberId &&
-                name.equals(company.name);
+        if(taxNumberId!=null){
+            return taxNumberId.equals(company.taxNumberId) &&
+                    name.equals(company.name);
+        }else{
+            return name.equals(company.name);
+        }
     }
 
     @Override
