@@ -4,13 +4,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oma.model.Address;
 import com.oma.model.Company;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.oma.model.Product;
 import com.oma.services.CompanyService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -60,9 +59,9 @@ public class CompanyControllerTest {
     void shouldReturnOkForCompanyList() throws Exception {
 
         //  given
-
         List<Company> companies = companyService.getDefaultCompanies();
         String uri = "/company/all-companies";
+
         //  when
         for(Company company : companies){
             companyService.saveCompany(company);
@@ -71,8 +70,8 @@ public class CompanyControllerTest {
                     .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         String content = result.getResponse().getContentAsString();
         Company[] resultData = mapFromJson(content, Company[].class);
-        //  then
 
+        //  then
         assertEquals(200, result.getResponse().getStatus());
         for (Company company : resultData){
             assertTrue(companies.contains(company));
@@ -80,9 +79,30 @@ public class CompanyControllerTest {
 
     }
 
+    @Test
+    void shouldSaveSimpleCompanyInDB()throws Exception{
+//        given
+        Company company = new Company("CompanyName", "taxIdNumber", new Address());
+        String uri = "/company/add";
+//        when
+        String jsonBody = mapCompanyToJson(company);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .content(jsonBody)
+                .contentType("application/json"))
+                .andReturn();
+        int status = result.getResponse().getStatus();
+//        then
+        assertEquals(status, 200);
+    }
+
     private <T> T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(content, resultClass);
+    }
+
+    private String mapCompanyToJson(Object object) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
     }
 
 }

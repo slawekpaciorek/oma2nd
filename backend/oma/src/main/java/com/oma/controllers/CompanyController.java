@@ -33,7 +33,9 @@ public class CompanyController {
 
     @PostMapping(value = "/add", consumes = "application/json")
     public void saveCompanyInDB(@RequestBody Company company){
-        company.getUsers().forEach(x->x.setCompany(company));
+        if(company.getUsers()!=null) {
+            company.getUsers().forEach(x -> x.setCompany(company));
+        }
         companyService.saveCompany(company);
     }
 
