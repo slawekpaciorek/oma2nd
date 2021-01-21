@@ -8,8 +8,10 @@ import com.oma.model.Address;
 import com.oma.model.Company;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.oma.model.User;
 import com.oma.services.CompanyService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -93,6 +95,28 @@ public class CompanyControllerTest {
         int status = result.getResponse().getStatus();
 //        then
         assertEquals(status, 200);
+
+        Company expected = companyService.getAllCompany()
+                .stream().filter(x->x.getName().equals(company.getName())).findAny().get();
+        assertTrue(company.equals(expected));
+    }
+
+    @Test
+    public void shouldSaveCompanyWithUserAndAddress() throws Exception {
+//        given
+        Company company = new Company("ComapnyNameTest", "testNIP", new Address("testStreet", "testCode", "testCity"));
+        User user = new User("name","username","manager",900900900);
+        company.addUser(user);
+        String jsonBody = mapCompanyToJson(company);
+//        when
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/company/add")
+                .content(jsonBody)
+                .contentType("application/json"))
+                .andReturn();
+        int status = result.getResponse().getStatus();
+//        then
+        assertEquals(status, 200);
+
     }
 
     private <T> T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
