@@ -1,10 +1,13 @@
 package com.oma.services.pdf;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.oma.model.Company;
@@ -113,15 +116,24 @@ public class PdfGenerator {
         Paragraph paragraph = new Paragraph();
 
         paragraph.setAlignment(Element.ALIGN_LEFT);
-        paragraph.add("Szczegóły zamówienia: " + getCompanyTable(company));
+        paragraph.add("Szczegóły zamówienia: " + orderDetailsTable());
         return paragraph;
     }
 
-    private PdfPTable getCompanyTable(Company company) {
+    private PdfPTable orderDetailsTable() {
         PdfPTable table = new PdfPTable(PdfConfiguration.COMPANIES_TABLE_COLUMNS_COUNT);
-        
-        table.addCell("Company");
-
+        Stream.of("Lp.", "Nazwa produktu", "Kod produktu", "Ilość", "Cena net", "Wartość net")
+            .forEach(columnTitle -> {
+                PdfPCell header = new PdfPCell();
+                header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                header.setBorderWidth(1);
+                header.setPhrase(new Phrase(columnTitle));
+                table.addCell(header);
+            });
         return table;
+    }
+
+    private void addRowsToOrderDetaisTable(PdfPTable pdfPTable){
+        
     }
 }
