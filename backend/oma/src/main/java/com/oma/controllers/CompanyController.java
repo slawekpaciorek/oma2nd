@@ -1,16 +1,11 @@
 package com.oma.controllers;
 
 import com.oma.model.Company;
-import com.oma.model.User;
 import com.oma.services.CompanyService;
 import com.oma.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -43,6 +38,22 @@ public class CompanyController {
     public Company getCompanyDetails(@RequestParam("id")String companyId){
         Company company = companyService.getCompanyById(Long.parseLong(companyId));
         return company;
+    }
+
+    @GetMapping(value = "/remove", produces = "application/json")
+    public Company removeCompanyById(@RequestParam("id")String companyId){
+        Company company = companyService.getCompanyById(Long.parseLong(companyId));
+        companyService.removeCompany(company.getId(), company);
+        return company;
+    }
+
+    @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    public Company updateCompany(@RequestBody Company company, @RequestParam("id") String companyId){
+
+        long id = Long.parseLong(companyId);
+        companyService.updateCompany(id, company);
+        return company;
+
     }
 
 }

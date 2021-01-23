@@ -33,7 +33,6 @@ public class Company {
     private Address address;
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-//    @JoinColumn(referencedColumnName = "id")
     private List<User> users;
 
     @OneToMany(mappedBy = "company")

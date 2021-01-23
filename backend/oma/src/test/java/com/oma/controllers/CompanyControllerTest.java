@@ -119,6 +119,26 @@ public class CompanyControllerTest {
 
     }
 
+    @Test
+    public void shouldUpdateCompanyWithNewData() throws Exception{
+//        given
+        Company company = new Company("ComapnyNameTest", "testNIP", new Address("testStreet", "testCode", "testCity"));
+        Company updateCompany = new Company("UpdateCompanyName", "updatedNIP", new Address("updatedStreet", "updatedCode", "updatedCity" ));
+//        when
+        companyService.saveCompany(company);
+        String id = Long.toString(company.getId());
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/company/update")
+                .content(mapCompanyToJson(updateCompany))
+                .contentType("application/json")
+                .param("id", id))
+                .andReturn();
+        int status = result.getResponse().getStatus();
+//        then
+        assertEquals(status, 200);
+        assertEquals(updateCompany, companyService.getCompanyById(company.getId()));
+
+    }
+
     private <T> T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(content, resultClass);

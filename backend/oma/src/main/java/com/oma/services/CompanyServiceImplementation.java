@@ -4,6 +4,7 @@ import com.oma.dao.AddressDAO;
 import com.oma.dao.CompanyDAO;
 import com.oma.dao.UserDAO;
 import com.oma.dao.UserDAOImplementation;
+import com.oma.model.Address;
 import com.oma.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,12 @@ public class CompanyServiceImplementation implements CompanyService {
 
     @Override
     @Transactional
-    public void updateCompany(long id,Company company) {
+    public void updateCompany(long id,Company company){
+        Company temp = getCompanyById(id);
+        if(!company.getAddress().equals(temp.getAddress())){
+            long addressId = temp.getAddress().getId();
+            addressDAO.updateAddress(addressId, company.getAddress());
+        }
         companyDAO.updateCompany(id,company);
     }
 

@@ -44,7 +44,14 @@ public class CompanyDAOImplementation implements CompanyDAO {
     public void updateCompany(long id,Company company) {
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         Company update = getCompanyById(id);
-           update.setName(company.getName());
+           if(!update.equals(company)){
+               if(!company.getName().equals(update.getName())){
+                   update.setName(company.getName());
+               }
+               if(!company.getTaxNumberId().equals(update.getTaxNumberId())){
+                   update.setTaxNumberId(company.getTaxNumberId());
+               }
+           }
            factoryCurrentSession.update(update);
    }
 
