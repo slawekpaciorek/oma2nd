@@ -8,6 +8,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.oma.model.Company;
+import com.oma.model.DeliveryPoint;
+import com.oma.model.ProductsOrder;
 import com.oma.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.stream.Stream;
 
 @Service
@@ -24,6 +28,11 @@ public class PdfGenerator {
     private final Logger logger = LoggerFactory.getLogger(PdfGenerator.class);
     private PdfDateProvider pdfDateProvider;
     private ByteArrayOutputStream pdfGenerated = new ByteArrayOutputStream();
+    private ProductsOrder productsOrder = new ProductsOrder();
+    private Company company = new Company();
+    private DeliveryPoint deliveryPoint = new DeliveryPoint();
+    private User user = new User();
+
 
     @Autowired
     public PdfGenerator (PdfDateProvider pdfDateProvider){
@@ -36,8 +45,9 @@ public class PdfGenerator {
         return document;
     }
 
-    public ByteArrayInputStream omaToPdf (User user) throws DocumentException {
+    public ByteArrayInputStream omaToPdf (User user) throws DocumentException, FileNotFoundException {
         Document document = getNewDocument();
+        PdfWriter.getInstance(document, new FileOutputStream("OmaDocument.pdf"));
 
         document.add(omaHeaderParagraph(user.getName()));
         document.close();
@@ -53,10 +63,57 @@ public class PdfGenerator {
         return paragraph;
     }
 
-    private Paragraph valueParagraph(String value){
+    private Paragraph valueParagraph(){
         Paragraph paragraph = new Paragraph();
         paragraph.setAlignment(Element.ALIGN_LEFT);
-        paragraph.add(new Chunk(value));
+        paragraph.add("Numer zamówienia: " + productsOrder.getId());
+        return paragraph;
+    }
+
+    private Paragraph companyParagraph(){
+        Paragraph paragraph = new Paragraph();
+        Chunk companyName = new Chunk("Nazwa Firmy: " + company.getName());
+        Chunk companyTax = new Chunk("Dane Firmy (NIP): " + company.getTaxNumberId());
+        Chunk companyAddress = new Chunk("Adres Firmy: " + company.getAddress());
+
+        paragraph.setAlignment(Element.ALIGN_LEFT);
+        paragraph.add("Odbiorca zamówienia: " +
+            companyName + companyTax + companyAddress);
+        return paragraph;
+    }
+
+    private Paragraph deliveryParagraph(){
+        Paragraph paragraph = new Paragraph();
+        Chunk pointName = new Chunk("Nazwa punktu: " + deliveryPoint.getName());
+        Chunk pointAddress = new Chunk("Adres punktu: " + deliveryPoint.getAddress());
+        Chunk contactPerson = new Chunk("Osoba kontaktowa (osoba odpowiedzialna za " +
+            "stworzenie zamówienia: " + deliveryPoint.getCreatedBy());
+
+        paragraph.setAlignment(Element.ALIGN_LEFT);
+        paragraph.add("Punkt Dostawy: "
+            + pointName + pointAddress + contactPerson);
+        return paragraph;
+    }
+
+    private Paragraph completedParagraph(){
+        Paragraph paragraph = new Paragraph();
+        Chunk companyNameMake = new Chunk("Nazwa firmy: " + user.getCompany().getName());
+        Chunk companyTaxMake = new Chunk("Dane firmy (NIP): "
+            + user.getCompany().getTaxNumberId());
+        Chunk companyAddressMake = new Chunk("Adres firmy: "
+            + user.getCompany().getAddress());
+
+        paragraph.setAlignment(Element.ALIGN_LEFT);
+        paragraph.add("Zamówienie zrealizowane przez: " +
+            companyNameMake + companyTaxMake + companyAddressMake);
+        return paragraph;
+    }
+
+    private Paragraph detailsParagraph(){
+        Paragraph paragraph = new Paragraph();
+
+        paragraph.setAlignment(Element.ALIGN_LEFT);
+        paragraph.add("Szczegóły zamówienia: " + getCompanyTable(company));
         return paragraph;
     }
 
