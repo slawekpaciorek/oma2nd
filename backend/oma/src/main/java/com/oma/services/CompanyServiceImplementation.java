@@ -54,7 +54,7 @@ public class CompanyServiceImplementation implements CompanyService {
     @Transactional
     public void updateCompany(long id,Company company){
         Company temp = getCompanyById(id);
-        if(!company.getAddress().equals(temp.getAddress())){
+        if(temp.getAddress()!=null && !company.getAddress().equals(temp.getAddress())){
             long addressId = temp.getAddress().getId();
             addressDAO.updateAddress(addressId, company.getAddress());
         }

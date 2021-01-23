@@ -48,7 +48,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
                if(!company.getName().equals(update.getName())){
                    update.setName(company.getName());
                }
-               if(!company.getTaxNumberId().equals(update.getTaxNumberId())){
+               if(company.getTaxNumberId()!=null && !company.getTaxNumberId().equals(update.getTaxNumberId())){
                    update.setTaxNumberId(company.getTaxNumberId());
                }
            }
