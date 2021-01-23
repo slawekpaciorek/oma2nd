@@ -1,5 +1,6 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +36,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserPrivileges privileges;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "Company_id", referencedColumnName = "id")
+    @JsonIgnore
     private Company company;
 
     @OneToMany(mappedBy = "createdBy")
@@ -139,5 +141,18 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, username, mobilePhone);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobilePhone=" + mobilePhone +
+                ", privileges=" + privileges +
+                ", company name=" + company.getName() +
+                '}';
     }
 }

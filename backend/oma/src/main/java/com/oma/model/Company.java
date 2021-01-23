@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -80,5 +81,16 @@ public class Company {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", taxNumberId='" + taxNumberId + '\'' +
+                ", address=" + address +
+                ", users=" + users.stream().map(user -> user.getUsername()).collect(Collectors.toList()) +
+                '}';
     }
 }

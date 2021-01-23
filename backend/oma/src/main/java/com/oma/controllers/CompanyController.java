@@ -42,8 +42,6 @@ public class CompanyController {
     @GetMapping(value = "/company-details", produces = "application/json")
     public Company getCompanyDetails(@RequestParam("id")String companyId){
         Company company = companyService.getCompanyById(Long.parseLong(companyId));
-        List<User> users = userService.getUserForCompany(Long.parseLong(companyId));
-        company.setUsers(users);
         return company;
     }
 
