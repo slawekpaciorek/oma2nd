@@ -53,6 +53,12 @@ public class PdfGenerator {
         PdfWriter.getInstance(document, new FileOutputStream("OmaDocument.pdf"));
 
         document.add(omaHeaderParagraph(user.getName()));
+        document.add(valueParagraph());
+        document.add(companyParagraph());
+        document.add(deliveryParagraph());
+        document.add(completedParagraph());
+        document.add(detailsParagraph());
+
         document.close();
 
         return new ByteArrayInputStream(pdfGenerated.toByteArray());
@@ -134,6 +140,7 @@ public class PdfGenerator {
     }
 
     private void addRowsToOrderDetaisTable(PdfPTable pdfPTable){
-        
+
     }
+
 }
