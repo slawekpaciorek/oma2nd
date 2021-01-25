@@ -22,7 +22,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Override
     @Transactional
     public void save(Company company) {
-        logger.info("Save company from the repositories layer!");
+        logger.info("Trying to save the company to the database from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.save(company);
     }
@@ -30,7 +30,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Override
     @Transactional
     public List<Company> getAll() {
-        logger.warn("Exposing all the company list from repositories layer");
+        logger.warn("Trying get all the company list from repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
        return factoryCurrentSession.createQuery("from Company").getResultList();
     }
@@ -38,7 +38,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Override
     @Transactional
     public Company getCompanyById(long id) {
-        logger.info("Get company for id from the repositories layer");
+        logger.info("Trying get company for id from the repositories layer");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         return (Company) factoryCurrentSession.createQuery("from Company company where company.id=:id")
                 .setParameter("id",id)
@@ -48,7 +48,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Override
     @Transactional
     public void updateCompany(long id,Company company) {
-        logger.warn("Exposing update company from the repositories layer!");
+        logger.warn("Trying update company for id from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         Company update = getCompanyById(id);
            update.setName(company.getName());
@@ -58,7 +58,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     @Override
     @Transactional
     public void removeCompany(long id, Company company) {
-        logger.warn("Removal attempt company for id from repositories layer!");
+        logger.warn("Trying remove company for id from repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.remove(company);
     }

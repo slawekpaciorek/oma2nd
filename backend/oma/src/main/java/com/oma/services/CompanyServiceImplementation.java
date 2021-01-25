@@ -28,28 +28,28 @@ public class CompanyServiceImplementation implements CompanyService {
     @Override
     @Transactional
     public List<Company> getAllCompany() {
-        logger.warn("Exposing all the company list from service layer");
+        logger.info("Get all the company list from service layer");
         return companyDAO.getAll();
     }
 
     @Override
     @Transactional
     public Company getCompanyById(long id) {
-        logger.warn("Get company for id from the service layer");
+        logger.info("Get company for id from the service layer");
         return companyDAO.getCompanyById(id);
     }
 
     @Override
     @Transactional
     public void updateCompany(long id,Company company) {
-        logger.warn("Exposing update company from the service layer!");
+        logger.warn("Update company from the service layer!");
         companyDAO.updateCompany(id,company);
     }
 
     @Override
     @Transactional
     public void removeCompany(long id, Company company) {
-        logger.warn("Removal attempt company for id from service layer!");
+        logger.warn("Remove company for id from service layer!");
         companyDAO.removeCompany(id,company);
     }
 }

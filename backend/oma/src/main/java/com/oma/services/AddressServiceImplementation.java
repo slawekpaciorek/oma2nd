@@ -20,14 +20,14 @@ public class AddressServiceImplementation implements AddressService {
     @Override
     @Transactional
     public List<Address> getAllAddresses() {
-        logger.warn("Exposing all the address list from service layer");
+        logger.info("Get all the address list from service layer");
         return addressDAO.getAllAddresses();
     }
 
     @Override
     @Transactional
     public void saveAddress(Address address) {
-        logger.info("Save address from the service layer!");
+        logger.warn("Save address from the service layer!");
         addressDAO.saveAddress(address);
     }
 
@@ -41,14 +41,14 @@ public class AddressServiceImplementation implements AddressService {
     @Override
     @Transactional
     public void updateAddressForId(long id, Address address) {
-        logger.warn("Exposing update address from the service layer!");
+        logger.warn("Update address from the service layer!");
         addressDAO.updateAddress(id, address);
     }
 
     @Override
     @Transactional
     public void removeAddressWithId(long id) {
-        logger.warn("Removal attempt address for id from service layer!");
+        logger.warn("Remove address for id from service layer!");
         addressDAO.removeAddress(id);
     }
 }
