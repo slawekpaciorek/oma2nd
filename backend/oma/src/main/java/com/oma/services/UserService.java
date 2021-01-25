@@ -21,4 +21,5 @@ public interface UserService {
     void removeUser(long id, User user);
 
     List<User> getUserForCompany(long parseLong);
+
 }

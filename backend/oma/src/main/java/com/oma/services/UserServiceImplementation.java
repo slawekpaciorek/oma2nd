@@ -45,7 +45,9 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
+    @Transactional
     public List<User> getUserForCompany(long companyId) {
         return userDAO.findUserForCompany(companyId);
     }
+
 }

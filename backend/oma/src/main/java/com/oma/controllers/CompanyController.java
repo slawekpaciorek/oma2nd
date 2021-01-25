@@ -1,6 +1,7 @@
 package com.oma.controllers;
 
 import com.oma.model.Company;
+import com.oma.model.User;
 import com.oma.services.CompanyService;
 import com.oma.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class CompanyController {
 
     @GetMapping(value = "/all-companies", produces = "application/json")
     public List<Company> getAllCompanies(){
-//        return companyService.getDefaultCompanies();
         List<Company> companies = companyService.getAllCompany();
         return companies;
     }
@@ -49,11 +49,15 @@ public class CompanyController {
 
     @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
     public Company updateCompany(@RequestBody Company company, @RequestParam("id") String companyId){
-
         long id = Long.parseLong(companyId);
         companyService.updateCompany(id, company);
         return company;
+    }
 
+    @GetMapping(value = "/display-users", produces = "application/json")
+    public List<User> showUsersForCompany(@SessionAttribute("companyId")String companyId){
+        List<User> users = companyService.getCompanyById(Long.parseLong(companyId)).getUsers();
+        return users;
     }
 
 }
