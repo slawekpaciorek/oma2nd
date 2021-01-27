@@ -6,11 +6,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oma.model.Address;
 import com.oma.model.Company;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.oma.model.User;
 import com.oma.services.CompanyService;
 import org.hibernate.Session;
@@ -26,7 +21,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @AutoConfigureMockMvc
