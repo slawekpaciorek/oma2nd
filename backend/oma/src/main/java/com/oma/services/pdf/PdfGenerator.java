@@ -153,12 +153,14 @@ public class PdfGenerator {
         lp.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(wartoscNet);
 
-        table.addCell("1");
-        table.addCell(product.getName());
-        table.addCell(product.getTradeId());
-        table.addCell(String.valueOf(productListRow.getQuantity()));
-        table.addCell(String.valueOf(productListRow.getPrice()));
-        table.addCell(String.valueOf(productListRow.getValue()));
+        for (int i = 0; i < product.getId(); i++) {
+            table.addCell(String.valueOf(product.getId()));
+            table.addCell(product.getName());
+            table.addCell(product.getTradeId());
+            table.addCell(String.valueOf(productListRow.getQuantity()));
+            table.addCell(String.valueOf(productListRow.getPrice()));
+            table.addCell(String.valueOf(productListRow.getValue()));
+        }
 
         return table;
     }
