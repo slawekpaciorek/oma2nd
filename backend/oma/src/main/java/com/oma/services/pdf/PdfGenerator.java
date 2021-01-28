@@ -128,19 +128,27 @@ public class PdfGenerator {
 
     private PdfPTable orderDetailsTable() {
         PdfPTable table = new PdfPTable(PdfConfiguration.COMPANIES_TABLE_COLUMNS_COUNT);
-        Stream.of("Lp.", "Nazwa produktu", "Kod produktu", "Ilość", "Cena net", "Wartość net")
-            .forEach(columnTitle -> {
-                PdfPCell header = new PdfPCell();
-                header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                header.setBorderWidth(1);
-                header.setPhrase(new Phrase(columnTitle));
-                table.addCell(header);
-            });
+
+        PdfPCell lp = new PdfPCell(new Phrase("Lp"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(lp);
+        PdfPCell nazwaProduktu = new PdfPCell(new Phrase("Nazwa produktu"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(nazwaProduktu);
+        PdfPCell kodProduktu = new PdfPCell(new Phrase("Kod produktu"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(kodProduktu);
+        PdfPCell ilosc = new PdfPCell(new Phrase("Ilość"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(ilosc);
+        PdfPCell cenaNet = new PdfPCell(new Phrase("Cena Net"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cenaNet);
+        PdfPCell wartoscNet = new PdfPCell(new Phrase("Warość Net"));
+        lp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(wartoscNet);
+
         return table;
-    }
-
-    private void addRowsToOrderDetaisTable(PdfPTable pdfPTable){
-
     }
 
 }
