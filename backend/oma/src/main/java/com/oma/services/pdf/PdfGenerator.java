@@ -12,6 +12,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.oma.model.Company;
 import com.oma.model.DeliveryPoint;
+import com.oma.model.Product;
+import com.oma.model.ProductList;
+import com.oma.model.ProductListRow;
 import com.oma.model.ProductsOrder;
 import com.oma.model.User;
 import org.slf4j.Logger;
@@ -128,6 +131,8 @@ public class PdfGenerator {
 
     private PdfPTable orderDetailsTable() {
         PdfPTable table = new PdfPTable(PdfConfiguration.COMPANIES_TABLE_COLUMNS_COUNT);
+        Product product = new Product();
+        ProductListRow productListRow = new ProductListRow ();
 
         PdfPCell lp = new PdfPCell(new Phrase("Lp"));
         lp.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -147,6 +152,13 @@ public class PdfGenerator {
         PdfPCell wartoscNet = new PdfPCell(new Phrase("Warość Net"));
         lp.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(wartoscNet);
+
+        table.addCell("1");
+        table.addCell(product.getName());
+        table.addCell(product.getTradeId());
+        table.addCell(String.valueOf(productListRow.getQuantity()));
+        table.addCell(String.valueOf(productListRow.getPrice()));
+        table.addCell(String.valueOf(productListRow.getValue()));
 
         return table;
     }
