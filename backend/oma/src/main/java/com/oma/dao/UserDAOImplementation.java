@@ -1,5 +1,6 @@
 package com.oma.dao;
 
+import com.oma.exceptions.NoElementFoundExceptions;
 import com.oma.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +23,7 @@ public class UserDAOImplementation implements UserDAO{
 
     @Override
     @Transactional
-    public void saveUser(User user) {
+    public void saveUser(User user){
         logger.info("Trying to save the user to the database from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.save(user);

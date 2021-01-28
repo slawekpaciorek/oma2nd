@@ -1,5 +1,6 @@
 package com.oma.dao;
 
+import com.oma.exceptions.NoElementFoundExceptions;
 import com.oma.model.User;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;

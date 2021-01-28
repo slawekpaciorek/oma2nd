@@ -1,13 +1,14 @@
 package com.oma.services;
 
 import com.oma.dao.UserDAO;
+import com.oma.exceptions.NoElementFoundExceptions;
 import com.oma.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -21,8 +22,9 @@ public class UserServiceImplementation implements UserService{
     @Override
     @Transactional
     public void addUser(User user) {
-        logger.warn("Save user from service layer");
-        userDAO.saveUser(user);
+         logger.warn("Save user from service layer");
+         userDAO.saveUser(user);
+         logger.info("Save user is success!");
     }
 
     @Override
