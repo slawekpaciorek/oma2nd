@@ -46,6 +46,7 @@ public class PdfGenerator {
     }
 
     private Document getNewDocument(){
+        logger.info("New pdf document created.");
         Document document = new Document();
         document.open();
         return document;
