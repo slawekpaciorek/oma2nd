@@ -60,5 +60,4 @@ public class AddressDAOImplementation implements AddressDAO {
         Address address = getAddressForId(id);
         session.remove(address);
     }
-    
 }
