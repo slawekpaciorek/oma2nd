@@ -45,6 +45,7 @@ public class UserDAOImplementation implements UserDAO{
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         User upd = findUserById(id);
         upd.setName(user.getName());
+        upd.setUsername(user.getUsername());
         upd.setMobilePhone(user.getMobilePhone());
         factoryCurrentSession.update(upd);
     }

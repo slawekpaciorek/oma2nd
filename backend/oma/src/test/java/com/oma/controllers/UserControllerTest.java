@@ -49,6 +49,7 @@ class UserControllerTest {
     private Session session;
 
     private User user;
+    private int expectedStatus = 200;
 
     @BeforeEach
     void setUp() {
@@ -95,13 +96,28 @@ class UserControllerTest {
                 .andReturn();
         int status = mvcResult.getResponse().getStatus();
         List<User> users = userService.getAllUser();
-//        when
+//        then
         assertEquals(status, 200);
         assertTrue(users.contains(user));
     }
 
     @Test
-    void shouldUpdateUser() {
+    void shouldUpdateUser() throws Exception {
+//        given
+        User update = new User("updateName", "updateUserName", "operator", 900100100);
+//        when
+        user.setCompany(returnTestCompany());
+        userService.addUser(user);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/users/update")
+                .contentType("application/json")
+                .content(mapObjectToJson(update))
+                .param("id", String.valueOf(user.getId())))
+                .andReturn();
+        int status = result.getResponse().getStatus();
+        User resultUser = userService.findUserById(user.getId());
+//        then
+        assertTrue(resultUser.equals(update));
+        assertEquals(status, expectedStatus);
     }
 
     @Test
