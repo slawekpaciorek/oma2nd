@@ -17,13 +17,18 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -53,6 +58,9 @@ class UserControllerTest {
         session.createQuery("delete Company").executeUpdate();
         session.getTransaction().commit();
         session.beginTransaction();
+        session.createQuery("delete Address").executeUpdate();
+        session.getTransaction().commit();
+        session.beginTransaction();
         session.createQuery("delete User").executeUpdate();
         session.getTransaction().commit();
 //        session.getTransaction().commit();
@@ -64,26 +72,40 @@ class UserControllerTest {
     @Test
     void shouldDisplayUsers() throws Exception {
 //        when
-        Company company = companyService.getAllWithAddresses().get(0);
-        user.setCompany(company);
         userService.addUser(user);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/list")
                 .accept("application/json")).andReturn();
         int status = result.getResponse().getStatus();
+        String content = result.getResponse().getContentAsString();
+        User[] userList = mapFromJson(content, User[].class);
 //        then
         assertEquals(status, 200);
+        assertTrue(Arrays.asList(userList).contains(user));
     }
 
     @Test
-    void shouldAddUser() {
+    @Transactional
+    void shouldAddUser() throws Exception {
+//        when
+        user.setCompany(returnTestCompany());
+        String body = mapObjectToJson(user);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/users/add")
+                .contentType("application/json")
+                .content(body))
+                .andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        List<User> users = userService.getAllUser();
+//        when
+        assertEquals(status, 200);
+        assertTrue(users.contains(user));
     }
 
     @Test
-    void schouldUpdateUser() {
+    void shouldUpdateUser() {
     }
 
     @Test
-    void schouldRemoveUser() {
+    void shouldRemoveUser() {
     }
 
     private <T> T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
@@ -94,5 +116,9 @@ class UserControllerTest {
     private String mapObjectToJson(Object object) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(object);
+    }
+
+    private Company returnTestCompany(){
+        return companyService.getAllWithAddresses().get(0);
     }
 }

@@ -1,9 +1,10 @@
 package com.oma.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.stream.Collectors;
 //@RequiredArgsConstructor
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Company {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Company implements Serializable {
 
     @Id
     @GeneratedValue()
@@ -33,6 +35,7 @@ public class Company {
     private Address address;
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JsonBackReference
     private List<User> users;
 
     @OneToMany(mappedBy = "company")

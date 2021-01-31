@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 public class ProductsOrder {
 
@@ -74,4 +73,20 @@ public class ProductsOrder {
 
     @Column
     private String info;
+
+    @Override
+    public String toString() {
+        return "ProductsOrder{" +
+                "id=" + id +
+                ", company=" + company +
+                ", deliveryPoint=" + deliveryPoint +
+                ", products=" + products +
+                ", createdBy=" + createdBy +
+                ", approvedBy=" + approvedBy +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", summaryValue=" + summaryValue +
+                ", info='" + info + '\'' +
+                '}';
+    }
 }

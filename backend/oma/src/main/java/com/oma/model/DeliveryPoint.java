@@ -35,4 +35,14 @@ public class DeliveryPoint {
     @OneToMany(mappedBy = "deliveryPoint")
     private List<ProductsOrder> orders;
 
+    @Override
+    public String toString() {
+        return "DeliveryPoint{" +
+                "name='" + name + '\'' +
+                ", createdBy=" + createdBy +
+                ", address=" + address +
+                ", company=" + company +
+                ", orders=" + orders +
+                '}';
+    }
 }
