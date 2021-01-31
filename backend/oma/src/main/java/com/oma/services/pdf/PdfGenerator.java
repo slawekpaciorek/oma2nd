@@ -54,6 +54,7 @@ public class PdfGenerator {
 
     public ByteArrayInputStream omaToPdf (User user) throws DocumentException, FileNotFoundException {
         Document document = getNewDocument();
+        logger.info("New pdf document printed");
         PdfWriter.getInstance(document, new FileOutputStream("OmaDocument.pdf"));
 
         document.add(omaHeaderParagraph(user.getName()));
