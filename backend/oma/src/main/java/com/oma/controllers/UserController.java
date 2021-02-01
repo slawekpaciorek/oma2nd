@@ -32,11 +32,10 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/remove")
-    public User removeUser(@RequestParam("userId") String userId){
+    public void removeUser(@RequestParam("id") String userId){
         long id = Long.parseLong(userId);
         User user = userService.findUserById(id);
         userService.removeUser(id, user);
-        return user;
     }
 
 }

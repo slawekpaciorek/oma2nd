@@ -17,18 +17,19 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -121,7 +122,18 @@ class UserControllerTest {
     }
 
     @Test
-    void shouldRemoveUser() {
+    void shouldRemoveUser() throws Exception {
+        user.setCompany(returnTestCompany());
+        userService.addUser(user);
+        long id = user.getId();
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/users/remove")
+                .param("id", String.valueOf(id))
+                .contentType("application/json"))
+                .andReturn();
+        int status = result.getResponse().getStatus();
+
+        assertEquals(200, status);
+        assertThrows(EmptyResultDataAccessException.class, ()->userService.findUserById(id));
     }
 
     private <T> T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
