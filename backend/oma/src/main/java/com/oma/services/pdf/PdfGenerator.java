@@ -38,6 +38,7 @@ public class PdfGenerator {
     private Company company = new Company();
     private DeliveryPoint deliveryPoint = new DeliveryPoint();
     private User user = new User();
+    private static String file = "OmaDocument.pdf";
 
 
     @Autowired
@@ -55,7 +56,7 @@ public class PdfGenerator {
     public ByteArrayInputStream omaToPdf (User user) throws DocumentException, FileNotFoundException {
         Document document = getNewDocument();
         logger.info("New pdf document printed");
-        PdfWriter.getInstance(document, new FileOutputStream("OmaDocument.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(file));
 
         document.add(omaHeaderParagraph(user.getName()));
         document.add(valueParagraph());
