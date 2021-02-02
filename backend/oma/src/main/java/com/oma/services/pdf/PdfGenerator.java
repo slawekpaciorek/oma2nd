@@ -58,12 +58,16 @@ public class PdfGenerator {
         logger.info("New pdf document printed");
         PdfWriter.getInstance(document, new FileOutputStream(file));
 
-        document.add(omaHeaderParagraph(user.getName()));
-        document.add(valueParagraph());
-        document.add(companyParagraph());
-        document.add(deliveryParagraph());
-        document.add(completedParagraph());
-        document.add(detailsParagraph());
+        try {
+            document.add(omaHeaderParagraph(user.getName()));
+            document.add(valueParagraph());
+            document.add(companyParagraph());
+            document.add(deliveryParagraph());
+            document.add(completedParagraph());
+            document.add(detailsParagraph());
+        } catch (DocumentException ex){
+            logger.warn(" Pdf interrput in omaToPdf");
+        }
 
         document.close();
 
