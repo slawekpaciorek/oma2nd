@@ -76,6 +76,7 @@ public class PdfGenerator {
 
     private Paragraph omaHeaderParagraph(String omaOrder) {
         Paragraph paragraph = new Paragraph();
+        logger.info("New paragraph created");
         paragraph.setAlignment(Element.ALIGN_CENTER);
         paragraph.add(new Chunk("Order: "));
         paragraph.add(new Chunk(omaOrder));
