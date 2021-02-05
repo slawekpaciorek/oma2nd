@@ -87,6 +87,7 @@ public class PdfGenerator {
         Paragraph paragraph = new Paragraph();
         paragraph.setAlignment(Element.ALIGN_LEFT);
         paragraph.add("Numer zamówienia: " + productsOrder.getId());
+        logger.info("New product order number paragraph created");
         return paragraph;
     }
 
