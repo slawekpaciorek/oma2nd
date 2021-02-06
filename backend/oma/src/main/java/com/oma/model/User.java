@@ -1,18 +1,24 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
-public class User {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class User implements Serializable {
 
     @Id
     @GeneratedValue
@@ -33,13 +39,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserPrivileges privileges;
 
-    @ManyToOne(
-            cascade = {CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
-    })
+    @ManyToOne(cascade = {CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "Company_id", referencedColumnName = "id")
+//    @JsonManagedReference
     private Company company;
 
     @OneToMany(mappedBy = "createdBy")
@@ -49,76 +55,11 @@ public class User {
     private List<ProductsOrder> ordersCreated;
 
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public User(String name, String username, String privileges, int mobilePhone) {
         this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getMobilePhone() {
-        return mobilePhone;
-    }
-
-    public void setMobilePhone(int mobilePhone) {
+        this.privileges = UserPrivileges.valueOf(privileges);
         this.mobilePhone = mobilePhone;
-    }
-
-    public UserPrivileges getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(UserPrivileges privileges) {
-        this.privileges = privileges;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public List<DeliveryPoint> getDeliveryPoints() {
-        return deliveryPoints;
-    }
-
-    public void setDeliveryPoints(List<DeliveryPoint> deliveryPoints) {
-        this.deliveryPoints = deliveryPoints;
-    }
-
-    public List<ProductsOrder> getOrdersCreated() {
-        return ordersCreated;
-    }
-
-    public void setOrdersCreated(List<ProductsOrder> ordersCreated) {
-        this.ordersCreated = ordersCreated;
     }
 
     @Override
@@ -126,14 +67,25 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                mobilePhone == user.mobilePhone &&
-                name.equals(user.name) &&
+        return name.equals(user.name) &&
                 username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, username, mobilePhone);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobilePhone=" + mobilePhone +
+                ", privileges=" + privileges +
+                ", company name=" + company.getName() +
+                '}';
     }
 }

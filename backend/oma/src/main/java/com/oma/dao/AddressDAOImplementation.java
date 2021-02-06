@@ -29,7 +29,7 @@ public class AddressDAOImplementation implements AddressDAO {
     public void saveAddress(Address address) {
         logger.info("Trying to save the address to the database from the repositories layer!");
         Session session = sessionFactory.getCurrentSession();
-        session.save(address);
+        session.saveOrUpdate(address);
     }
 
     @Override
@@ -60,4 +60,5 @@ public class AddressDAOImplementation implements AddressDAO {
         Address address = getAddressForId(id);
         session.remove(address);
     }
+
 }

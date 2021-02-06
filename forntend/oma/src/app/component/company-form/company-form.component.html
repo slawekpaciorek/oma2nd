@@ -1,0 +1,69 @@
+<div class="container-fluid p-5">
+  <h3 class="h3 p-3">Dodawanie nowej firmy</h3>
+<form [formGroup]="companyFormGroup" class="px-5" (ngSubmit)="onSubmit()">
+
+<!--  Name and taxId for company-->
+
+  <div formGroupName="company">
+  <h3 class="h4 mx-2 my-5">Podsatawowe dane</h3>
+  <div class="form-group">
+    <label for="companyName">Nazwa firmy</label>
+    <input formControlName="companyName" type="text" class="form-control" id="companyName" aria-describedby="companyNameHelp">
+    <small id="companyNameHelp" class="form-text text-muted">Wprowadź pełną nazwę przedsiębiorstwa</small>
+  </div>
+  <div class="form-group">
+    <label for="taxIdNumber">NIP</label>
+    <input formControlName="taxIdNumber" type="text" class="form-control" id="taxIdNumber" aria-describedby="taxIdNumberHelp">
+    <small id="taxIdNumberHelp" class="form-text text-muted">Podaj numer nip</small>
+  </div>
+  </div>
+  <div formGroupName="address">
+
+<!--    Address for company-->
+
+  <h3 class="h4 mx-2 my-5">Adres firmy</h3>
+  <div class="form-group">
+    <label for="streetNameAndNumber">Nazwa i numer ulicy</label>
+    <input formControlName="streetNameAndNumber" type="text" class="form-control" id="streetNameAndNumber" aria-describedby="streetNameAndNumberHelp">
+    <small id="streetNameAndNumberHelp" class="form-text text-muted">Wprowadź nazwę i numer ulicy</small>
+  </div>
+  <div class="form-group">
+    <label for="zipCode">Kod pocztowy</label>
+    <input formControlName="zipCode" type="text" class="form-control" id="zipCode" aria-describedby="zipCodeHelp">
+    <small id="zipCodeHelp" class="form-text text-muted">Wprowadź poprawny kod pocztowy</small>
+  </div>
+  <div class="form-group">
+    <label for="city">Nazwa miasta</label>
+    <input formControlName="city" type="text" class="form-control" id="city" aria-describedby="cityHelp">
+    <small id="cityHelp" class="form-text text-muted">Pełna i poprawna nazwa miasta</small>
+  </div>
+  <div class="form-group">
+    <label for="mobileNumber">Nr kontaktowy</label>
+    <input formControlName="mobilePhoneNumber" type="text" class="form-control" id="mobileNumber" aria-describedby="mobileNumberHelp">
+    <small id="mobileNumberHelp" class="form-text text-muted">Wprowadź poprawny numer telefonu komórkowego (np. 500100200)</small>
+  </div>
+  </div>
+  <div formGroupName="user">
+
+<!--    Main user for company-->
+
+  <h3 class="h4 mx-2 my-5">Główny użytkownik - menadżer</h3>
+  <div class="form-group">
+    <label for="userName">Adres email</label>
+    <input formControlName="username" type="email" class="form-control" id="userName" aria-describedby="userNameHelp">
+    <small id="userNameHelp" class="form-text text-muted">Wprowadź poprawny adres email dla głównego użytkowanika (np. biuro@firma.pl)</small>
+  </div>
+  <div class="form-group">
+    <label for="name">Imię użytkownia</label>
+    <input formControlName="name" type="text" class="form-control" id="name" aria-describedby="nameHelp">
+    <small id="nameHelp" class="form-text text-muted">Imię użytkownika (np. Michał)</small>
+  </div>
+  <div class="form-group">
+    <label for="userMobileNumber">Nr kontaktowy do głównego użytkownika</label>
+    <input formControlName="mobilePhoneNumber" type="text" class="form-control" id="userMobileNumber" aria-describedby="userMobileNumberHelp">
+    <small id="userMobileNumberHelp" class="form-text text-muted">Wprowadź poprawny numer telefonu komórkowego (np. 500100200)</small>
+  </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Zapisz</button>
+</form>
+</div>

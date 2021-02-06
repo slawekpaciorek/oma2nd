@@ -19,4 +19,6 @@ public interface UserDAO {
     void updateUser(long id,User user);
 
     void removeUser(long id, User user);
+
+    List<User> findUserForCompany(long companyId);
 }

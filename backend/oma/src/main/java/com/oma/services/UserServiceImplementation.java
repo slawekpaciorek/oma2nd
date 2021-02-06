@@ -52,4 +52,10 @@ public class UserServiceImplementation implements UserService{
         userDAO.removeUser(id,user);
     }
 
+    @Override
+    @Transactional
+    public List<User> getUserForCompany(long companyId) {
+        return userDAO.findUserForCompany(companyId);
+    }
+
 }

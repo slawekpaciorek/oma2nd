@@ -23,7 +23,7 @@ public class UserDAOImplementation implements UserDAO{
     public void saveUser(User user){
         logger.info("Trying to save the user to the database from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-        factoryCurrentSession.save(user);
+        factoryCurrentSession.saveOrUpdate(user);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class UserDAOImplementation implements UserDAO{
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         User upd = findUserById(id);
         upd.setName(user.getName());
+        upd.setUsername(user.getUsername());
         upd.setMobilePhone(user.getMobilePhone());
         factoryCurrentSession.update(upd);
     }
@@ -61,5 +62,14 @@ public class UserDAOImplementation implements UserDAO{
         logger.warn("Trying remove user from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.remove(user);
+    }
+
+    @Override
+    @Transactional
+    public List<User> findUserForCompany(long companyId) {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        return factoryCurrentSession.createQuery("from User user where user.company.id=:companyId")
+                .setParameter("companyId", companyId)
+                .getResultList();
     }
 }

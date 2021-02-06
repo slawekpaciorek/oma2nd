@@ -1,5 +1,7 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,10 +9,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true, value = "idAddress")
 public class Address {
 
     @Id
@@ -24,19 +28,17 @@ public class Address {
     private String zipCode;
 
     @Column
-    private String City;
+    private String city;
 
     @Column
     private int mobilePhoneNumber;
 
-
-    public long getIdAddress() {
-        return id;
+    public Address(String streetNameAndNumber, String zipCode, String city) {
+        this.streetNameAndNumber = streetNameAndNumber;
+        this.zipCode = zipCode;
+        this.city = city;
     }
 
-    public void setIdAddress(long id) {
-        this.id = id;
-    }
 
     public Address(String streetName){
         this.streetNameAndNumber = streetName;

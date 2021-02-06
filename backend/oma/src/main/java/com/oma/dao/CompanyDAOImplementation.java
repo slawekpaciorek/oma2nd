@@ -8,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.List;
 
 @Repository
+@CrossOrigin("http://localhost:4200")
 public class CompanyDAOImplementation implements CompanyDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(CompanyDAOImplementation.class);
@@ -19,11 +22,10 @@ public class CompanyDAOImplementation implements CompanyDAO {
     SessionFactory sessionFactory;
 
     @Override
-    @Transactional
     public void save(Company company) {
         logger.info("Trying to save the company to the database from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-        factoryCurrentSession.save(company);
+        factoryCurrentSession.saveOrUpdate(company);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class CompanyDAOImplementation implements CompanyDAO {
     public List<Company> getAll() {
         logger.warn("Trying get all the company list from repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
-       return factoryCurrentSession.createQuery("from Company").getResultList();
+        return factoryCurrentSession.createQuery("from Company", Company.class).getResultList();
     }
 
     @Override
@@ -50,7 +52,14 @@ public class CompanyDAOImplementation implements CompanyDAO {
         logger.warn("Trying update company for id from the repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         Company update = getCompanyById(id);
-           update.setName(company.getName());
+           if(!update.equals(company)){
+               if(!company.getName().equals(update.getName())){
+                   update.setName(company.getName());
+               }
+               if(company.getTaxNumberId()!=null && !company.getTaxNumberId().equals(update.getTaxNumberId())){
+                   update.setTaxNumberId(company.getTaxNumberId());
+               }
+           }
            factoryCurrentSession.update(update);
    }
 
@@ -60,5 +69,11 @@ public class CompanyDAOImplementation implements CompanyDAO {
         logger.warn("Trying remove company for id from repositories layer!");
         Session factoryCurrentSession = sessionFactory.getCurrentSession();
         factoryCurrentSession.remove(company);
+    }
+
+    @Override
+    public List<Company> getAllWithAddresses() {
+        Session factoryCurrentSession = sessionFactory.getCurrentSession();
+        return factoryCurrentSession.createQuery("from Company company join fetch company.address", Company.class).getResultList();
     }
 }
