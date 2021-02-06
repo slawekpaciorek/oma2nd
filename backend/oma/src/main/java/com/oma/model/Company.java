@@ -92,7 +92,6 @@ public class Company implements Serializable {
                 ", name='" + name + '\'' +
                 ", taxNumberId='" + taxNumberId + '\'' +
                 ", address=" + address +
-                ", users=" + users.stream().map(user -> user.getUsername()).collect(Collectors.toList()) +
                 '}';
     }
 }

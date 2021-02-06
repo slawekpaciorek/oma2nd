@@ -64,6 +64,7 @@ public class CompanyServiceImplementation implements CompanyService {
             long addressId = temp.getAddress().getId();
             addressDAO.updateAddress(addressId, company.getAddress());
         }
+        companyDAO.updateCompany(id,company);
     }
 
     @Override
