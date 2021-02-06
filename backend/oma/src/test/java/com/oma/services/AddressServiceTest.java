@@ -53,7 +53,7 @@ public class AddressServiceTest {
         Address[]result = new Address[expected.length];
         result = addressService.getAllAddresses()
                 .stream()
-                .sorted(Comparator.comparingLong(Address::getIdAddress))
+                .sorted(Comparator.comparingLong(value -> value.getId()))
                 .collect(Collectors.toList())
                 .toArray(result);
 
@@ -86,7 +86,7 @@ public class AddressServiceTest {
         Address address = new Address("example");
 //        when
         addressService.saveAddress(address);
-        long id = address.getIdAddress();
+        long id = address.getId();
         Address result = addressService.getAddressForId(id);
 //        then
         assertEquals(address, result);
@@ -95,7 +95,7 @@ public class AddressServiceTest {
     @Test
     public void shouldCatchExceptionForIncorrectIdNumber(){
 //        given
-        long id= addressService.getAllAddresses().stream().mapToLong(Address::getIdAddress).sum();
+        long id= addressService.getAllAddresses().stream().mapToLong(Address::getId).sum();
 //        then
         assertThrows(Exception.class, ()->addressService.getAddressForId(id));
 
@@ -108,8 +108,8 @@ public class AddressServiceTest {
         Address update = new Address("Updated Input");
 //        when
         addressService.saveAddress(input);
-        addressService.updateAddressForId(input.getIdAddress(), update);
-        Address expected = addressService.getAddressForId(input.getIdAddress());
+        addressService.updateAddressForId(input.getId(), update);
+        Address expected = addressService.getAddressForId(input.getId());
 //        then
         assertEquals(expected.getClass(), update.getClass());
     }
@@ -119,7 +119,7 @@ public class AddressServiceTest {
         Address addressToRemove = new Address("AddressToRemove");
 //        when
         addressService.saveAddress(addressToRemove);
-        long id = addressToRemove.getIdAddress();
+        long id = addressToRemove.getId();
         addressService.removeAddressWithId(id);
 //        then
         assertThrows(Exception.class, ()-> addressService.getAddressForId(id));

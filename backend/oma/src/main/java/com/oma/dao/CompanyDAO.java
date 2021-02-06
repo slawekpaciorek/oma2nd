@@ -19,4 +19,6 @@ public interface CompanyDAO {
     void removeCompany(long id, Company company);
 
     void updateCompany(long id, Company company);
+
+    List<Company> getAllWithAddresses();
 }

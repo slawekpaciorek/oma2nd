@@ -3,12 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserViewComponent } from './user-view/user-view.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
+import { UserViewComponent } from './component/user-view/user-view.component';
+import { AdminViewComponent } from './component/admin-view/admin-view.component';
 import { RouterModule } from '@angular/router';
-import { MainViewComponent } from './main-view/main-view.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
+import { MainViewComponent } from './component/main-view/main-view.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { HeaderComponent } from './component/header/header.component';
+import {HttpClientModule} from '@angular/common/http';
+import {CompanyService} from './services/company.service';
+import { CompanyListComponent } from './component/company-list/company-list.component';
+import {CommonModule} from '@angular/common';
+import { CompanyFormComponent } from './component/company-form/company-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,17 +23,25 @@ import { HeaderComponent } from './header/header.component';
     AdminViewComponent,
     MainViewComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    CompanyListComponent,
+    CompanyFormComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'user-view', component: UserViewComponent},
-      {path: 'admin-view', component: AdminViewComponent}
-    ])
+      {path: 'admin-view', component: AdminViewComponent},
+      {path: 'company', component: CompanyListComponent},
+      {path: 'company/all-companies', component: CompanyListComponent},
+      {path: 'company/add', component: CompanyFormComponent}
+    ]),
+    HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CompanyService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

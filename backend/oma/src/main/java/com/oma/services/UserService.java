@@ -19,4 +19,7 @@ public interface UserService {
     void updateUser(long id,User user);
 
     void removeUser(long id, User user);
+
+    List<User> getUserForCompany(long parseLong);
+
 }

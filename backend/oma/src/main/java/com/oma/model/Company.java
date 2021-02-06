@@ -1,32 +1,41 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 //@RequiredArgsConstructor
 @Entity
-public class Company {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Company implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue()
+    private Long id;
 
     @Column
     private String name;
 
     @Column(unique = true)
-    private int taxNumberId;    //NIP
+    private String taxNumberId;    //NIP
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},fetch = FetchType.LAZY)
-    @JoinColumn(name = "Address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+//    @JsonBackReference
     private List<User> users;
 
     @OneToMany(mappedBy = "company")
@@ -35,76 +44,54 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
 
-//Dodane gettery i settery
-
-    public long getId() {
-        return id;
+    public void addUser(User user) {
+        if(users==null)
+            users = new ArrayList<>();
+        users.add(user);
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+//  Constructors
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Company(String name, String taxNumber, Address address) {
         this.name = name;
-    }
-
-    public int getTaxNumberId() {
-        return taxNumberId;
-    }
-
-    public void setTaxNumberId(int taxNumberId) {
-        this.taxNumberId = taxNumberId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress() {
+        this.taxNumberId = taxNumber;
         this.address = address;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
+    public Company(String name, String taxNumberId, Address address, List<User> users) {
+        this.name = name;
+        this.taxNumberId = taxNumberId;
+        this.address = address;
         this.users = users;
     }
 
-    public List<ProductsOrder> getOrders() {
-        return orders;
-    }
+    //Wygenerowany equals i hashCode
 
-    public void setOrders(List<ProductsOrder> orders) {
-        this.orders = orders;
-    }
-
-    public List<DeliveryPoint> getDeliveryPoints() {
-        return deliveryPoints;
-    }
-
-    public void setDeliveryPoints(List<DeliveryPoint> deliveryPoints) {
-        this.deliveryPoints = deliveryPoints;
-    }
-
-    //Wygenerowany equals i hashCode 20.10.2020.. środa
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return id == company.id &&
-                name.equals(company.name);
+        if(taxNumberId!=null){
+            return taxNumberId.equals(company.taxNumberId) &&
+                    name.equals(company.name);
+        }else{
+            return name.equals(company.name);
+        }
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", taxNumberId='" + taxNumberId + '\'' +
+                ", address=" + address +
+                '}';
     }
 }
