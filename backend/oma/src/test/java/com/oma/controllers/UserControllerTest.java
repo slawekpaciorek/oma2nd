@@ -81,7 +81,7 @@ class UserControllerTest {
         String content = result.getResponse().getContentAsString();
         User[] userList = mapFromJson(content, User[].class);
 //        then
-        assertEquals(status, 200);
+        assertEquals(status, expectedStatus);
         assertTrue(Arrays.asList(userList).contains(user));
     }
 
@@ -98,7 +98,7 @@ class UserControllerTest {
         int status = mvcResult.getResponse().getStatus();
         List<User> users = userService.getAllUser();
 //        then
-        assertEquals(status, 200);
+        assertEquals(status, expectedStatus);
         assertTrue(users.contains(user));
     }
 
@@ -132,7 +132,7 @@ class UserControllerTest {
                 .andReturn();
         int status = result.getResponse().getStatus();
 
-        assertEquals(200, status);
+        assertEquals(expectedStatus, status);
         assertThrows(EmptyResultDataAccessException.class, ()->userService.findUserById(id));
     }
 
