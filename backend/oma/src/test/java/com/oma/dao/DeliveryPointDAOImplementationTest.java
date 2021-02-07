@@ -10,9 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ class DeliveryPointDAOImplementationTest {
     }
 
     @Test
-    void findById() {
+    void shouldFindById() {
 //        given
         DeliveryPoint deliveryPoint = new DeliveryPoint("testName");
         Session session = getSession();
@@ -53,7 +55,7 @@ class DeliveryPointDAOImplementationTest {
     }
 
     @Test
-    void getAllDeliveryPoints() {
+    void shouldGetAllDeliveryPoints() {
 //        given
         List<DeliveryPoint> deliveryPoints = new ArrayList<>();
         DeliveryPoint temp1 = new DeliveryPoint("TestName1");
@@ -76,11 +78,42 @@ class DeliveryPointDAOImplementationTest {
     }
 
     @Test
-    void saveDeliveryPoint() {
+    void shouldSaveDeliveryPoint() {
+//        given
+        DeliveryPoint deliveryPoint = new DeliveryPoint("savingDPTest");
+//        when
+        deliveryPointDAOImplementation.saveDeliveryPoint(deliveryPoint);
+        List<DeliveryPoint> resultList = deliveryPointDAOImplementation.getAllDeliveryPoints();
+//        then
+        assertTrue(resultList.contains(deliveryPoint));
+
     }
 
     @Test
-    void updateDeliveryPoint() {
+    void shouldUpdateDeliveryPoint() {
+//        given
+        DeliveryPoint deliveryPoint = new DeliveryPoint("updateDPTest");
+        DeliveryPoint expected = new DeliveryPoint("expectedAfterUpdate");
+//        when
+        deliveryPointDAOImplementation.saveDeliveryPoint(deliveryPoint);
+        long id = deliveryPoint.getId();
+        deliveryPointDAOImplementation.updateDeliveryPoint(id, expected);
+        DeliveryPoint result = deliveryPointDAOImplementation.findById(id);
+//        then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void shouldRemoveDeliveryPointFromDB(){
+//        given
+        DeliveryPoint deliveryPoint = new DeliveryPoint("removeDeliveryPointTest");
+//        when
+        deliveryPointDAOImplementation.saveDeliveryPoint(deliveryPoint);
+        long id = deliveryPoint.getId();
+        deliveryPointDAOImplementation.removeDeliveryPoint(id);
+//        then
+        assertThrows(EmptyResultDataAccessException.class, () -> deliveryPointDAOImplementation.findById(id));
+
     }
 
     private Session getSession() {
