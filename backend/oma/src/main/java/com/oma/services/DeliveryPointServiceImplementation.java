@@ -15,12 +15,12 @@ public class DeliveryPointServiceImplementation implements DeliveryPointService{
 
     @Override
     public DeliveryPoint findById(long id) {
-        return null;
+        return deliveryPointDAO.findById(id);
     }
 
     @Override
     public List<DeliveryPoint> getAllDeliveryPoints() {
-        return null;
+        return deliveryPointDAO.getAllDeliveryPoints();
     }
 
     @Override
