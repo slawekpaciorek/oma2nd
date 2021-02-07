@@ -57,7 +57,7 @@ public class DeliveryPointDAOImplementation implements DeliveryPointDAO {
         session.remove(temp);
     }
 
-    private Session getSession(){
+    protected Session getSession(){
         return sessionFactory.getCurrentSession();
     }
 }
