@@ -8,13 +8,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DeliveryPointServiceTest {
+
+    private int counter = 0;
 
     @Autowired
     SessionFactory sessionFactory;
@@ -32,13 +36,14 @@ class DeliveryPointServiceTest {
         session.createQuery("delete DeliveryPoint").executeUpdate();
         commitTransaction(session);
         closeSession(session);
+        counter = 0;
     }
 
     @Test
     void shouldFindById() {
 
         //  given
-        DeliveryPoint expected = new DeliveryPoint("findById - service", new Address("street", "zipCode", "city"));
+        DeliveryPoint expected = getDefaultDeliveryPoint();
         Session session = getSession();
 
         //  when
@@ -60,10 +65,10 @@ class DeliveryPointServiceTest {
     void shouldGetAllDeliveryPoints() {
 
         //  given
-        DeliveryPoint[] deliveryPoints = {
-                new DeliveryPoint("serviceTest1", new Address("street1", "zipcode1", "city1"))
-                ,new DeliveryPoint("serviceTest2", new Address("street2", "zipcode2", "city2"))
-                ,new DeliveryPoint("serviceTest3", new Address("street3", "zipcode3", "city3"))};
+        DeliveryPoint[] deliveryPoints = new DeliveryPoint[3];
+        for(int i = 0; i < deliveryPoints.length; i++) {
+            deliveryPoints[i] = getDefaultDeliveryPoint();
+        }
         Session session = getSession();
 
         //  when
@@ -87,12 +92,14 @@ class DeliveryPointServiceTest {
     void shouldSaveDeliveryPoint() {
 
         //  given
-
+        DeliveryPoint expected = getDefaultDeliveryPoint();
 
         //  when
-
+        deliveryPointService.saveDeliveryPoint(expected);
+        List<DeliveryPoint> resultList = deliveryPointService.getAllDeliveryPoints();
 
         //  then
+        assertTrue(resultList.contains(expected));
 
     }
 
@@ -100,12 +107,17 @@ class DeliveryPointServiceTest {
     void shouldUpdateDeliveryPoint() {
 
         //  given
-
+        DeliveryPoint deliveryPoint = getDefaultDeliveryPoint();
+        DeliveryPoint update = getDefaultDeliveryPoint();
 
         //  when
-
+        deliveryPointService.saveDeliveryPoint(deliveryPoint);
+        long id = deliveryPoint.getId();
+        deliveryPointService.updateDeliveryPoint(id, update);
+        DeliveryPoint result = deliveryPointService.findById(id);
 
         //  then
+        assertEquals(update, result);
 
     }
 
@@ -113,12 +125,15 @@ class DeliveryPointServiceTest {
     void shouldRemoveDeliveryPoint() {
 
         //  given
-
+        DeliveryPoint deliveryPoint = getDefaultDeliveryPoint();
 
         //  when
-
+        deliveryPointService.saveDeliveryPoint(deliveryPoint);
+        long id = deliveryPoint.getId();
+        deliveryPointService.removeDeliveryPoint(id);
 
         //  then
+        assertThrows(EmptyResultDataAccessException.class, () -> deliveryPointService.findById(id));
 
     }
 
@@ -136,5 +151,15 @@ class DeliveryPointServiceTest {
 
     private void beginTransaction(Session session) {
         session.beginTransaction();
+    }
+
+    private Address getDefaultAddress(){
+        return new Address("defaultStreet" + counter, "defaultZipCode" + counter, "defaultCity" +counter);
+    }
+
+    private DeliveryPoint getDefaultDeliveryPoint(){
+        DeliveryPoint deliveryPoint = new DeliveryPoint("defaultDPName" + counter, getDefaultAddress());
+        counter++;
+        return deliveryPoint;
     }
 }
