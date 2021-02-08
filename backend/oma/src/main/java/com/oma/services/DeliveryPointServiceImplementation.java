@@ -1,6 +1,5 @@
 package com.oma.services;
 
-import com.oma.dao.AddressDAO;
 import com.oma.dao.DeliveryPointDAO;
 import com.oma.model.DeliveryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
