@@ -17,22 +17,22 @@ public class DeliveryPointController {
 
     @GetMapping("/list")
     public List<DeliveryPoint> displayAllDeliveryPoints(){
-        return null;
+        return deliveryPointService.getAllDeliveryPoints();
     }
 
     @PostMapping(value = "/add", consumes = "application/json")
     public void addDeliveryPoint(@RequestBody DeliveryPoint deliveryPoint){
-
+        deliveryPointService.saveDeliveryPoint(deliveryPoint);
     }
 
     @PutMapping(value = "/update", consumes = "application/json")
     public void updateDeliveryPoint(@RequestParam String id, @RequestBody DeliveryPoint deliveryPoint){
-
+        deliveryPointService.updateDeliveryPoint(Long.parseLong(id), deliveryPoint);
     }
 
     @DeleteMapping(value = "/remove")
     public void removeDeliveryPoint(@RequestParam String id){
-
+        deliveryPointService.removeDeliveryPoint(Long.parseLong(id));
     }
 
 }
