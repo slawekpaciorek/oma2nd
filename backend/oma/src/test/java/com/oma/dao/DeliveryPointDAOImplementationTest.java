@@ -33,7 +33,7 @@ class DeliveryPointDAOImplementationTest {
     void tearDown() {
         Session session = getSession();
         startTransaction(session);
-        session.createQuery("delete DeliveryPoint ");
+        session.createQuery("delete DeliveryPoint ").executeUpdate();
         commitTransaction(session);
         closeSession(session);
     }

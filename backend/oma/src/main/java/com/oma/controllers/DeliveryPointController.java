@@ -32,7 +32,7 @@ public class DeliveryPointController {
 
     @DeleteMapping(value = "/remove")
     public void removeDeliveryPoint(@RequestParam String id){
-        
+
     }
 
 }
