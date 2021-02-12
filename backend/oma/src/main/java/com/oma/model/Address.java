@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -39,8 +40,20 @@ public class Address {
         this.city = city;
     }
 
-
     public Address(String streetName){
         this.streetNameAndNumber = streetName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(streetNameAndNumber, address.streetNameAndNumber) && Objects.equals(zipCode, address.zipCode) && Objects.equals(city, address.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(streetNameAndNumber, zipCode, city);
     }
 }
