@@ -14,4 +14,6 @@ public interface ProductDAO {
     void remove(long id);
 
     Product getByCatNumber(String catalogId);
+
+    void update(long id, Product product);
 }
