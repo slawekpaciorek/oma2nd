@@ -26,7 +26,7 @@ public class DeliveryPointController {
     }
 
     @PutMapping(value = "/update", consumes = "application/json")
-    public void updateDeliveryPoint(@RequestParam String id, @RequestBody DeliveryPoint deliveryPoint){
+    public void updateDeliveryPoint(@RequestParam("id") String id, @RequestBody DeliveryPoint deliveryPoint){
         deliveryPointService.updateDeliveryPoint(Long.parseLong(id), deliveryPoint);
     }
 
