@@ -93,7 +93,7 @@ public class ProductServiceTest {
         productService.saveProduct(expected);
         long id = expected.getId();
         expected.setCatalogId(updatedVersion.getCatalogId());
-        productService.updateProduct(expected);
+        productService.updateProduct(id, expected);
         Product result = productService.getProductByID(id);
 //        then
         Assertions.assertEquals(result, updatedVersion);

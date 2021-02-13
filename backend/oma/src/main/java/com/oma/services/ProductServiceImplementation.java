@@ -42,9 +42,9 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     @Transactional
-    public void updateProduct(Product product) {
+    public void updateProduct(long id, Product product) {
         logger.warn("Update product by id from service layer");
-        productDAO.save(product);
+        productDAO.update(id, product);
     }
 
     @Override
