@@ -122,7 +122,6 @@ public class ProductDAOImplementationTest {
 
 //        then
        assertThrows(EmptyResultDataAccessException.class, () -> productDAO.getByID(id));
-
     }
 
     private Session returnSession(){
