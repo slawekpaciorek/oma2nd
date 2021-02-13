@@ -2,12 +2,11 @@ package com.oma.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -36,14 +35,16 @@ public class ProductsOrder {
     @JoinColumn(name = "DeliveryPoint_id", referencedColumnName = "id")
     private DeliveryPoint deliveryPoint;
 
-    @ManyToOne(cascade = {
+    @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
             CascadeType.REFRESH
     })
-    @JoinColumn(name = "ProductList_id", referencedColumnName = "id")
-    private ProductList products;
+    @JoinTable(name = "Products_Order",
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")})
+    private List<Product> products;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,

@@ -44,6 +44,9 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
 
+    @OneToMany(mappedBy = "company")
+    private List<Price> priceList;
+
     public void addUser(User user) {
         if(users==null)
             users = new ArrayList<>();

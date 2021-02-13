@@ -2,7 +2,6 @@ package com.oma.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -44,7 +43,7 @@ public class PriceListRow {
             CascadeType.REFRESH
     })
     @JoinColumn(name="priceList_id")
-    private PriceList priceList;
+    private Price priceList;
 
 
 }

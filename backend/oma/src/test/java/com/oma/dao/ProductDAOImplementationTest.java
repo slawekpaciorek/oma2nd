@@ -1,16 +1,13 @@
 package com.oma.dao;
 
 import com.oma.model.Product;
-import org.assertj.core.util.Arrays;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
