@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class ProductDAOImplementationTest {
 
     @Autowired
@@ -25,9 +24,6 @@ public class ProductDAOImplementationTest {
 
     @Autowired
     SessionFactory sessionFactory;
-
-    @Autowired
-    MockMvc mockMvc;
 
     private Session session;
 

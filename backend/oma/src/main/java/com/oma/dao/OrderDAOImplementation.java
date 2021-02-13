@@ -44,13 +44,15 @@ public class OrderDAOImplementation implements OrderDao {
     @Override
     public void updateOrder(long id, ProductsOrder order) {
         ProductsOrder orderToUpdate = getOrderById(id);
-        if(!orderToUpdate.equals(order)){
-            if(!orderToUpdate.getDeliveryPoint().equals(order.getDeliveryPoint()))
-                orderToUpdate.setDeliveryPoint(order.getDeliveryPoint());
+        if(!orderToUpdate.equals(order)){ ;
             if(!orderToUpdate.getStatus().equals(order.getStatus()))
                 orderToUpdate.setStatus(order.getStatus());
             if(!orderToUpdate.getInfo().equals(order.getInfo()))
                 orderToUpdate.setInfo(order.getInfo());
+            if(orderToUpdate.getSummaryValue()!=order.getSummaryValue())
+                orderToUpdate.setSummaryValue(order.getSummaryValue());
+            if(!orderToUpdate.getCreatedAt().equals(order.getCreatedAt()))
+                orderToUpdate.setCreatedAt(order.getCreatedAt());
             Session session = sessionFactory.getCurrentSession();
             session.update(orderToUpdate);
         }

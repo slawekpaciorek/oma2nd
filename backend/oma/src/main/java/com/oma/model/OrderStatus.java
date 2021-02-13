@@ -2,7 +2,10 @@ package com.oma.model;
 
 public enum OrderStatus {
 
-    approved,
     not_approved,
+    approved,
+    in_progress,
+    completed,
+    canceled
 
 }
