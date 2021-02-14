@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 public class Price {
 
@@ -16,10 +15,9 @@ public class Price {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.DETACH, CascadeType.REFRESH},
-    fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    Company company;
+    private Company company;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")

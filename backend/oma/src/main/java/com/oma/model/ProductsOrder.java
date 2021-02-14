@@ -35,16 +35,11 @@ public class ProductsOrder {
     @JoinColumn(name = "DeliveryPoint_id", referencedColumnName = "id")
     private DeliveryPoint deliveryPoint;
 
-    @ManyToMany(cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH
-    })
-    @JoinTable(name = "Products_Order",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    private List<Product> products;
+    @ManyToMany
+    @JoinTable(name = "Orders_Products",
+            joinColumns = {@JoinColumn(name = "productsOrder_id")},
+            inverseJoinColumns = {@JoinColumn(name = "productList_id")})
+    private List<ProductList> products;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,

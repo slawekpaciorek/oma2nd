@@ -25,8 +25,8 @@ public class Product {
     @Column
     private String catalogId;
 
-    @ManyToMany(mappedBy = "products")
-    private List<ProductsOrder> orders;
+    @Column
+    private String categoryName;
 
     @OneToMany(mappedBy = "product")
     private List<Price> prices;
