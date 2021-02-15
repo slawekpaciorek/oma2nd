@@ -6,26 +6,25 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
-public class ProductList {
+@Entity
+public class Price {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @ManyToMany(mappedBy = "products")
-    private List<ProductsOrder> order;
+    @ManyToOne
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
     @Column
-    private int quantity;
+    private double value;
 
-    @Column
-    private int summaryValue;
 
 }

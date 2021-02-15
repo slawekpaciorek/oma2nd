@@ -2,13 +2,10 @@ package com.oma.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +24,12 @@ public class Product {
 
     @Column
     private String catalogId;
+
+    @Column
+    private String categoryName;
+
+    @OneToMany(mappedBy = "product")
+    private List<Price> prices;
 
     public Product(String name, String tradeId, String catalogId) {
         this.name = name;

@@ -1,23 +1,19 @@
 package com.oma.dao;
 
 import com.oma.model.Product;
-import org.assertj.core.util.Arrays;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class ProductDAOImplementationTest {
 
     @Autowired
@@ -25,9 +21,6 @@ public class ProductDAOImplementationTest {
 
     @Autowired
     SessionFactory sessionFactory;
-
-    @Autowired
-    MockMvc mockMvc;
 
     private Session session;
 

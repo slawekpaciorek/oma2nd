@@ -2,11 +2,11 @@ package com.oma.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,14 +35,11 @@ public class ProductsOrder {
     @JoinColumn(name = "DeliveryPoint_id", referencedColumnName = "id")
     private DeliveryPoint deliveryPoint;
 
-    @ManyToOne(cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH
-    })
-    @JoinColumn(name = "ProductList_id", referencedColumnName = "id")
-    private ProductList products;
+    @ManyToMany
+    @JoinTable(name = "Orders_Products",
+            joinColumns = {@JoinColumn(name = "productsOrder_id")},
+            inverseJoinColumns = {@JoinColumn(name = "productList_id")})
+    private List<ProductList> products;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,
@@ -74,6 +71,13 @@ public class ProductsOrder {
     @Column
     private String info;
 
+    public ProductsOrder(LocalDate creationDate, OrderStatus orderStatus, String orderInfo, double summaryValue) {
+        this.createdAt = creationDate;
+        this.status = orderStatus;
+        this.info = orderInfo;
+        this.summaryValue = summaryValue;
+    }
+
     @Override
     public String toString() {
         return "ProductsOrder{" +
@@ -88,5 +92,18 @@ public class ProductsOrder {
                 ", summaryValue=" + summaryValue +
                 ", info='" + info + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductsOrder)) return false;
+        ProductsOrder order = (ProductsOrder) o;
+        return Double.compare(order.summaryValue, summaryValue) == 0 && Objects.equals(deliveryPoint, order.deliveryPoint) && Objects.equals(createdBy, order.createdBy) && Objects.equals(approvedBy, order.approvedBy) && status == order.status && Objects.equals(createdAt, order.createdAt) && Objects.equals(info, order.info);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deliveryPoint, createdBy, approvedBy, status, createdAt, summaryValue, info);
     }
 }

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -35,7 +34,6 @@ public class Company implements Serializable {
     private Address address;
 
     @OneToMany(mappedBy = "company", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-//    @JsonBackReference
     private List<User> users;
 
     @OneToMany(mappedBy = "company")
@@ -43,6 +41,9 @@ public class Company implements Serializable {
 
     @OneToMany(mappedBy = "company")
     private List<DeliveryPoint> deliveryPoints;
+
+    @OneToMany(mappedBy = "company")
+    private List<Price> priceList;
 
     public void addUser(User user) {
         if(users==null)
