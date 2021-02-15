@@ -7,6 +7,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -26,7 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.stream.Stream;
 
 @Service
 public class PdfGenerator {
@@ -38,8 +38,7 @@ public class PdfGenerator {
     private Company company = new Company();
     private DeliveryPoint deliveryPoint = new DeliveryPoint();
     private User user = new User();
-    private static String file = "OmaDocument.pdf";
-
+    private static String file = "C:/OmaDocument.pdf";
 
     @Autowired
     public PdfGenerator (PdfDateProvider pdfDateProvider){
@@ -55,8 +54,11 @@ public class PdfGenerator {
 
     public ByteArrayInputStream omaToPdf (User user) throws DocumentException, FileNotFoundException {
         Document document = getNewDocument();
+        document.newPage();
         logger.info("New pdf document printed");
         PdfWriter.getInstance(document, new FileOutputStream(file));
+        document.open();
+        addMetaData(document);
 
         try {
             document.add(omaHeaderParagraph(user.getName()));
@@ -65,7 +67,8 @@ public class PdfGenerator {
             document.add(deliveryParagraph());
             document.add(completedParagraph());
             document.add(detailsParagraph());
-        } catch (DocumentException ex){
+        } catch (DocumentException e){
+            e.printStackTrace();
             logger.warn(" Pdf interrput in omaToPdf");
         }
 
@@ -172,6 +175,12 @@ public class PdfGenerator {
         }
 
         return table;
+    }
+
+    private static void addMetaData(Document document){
+        document.addTitle("Oma document");
+        document.addAuthor("Oma Author");
+        document.addKeywords("Oma");
     }
 
 }
