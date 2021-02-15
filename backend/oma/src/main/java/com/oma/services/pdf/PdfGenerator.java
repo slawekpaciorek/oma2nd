@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.oma.model.Company;
 import com.oma.model.DeliveryPoint;
 import com.oma.model.Product;
@@ -55,6 +56,7 @@ public class PdfGenerator {
     public ByteArrayInputStream omaToPdf (User user) throws DocumentException, FileNotFoundException {
         Document document = getNewDocument();
         document.newPage();
+        Chunk linebreak = new Chunk(new DottedLineSeparator());
         logger.info("New pdf document printed");
         PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
@@ -62,6 +64,7 @@ public class PdfGenerator {
 
         try {
             document.add(omaHeaderParagraph(user.getName()));
+            document.add(linebreak);
             document.add(valueParagraph());
             document.add(companyParagraph());
             document.add(deliveryParagraph());
