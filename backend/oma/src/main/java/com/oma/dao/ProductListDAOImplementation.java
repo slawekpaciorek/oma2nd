@@ -55,9 +55,9 @@ public class ProductListDAOImplementation implements ProductListDAO {
 
     @Transactional
     @Override
-    public void removeProducts(long id,ProductList products) {
+    public void removeProducts(long id) {
         ProductList productList = getProductFromProductsById(id);
         Session session = sessionFactory.getCurrentSession();
-        session.remove(products);
+        session.remove(productList);
     }
 }

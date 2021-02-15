@@ -10,6 +10,6 @@ public interface ProductListDAO {
     List<ProductList> getListOfProducts();
     void saveProductList(ProductList products);
     void updateProducts(long id, ProductList products);
-    void removeProducts(long id, ProductList products);
+    void removeProducts(long id);
 
 }
