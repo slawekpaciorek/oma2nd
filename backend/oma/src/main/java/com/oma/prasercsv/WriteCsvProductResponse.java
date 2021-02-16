@@ -18,11 +18,7 @@ public class WriteCsvProductResponse {
 
     public static void writeProducts(PrintWriter writer, List<Product> productList){
         try {
-            ColumnPositionMappingStrategy<Product> mappingStrategy = new ColumnPositionMappingStrategy<>();
-            mappingStrategy.setType(Product.class);
-
-            String[] columns = new String[]{"id","name","tradeId","catalogId","categoryName"};
-            mappingStrategy.setColumnMapping(columns);
+            ColumnPositionMappingStrategy<Product> mappingStrategy = getProductColumnPositionMappingStrategy();
 
             StatefulBeanToCsv<Product> beanToCsv = new StatefulBeanToCsvBuilder<Product>(writer)
                     .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
@@ -33,7 +29,33 @@ public class WriteCsvProductResponse {
             beanToCsv.write(productList);
 
         }catch (CsvException csvException) {
-            logger.error("Error mapping Bean to CSV",csvException);
+            logger.error("Error mapping Bean to CSV - list products",csvException);
         }
+    }
+
+    public static void writeProduct(PrintWriter writer, Product product) {
+        try {
+            ColumnPositionMappingStrategy<Product> mappingStrategy = getProductColumnPositionMappingStrategy();
+
+            StatefulBeanToCsv<Product> beanToCsv = new StatefulBeanToCsvBuilder<Product>(writer)
+                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+                    .withMappingStrategy(mappingStrategy)
+                    .withSeparator(',')
+                    .build();
+
+            beanToCsv.write(product);
+
+        } catch (CsvException csvException){
+            logger.error("Error mapping Bean to csv - one product",csvException);
+        }
+    }
+
+    private static ColumnPositionMappingStrategy<Product> getProductColumnPositionMappingStrategy() {
+        ColumnPositionMappingStrategy<Product> mappingStrategy = new ColumnPositionMappingStrategy<>();
+        mappingStrategy.setType(Product.class);
+
+        String[] columns = new String[]{"id", "name", "tradeId", "catalogId", "categoryName"};
+        mappingStrategy.setColumnMapping(columns);
+        return mappingStrategy;
     }
 }
