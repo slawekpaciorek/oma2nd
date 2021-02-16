@@ -20,9 +20,10 @@ public class ParserCsvProductController {
 
     @RequestMapping(value = "/products", produces = "text/csv")
     public void findProducts(HttpServletResponse response) throws IOException {
-        List<Product>products = productDAO.getAll();
+        List<Product> products = productDAO.getAll();
         WriteCsvProductResponse.writeProducts(response.getWriter(), products);
     }
+
     @RequestMapping(value = "/products/{id}")
     public void findUser(@PathVariable long id, HttpServletResponse response) throws IOException {
         Product product = productDAO.getByID(id);

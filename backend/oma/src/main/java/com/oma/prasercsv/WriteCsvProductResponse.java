@@ -16,7 +16,7 @@ public class WriteCsvProductResponse {
 
     private static final Logger logger = LoggerFactory.getLogger(WriteCsvProductResponse.class);
 
-    public static void writeProducts(PrintWriter writer, List<Product> productList){
+    public static void writeProducts(PrintWriter writer, List<Product> productList) {
         try {
             ColumnPositionMappingStrategy<Product> mappingStrategy = getProductColumnPositionMappingStrategy();
 
@@ -28,8 +28,8 @@ public class WriteCsvProductResponse {
 
             beanToCsv.write(productList);
 
-        }catch (CsvException csvException) {
-            logger.error("Error mapping Bean to CSV - list products",csvException);
+        } catch (CsvException csvException) {
+            logger.error("Error mapping Bean to CSV - list products", csvException);
         }
     }
 
@@ -45,8 +45,8 @@ public class WriteCsvProductResponse {
 
             beanToCsv.write(product);
 
-        } catch (CsvException csvException){
-            logger.error("Error mapping Bean to csv - one product",csvException);
+        } catch (CsvException csvException) {
+            logger.error("Error mapping Bean to csv - one product", csvException);
         }
     }
 
