@@ -8,6 +8,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass=true)
+@EnableSwagger2
 public class OrderManagementApplication {
 
 	private static Logger log = LoggerFactory.getLogger(OrderManagementApplication.class);
