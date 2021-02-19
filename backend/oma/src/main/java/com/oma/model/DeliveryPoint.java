@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -21,18 +22,48 @@ public class DeliveryPoint {
     private String name;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "User_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User createdBy;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "Address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "Comapny_id", referencedColumnName = "id")
+    @JoinColumn(name = "comapny_id", referencedColumnName = "id")
     private Company company;
 
     @OneToMany(mappedBy = "deliveryPoint")
     private List<ProductsOrder> orders;
 
+    public DeliveryPoint(String name, Address address) {
+        this.setName(name);
+        this.setAddress(address);
+    }
+
+    public DeliveryPoint(String name) {
+        setName(name);
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryPoint{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                ", company=" + company +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeliveryPoint that = (DeliveryPoint) o;
+        return Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(company, that.company);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address, company);
+    }
 }

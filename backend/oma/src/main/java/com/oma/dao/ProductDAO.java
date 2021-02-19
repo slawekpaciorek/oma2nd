@@ -1,7 +1,6 @@
 package com.oma.dao;
 
 import com.oma.model.Product;
-
 import java.util.List;
 
 public interface ProductDAO {
@@ -15,4 +14,6 @@ public interface ProductDAO {
     void remove(long id);
 
     Product getByCatNumber(String catalogId);
+
+    void update(long id, Product product);
 }

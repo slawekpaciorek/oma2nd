@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class CompanyServiceTest {
 
@@ -50,7 +52,7 @@ public class CompanyServiceTest {
                 .setParameter("name",expected.getName())
                 .getSingleResult();
         //then
-        Assertions.assertEquals(result,expected);
+        assertEquals(result,expected);
     }
     @Test
     public void shouldGetAllCompanyInDb(){
@@ -67,7 +69,7 @@ public class CompanyServiceTest {
         session.getTransaction().commit();
         List<Company> actual = companyService.getAllCompany();
 
-        Assertions.assertEquals(companies,actual);
+        assertEquals(companies,actual);
 
     }
     @Test
@@ -80,7 +82,7 @@ public class CompanyServiceTest {
 
         Company result = companyService.getCompanyById(companyId);
 
-        Assertions.assertEquals(company,result);
+        assertEquals(company,result);
 
     }
     @Test
@@ -94,9 +96,9 @@ public class CompanyServiceTest {
         //when
         companyService.saveCompany(firstVersion);
         companyService.updateCompany(firstVersion.getId(),update);
-        Company expected = companyService.getCompanyById(firstVersion.getId());
+        Company result = companyService.getCompanyById(firstVersion.getId());
         //then
-        Assertions.assertEquals(expected.getName(),update.getName());
+        assertEquals(update, result);
     }
     @Test
     public void shouldRemoveCompany(){

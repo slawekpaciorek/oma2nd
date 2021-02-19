@@ -1,5 +1,7 @@
 package com.oma.services;
 
+import com.oma.model.Address;
+import com.oma.model.Company;
 import com.oma.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,11 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class UserServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CompanyService companyService;
 
     @Autowired
     SessionFactory sessionFactory;
@@ -28,6 +35,7 @@ public class UserServiceTest {
         session = sessionFactory.openSession();
         session.beginTransaction();
         session.createQuery("delete User").executeUpdate();
+        session.createQuery("delete Company ").executeUpdate();
         session.getTransaction().commit();
     }
 
@@ -53,7 +61,7 @@ public class UserServiceTest {
                 .setParameter("mobilPhone",expected.getMobilePhone())
                 .getSingleResult();
         //then
-        Assertions.assertEquals(result,expected);
+        assertEquals(result,expected);
     }
 
     @Test
@@ -71,7 +79,7 @@ public class UserServiceTest {
         session.getTransaction().commit();
         List<User> actual = userService.getAllUser();
         //then
-        Assertions.assertEquals(expected,actual);
+        assertEquals(expected,actual);
     }
     @Test
     public void shouldUserById(){
@@ -83,7 +91,7 @@ public class UserServiceTest {
         long userId = expected.getId();
         User result = userService.findUserById(userId);
 
-        Assertions.assertEquals(expected,result);
+        assertEquals(expected,result);
     }
     
     @Test
@@ -100,7 +108,7 @@ public class UserServiceTest {
         userService.updateUser(input.getId(), update);
         User expected = userService.findUserById(input.getId());
         //then
-        Assertions.assertEquals(expected.getMobilePhone(),update.getMobilePhone());
+        assertEquals(expected.getMobilePhone(),update.getMobilePhone());
 
     }
 
@@ -114,5 +122,18 @@ public class UserServiceTest {
         long id = expected.getId();
         session.beginTransaction();
         userService.removeUser(id,expected);
+    }
+
+    @Test
+    public void shouldFindUserForCompany(){
+//        given
+        User user = new User("name", "name@lastName", "manager",500500500);
+        Company company = new Company("companyName", "2015123865", new Address("streetName", "00-000","City"));
+        company.addUser(user);
+//        when
+        companyService.saveCompany(company);
+        List<User> expected = userService.getUserForCompany(company.getId());
+//        then
+        assertTrue(expected.contains(user));
     }
 }

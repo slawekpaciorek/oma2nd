@@ -1,0 +1,18 @@
+{
+  "_name":"Firma ",
+  "_taxNumberId":"1003456789",
+  "_address":
+    {
+      "_streetNameAndNumber":"Dzielna 21",
+      "_zipCode":"01-029","_city":"Warszawa",
+      "_mobilePhoneNumber":"100100100"
+    },
+  "_users": [
+    {
+      "_firstName":"slawek",
+      "_username":"slawek@firma.pl",
+      "_mobilePhone":"100100100",
+      "_privileges":"manager"
+    }
+  ]
+}

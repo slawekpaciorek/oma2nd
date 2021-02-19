@@ -7,3 +7,12 @@ body{
 app-root{
   width: 100%;
 }
+
+
+h1,h2,h3,h4,h5,h5, button, thead{
+  font-family: "Montserrat", cursive;
+}
+
+span, p, div{
+  font-family: "Poppins", cursive;
+}
