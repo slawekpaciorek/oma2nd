@@ -41,6 +41,7 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/remove", produces = "application/json")
+    @DeleteMapping("/company/{id}")
     public Company removeCompanyById(@RequestParam("id")String companyId){
         Company company = companyService.getCompanyById(Long.parseLong(companyId));
         companyService.removeCompany(company.getId(), company);
