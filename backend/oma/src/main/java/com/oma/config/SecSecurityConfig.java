@@ -38,16 +38,23 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/perform_login")
             .defaultSuccessUrl("/homepage.html", true)
             .failureUrl("/login.html?error=true")
-            .failureHandler(authenticationFailureHandler())
             .and()
             .logout()
             .logoutUrl("/perform_logout")
-            .deleteCookies("JSESSIONID")
-            .logoutSuccessHandler(logoutSuccessHandler());
+            .deleteCookies("JSESSIONID");
      }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()
+            .loginPage("/login.html")
+            .loginProcessingUrl("/perform_login")
+            .defaultSuccessUrl("/homepage.html",true)
+            .failureUrl("/login.html?error=true")
     }
 }

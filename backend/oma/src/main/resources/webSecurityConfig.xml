@@ -1,0 +1,22 @@
+<http use-expressions="true">
+    <intercept-url pattern="/login*" access="isAnonymous()" />
+    <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+    <form-login login-page='/login.html'
+                default-target-url="/homepage.html"
+                authentication-failure-url="/login.html?error=true" />
+    <logout logout-success-url="/login.html" />
+</http>
+
+<authentication-manager>
+<authentication-provider>
+    <user-service>
+        <user name="user" password="userPass" authorities="ROLE_USER" />
+    </user-service>
+    <password-encoder ref="encoder" />
+</authentication-provider>
+</authentication-manager>
+
+<beans:bean id="encoder"
+            class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+</beans:bean>
