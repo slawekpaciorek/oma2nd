@@ -42,19 +42,16 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
             .logoutUrl("/perform_logout")
             .deleteCookies("JSESSIONID");
+        http.formLogin()
+            .loginPage("/login.html")
+            .loginProcessingUrl("/perform_login")
+            .defaultSuccessUrl("/homepage.html",true)
+            .failureUrl("/login.html?error=true");
      }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-            .loginPage("/login.html")
-            .loginProcessingUrl("/perform_login")
-            .defaultSuccessUrl("/homepage.html",true)
-            .failureUrl("/login.html?error=true")
-    }
+    
 }
