@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -26,32 +26,15 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/anonymous*").anonymous()
-            .antMatchers("/login*").permitAll()
             .anyRequest().authenticated()
             .and()
-            .formLogin()
-            .loginPage("/login.html")
-            .loginProcessingUrl("/perform_login")
-            .defaultSuccessUrl("/homepage.html", true)
-            .failureUrl("/login.html?error=true")
-            .and()
-            .logout()
-            .logoutUrl("/perform_logout")
-            .deleteCookies("JSESSIONID");
-        http.formLogin()
-            .loginPage("/login.html")
-            .loginProcessingUrl("/perform_login")
-            .defaultSuccessUrl("/homepage.html",true)
-            .failureUrl("/login.html?error=true");
-     }
+            .httpBasic();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
 }
