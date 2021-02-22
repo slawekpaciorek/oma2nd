@@ -28,13 +28,13 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp(){
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Product ").executeUpdate();
-        session.getTransaction().commit();
     }
 
     @AfterEach
     public void cleanUp(){
+        session.beginTransaction();
+        session.createQuery("delete Product ").executeUpdate();
+        session.getTransaction().commit();
         session.close();
     }
 

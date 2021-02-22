@@ -6,6 +6,7 @@ import com.oma.dao.UserDAO;
 import com.oma.dao.UserDAOImplementation;
 import com.oma.model.Address;
 import com.oma.model.Company;
+import com.oma.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,9 @@ public class CompanyServiceImplementation implements CompanyService {
         return companyDAO.getAllWithAddresses();
     }
 
+    @Override
+    @Transactional
+    public List<User> getUsersForCompany(Long id) {
+        return userDAO.getUsersForCompany(id);
+    }
 }

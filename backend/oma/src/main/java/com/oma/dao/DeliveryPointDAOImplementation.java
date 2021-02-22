@@ -57,6 +57,13 @@ public class DeliveryPointDAOImplementation implements DeliveryPointDAO {
         session.remove(temp);
     }
 
+    @Override
+    @Transactional
+    public List<DeliveryPoint> getDeliveryPointsForUser(long id) {
+        Session session = getSession();
+        return session.createQuery("from DeliveryPoint d where d.createdBy.id = :userId").setParameter("userId" , id).getResultList();
+    }
+
     protected Session getSession(){
         return sessionFactory.getCurrentSession();
     }

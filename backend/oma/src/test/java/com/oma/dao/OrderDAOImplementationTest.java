@@ -142,6 +142,6 @@ class OrderDAOImplementationTest {
     }
 
     private ProductsOrder returnDefaultOrder() {
-        return new ProductsOrder(LocalDate.now(), OrderStatus.not_approved,"info about order", new Random().nextInt(1000));
+        return new ProductsOrder(LocalDate.now(), OrderStatus.not_approved,"info about order");
     }
 }

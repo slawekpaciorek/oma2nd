@@ -27,4 +27,9 @@ public class Price {
     private double value;
 
 
+    public Price(Company company, Product product, double value) {
+        this.company = company;
+        this.product = product;
+        this.value = value;
+    }
 }

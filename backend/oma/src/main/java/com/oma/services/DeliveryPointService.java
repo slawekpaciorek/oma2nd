@@ -13,5 +13,5 @@ public interface DeliveryPointService {
     void saveDeliveryPoint(DeliveryPoint deliveryPoint);
     void updateDeliveryPoint(long id, DeliveryPoint deliveryPoint);
     void removeDeliveryPoint(long id);
-
+    List<DeliveryPoint> getGetDeliveryPointsForUser(long id);
 }
