@@ -94,9 +94,7 @@ class OrderDAOImplementationTest {
         ProductsOrder expectedAfterUpdate = returnDefaultOrder();
 
         //  when
-        if(order.equals(expectedAfterUpdate)){
-            shouldUpdateOrder();
-        }
+        expectedAfterUpdate.setStatus(OrderStatus.approved);
         orderDao.saveOrder(order);
         long id = order.getId();
         orderDao.updateOrder(id, expectedAfterUpdate);
