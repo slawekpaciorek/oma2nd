@@ -98,7 +98,14 @@ public class ProductsOrder {
         if (this == o) return true;
         if (!(o instanceof ProductsOrder)) return false;
         ProductsOrder order = (ProductsOrder) o;
-        return Double.compare(order.summaryValue, summaryValue) == 0 && Objects.equals(deliveryPoint, order.deliveryPoint) && Objects.equals(createdBy, order.createdBy) && Objects.equals(approvedBy, order.approvedBy) && status == order.status && Objects.equals(createdAt, order.createdAt) && Objects.equals(info, order.info);
+        return
+                Double.compare(order.summaryValue, summaryValue) == 0
+                        && Objects.equals(deliveryPoint, order.deliveryPoint)
+                        && Objects.equals(createdBy, order.createdBy)
+                        && Objects.equals(approvedBy, order.approvedBy)
+                        && status == order.status
+                        && Objects.equals(createdAt, order.createdAt)
+                        && Objects.equals(info, order.info);
     }
 
     @Override
@@ -114,5 +121,16 @@ public class ProductsOrder {
     public void addProductToProducts(OrderItem orderItem){
         basket.add(orderItem);
         summaryValue += orderItem.getSummaryValue();
+    }
+
+    public void setCreatedBy(User user){
+        this.createdBy = user;
+        if(user.getPrivileges().equals(UserPrivileges.manager)){
+            this.approvedBy = user;
+            this.status = OrderStatus.approved;
+        }else{
+            this.approvedBy = null;
+            this.status = OrderStatus.not_approved;
+        }
     }
 }

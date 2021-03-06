@@ -1,14 +1,18 @@
 package com.oma.services;
 
+import com.oma.dao.UserDAO;
 import com.oma.model.*;
+import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,20 +34,48 @@ class OrderServiceImplementationTest {
     @Autowired
     private SessionFactory sessionFactory;
 
+    private List<Product> products;
+
     @BeforeEach
     void setUp() {
+
         clearDB();
-        Company comp = new Company("Company", "900900900", new Address("Street", "ZipCode", "City"));
-        User user = new User("Name", "Username", "manager",100100100);
-        comp.addUser(user);
-        DeliveryPoint deliveryPoint = new DeliveryPoint("PKiN", new Address("Plac Defilad 1", "00-129", "Wrszawa"));
-        deliveryPoint.setCreatedBy(user);
-        deliveryPoint.setCompany(comp);
-        Product product = new Product("G482 1l", "BUG482001", "BUG4822001");
-        Price price = new Price(comp, product, 13.50);
-        companyService.saveCompany(comp);
-        deliveryPointService.saveDeliveryPoint(deliveryPoint);
-        priceService.savePrice(price);
+        setProductsForTest();
+        int arrayLength = returnPositiveIntHigherThanThreeAndLessThanBoundary(5);
+
+        List<Company> companies = new ArrayList<>();
+        for(int i = 0; i < arrayLength; i++){
+            companies.add(generateRandomCompany());
+        }
+
+        List<User> users = new ArrayList<>();
+        for (int i = 0;i < arrayLength; i++){
+            users.add(generateRandomUser());
+            companies.get(i).addUser(users.get(i));
+        }
+
+        List<DeliveryPoint> deliveryPoints = new ArrayList<>();
+        for(int i = 0; i < arrayLength*arrayLength; i++){
+            deliveryPoints.add(generateRandomDeliveryPoint());
+        }
+        for(int i = deliveryPoints.size()-1; i >= 0 ; i = i - 3){
+            deliveryPoints.get(i).setCreatedBy(users.get(i/arrayLength));
+            deliveryPoints.get(i-1).setCreatedBy(users.get(i/arrayLength));
+            deliveryPoints.get(i-2).setCreatedBy(users.get(i/arrayLength));
+        }
+
+        List<Price> priceList = new ArrayList<>();
+
+        for(Company company : companies){
+            for(Product product : products){
+                priceList.add(new Price(company, product, Math.abs(new Random().nextDouble())));
+            }
+        }
+
+        companies.forEach(x -> companyService.saveCompany(x));
+        deliveryPoints.forEach(x -> deliveryPointService.saveDeliveryPoint(x));
+        priceList.forEach(x -> priceService.savePrice(x));
+
     }
 
     @AfterEach
@@ -56,58 +88,133 @@ class OrderServiceImplementationTest {
         //  given
         ProductsOrder order = new ProductsOrder();
         List<OrderItem> basket = new ArrayList<>();
+        List<Company> companies = companyService.getAllCompany();
+        Company company = companies.get(Math.abs(new Random().nextInt(companies.size())));
+        List<User> users = companyService.getUsersForCompany(company.getId());
+        User user = users.get(Math.abs(new Random().nextInt(users.size())));
+        List<DeliveryPoint> deliveryPoints = deliveryPointService.getGetDeliveryPointsForUser(user.getId());
+        DeliveryPoint deliveryPoint = deliveryPoints.get(Math.abs(new Random().nextInt(deliveryPoints.size())));
+        List<Price> priceList = priceService.getPrices().stream().filter((x->x.getCompany().equals(company))).collect(Collectors.toList());
 
-        //  when
-        Company company = companyService
-                .getAllCompany()
-                .get(0);
-        User user = companyService
-                .getUsersForCompany(company.getId())
-                .stream().filter(x->x.getPrivileges().equals(UserPrivileges.manager))
-                .findAny().get();
-        DeliveryPoint deliveryPoint = deliveryPointService
-                .getGetDeliveryPointsForUser(user.getId())
-                .get(0);
-        List<Price> prices = priceService
-                .getPrices()
-                .stream().filter(x->x.getCompany().equals(company))
-                .collect(Collectors.toList());
-        prices.forEach(x -> basket.add(new OrderItem(x, new Random().nextInt(100))));
+//        when
+        for(Price price : priceList){
+            basket.add(new OrderItem(price, new Random().nextInt(10)));
+        }
         order.setBasket(basket);
-        //  then
+        order.setCompany(company);
+        order.setCreatedBy(user);
+        order.setInfo("new order");
+        order.setDeliveryPoint(deliveryPoint);
+        order.setCreatedAt(LocalDate.now());
+
         orderService.saveOrder(order);
-        ProductsOrder result = orderService.getOrderById(order.getId());
-        assertTrue(order.equals(result));
+        List<ProductsOrder> resultList = orderService.getOrders();
 
+//        then
+        assertTrue(resultList.contains(order));
+    }
 
+    @Test
+    void shouldSaveOrders(){
+//        given
+        List<Company> companies = companyService.getAllCompany();
+        List<ProductsOrder> expected = new ArrayList<>();
+
+//        when
+        for(Company company : companies){
+            ProductsOrder order = new ProductsOrder();
+            List<OrderItem> basket = new ArrayList<>();
+            List<User> users = companyService.getUsersForCompany(company.getId());
+            User randomUser = users.get(Math.abs(new Random().nextInt(users.size())));
+            List<DeliveryPoint> deliveryPoints = deliveryPointService.getGetDeliveryPointsForUser(randomUser.getId());
+            DeliveryPoint deliveryPoint = deliveryPoints.get(Math.abs(new Random().nextInt(deliveryPoints.size())));
+            List<Price> priceList = priceService.getPrices().stream().filter(x->x.getCompany().equals(company)).collect(Collectors.toList());
+            for(Price product : priceList){
+                basket.add(new OrderItem(product, Math.abs(new Random().nextInt(10))));
+            }
+            order.setCreatedAt(LocalDate.now());
+            order.setCreatedBy(randomUser);
+            order.setCompany(company);
+            order.setDeliveryPoint(deliveryPoint);
+            order.setBasket(basket);
+            order.setInfo("Orderd for " + order.getCompany().getName() +", createdBy : " + order.getCreatedBy().getUsername() + ", delivery point : " + order.getDeliveryPoint().getName() + ", summary value : " + order.getSummaryValue());
+
+            orderService.saveOrder(order);
+            expected.add(order);
+        }
+
+        List<ProductsOrder> result = orderService.getOrders();
+
+//        then
+        assertEquals(expected, result);
     }
 
     private void clearDB() {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Price").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete Product ").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete User ").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete DeliveryPoint ").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete Company").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete ProductsOrder ").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete OrderItem ").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete Address ").executeUpdate();
-        session.getTransaction().commit();
+        clearTable(session, "Price");
+        clearTable(session, "Product");
+        clearTable(session, "User");
+        clearTable(session, "DeliveryPoint");
+        clearTable(session, "Company");
+        clearTable(session, "ProductsOrder");
+        clearTable(session, "OrderItem");
+        clearTable(session, "Address");
         session.close();
+    }
+
+    private void clearTable(Session session, String tableName){
+        session.beginTransaction();
+        session.createQuery("delete " + tableName).executeUpdate();
+        session.getTransaction().commit();
+    }
+
+    private Price createRandomPrice(Product product, Company company){
+        return new Price(company, product, new Random().nextInt(20));
+    }
+
+    private void setProductsForTest(){
+        products = new ArrayList<>();
+        products.add(new Product("Plybuz 1l T201", "BUT201", "BUT201001"));
+        products.add(new Product("Perfekt 1l G444", "BUG444", "BUG444001"));
+        products.add(new Product("Aktiv 1l G433", "BUG433", "BUG433001"));
+        products.add(new Product("Bucasan Trendy 1l T464", "BUT464", "BUT464001"));
+        products.add(new Product("Erol 1l G490", "BUG490", "BUG490001"));
+        products.add(new Product("Erol Cid 1l G491", "BUG491", "BUG491001"));
+        products.add(new Product("Metapol G505", "BUG505", "BUG5050006"));
+        products.add(new Product("Metasoft G506", "BUG506", "BUG5060006"));
+        products.add(new Product("Vario Clean 1l T560", "BUT560", "BUT560001"));
+        products.add(new Product("Bistro G435", "BUG435", "BUG435001"));
+        products.add(new Product("Profiglass 600ml G522", "BUG522", "BUG5220006"));
+        products.add(new Product("Buzwindowmaster 1l G525", "BUG525", "BUG235001"));
+    }
+
+    private Company generateRandomCompany(){
+        return new Company("company-" + generateRandomString(), "taxId-" + generateRandomString(),generateRandomAddress());
+    }
+
+    private Address generateRandomAddress() {
+        return new Address("street-" + generateRandomString(), "code-" + generateRandomString(), "city-" + generateRandomString());
+    }
+
+    private User generateRandomUser(){
+        return new User("name-" + generateRandomString(), "user-" + generateRandomString(), "manager", Math.abs(new Random().nextInt(1000000000)));
+    }
+
+    private DeliveryPoint generateRandomDeliveryPoint() {
+        return new DeliveryPoint("name-" + generateRandomString(), generateRandomAddress());
+    }
+
+    private String generateRandomString(){
+
+        return RandomString.make(10);
+
+    }
+
+    private int returnPositiveIntHigherThanThreeAndLessThanBoundary(int boundary){
+        int result = 0;
+        while(result < 3){
+            result = Math.abs(new Random().nextInt(boundary));
+        }
+        return result;
     }
 }

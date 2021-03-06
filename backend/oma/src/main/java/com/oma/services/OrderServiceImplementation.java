@@ -1,9 +1,11 @@
 package com.oma.services;
 
 import com.oma.dao.OrderDao;
+import com.oma.dao.ProductListDAO;
 import com.oma.model.ProductsOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +14,9 @@ public class OrderServiceImplementation implements OrderService{
 
     @Autowired
     OrderDao orderDao;
+
+    @Autowired
+    ProductListDAO productListDAO;
 
     @Override
     public ProductsOrder getOrderById(long id) {
@@ -24,7 +29,11 @@ public class OrderServiceImplementation implements OrderService{
     }
 
     @Override
+    @Transactional
     public void saveOrder(ProductsOrder order) {
+        if(order.getBasket()!=null){
+            order.getBasket().forEach(x -> productListDAO.saveProductList(x));
+        }
         orderDao.saveOrder(order);
     }
 

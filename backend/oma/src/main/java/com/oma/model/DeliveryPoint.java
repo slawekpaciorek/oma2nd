@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -50,7 +51,7 @@ public class DeliveryPoint {
         return "DeliveryPoint{" +
                 "name='" + name + '\'' +
                 ", address=" + address +
-                ", company=" + company +
+                ", company=" + Optional.ofNullable(company) +
                 '}';
     }
 
@@ -59,7 +60,7 @@ public class DeliveryPoint {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeliveryPoint that = (DeliveryPoint) o;
-        return Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(company, that.company);
+        return Objects.equals(name, that.name) && Objects.equals(address, that.address);
     }
 
     @Override
