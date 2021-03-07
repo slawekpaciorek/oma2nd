@@ -1,13 +1,11 @@
 package com.oma.services;
 
-import com.oma.dao.UserDAO;
 import com.oma.model.*;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +16,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class OrderServiceImplementationTest {
@@ -55,13 +54,15 @@ class OrderServiceImplementationTest {
         }
 
         List<DeliveryPoint> deliveryPoints = new ArrayList<>();
+
         for(int i = 0; i < arrayLength*arrayLength; i++){
             deliveryPoints.add(generateRandomDeliveryPoint());
         }
-        for(int i = deliveryPoints.size()-1; i >= 0 ; i = i - 3){
-            deliveryPoints.get(i).setCreatedBy(users.get(i/arrayLength));
-            deliveryPoints.get(i-1).setCreatedBy(users.get(i/arrayLength));
-            deliveryPoints.get(i-2).setCreatedBy(users.get(i/arrayLength));
+
+        for(int i = deliveryPoints.size()-1; i >= 0 ; i = i - arrayLength){
+            for(int j = i; j > i - arrayLength; j--){
+                deliveryPoints.get(j).setCreatedBy(users.get(i/arrayLength));
+            }
         }
 
         List<Price> priceList = new ArrayList<>();
