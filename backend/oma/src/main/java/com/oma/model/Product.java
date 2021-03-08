@@ -31,10 +31,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Price> prices;
 
-    public Product(String name, String tradeId, String catalogId) {
+    public Product(String name, String tradeId, String catalogId, String categoryName) {
         this.name = name;
         this.tradeId = tradeId;
         this.catalogId = catalogId;
+        this.categoryName = categoryName;
     }
 
     @Override

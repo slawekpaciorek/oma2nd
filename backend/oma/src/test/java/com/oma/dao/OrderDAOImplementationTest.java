@@ -1,7 +1,10 @@
 package com.oma.dao;
 
+import com.oma.model.User;
 import com.oma.model.OrderStatus;
 import com.oma.model.ProductsOrder;
+import com.oma.services.UserService;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -18,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class OrderDAOImplementationTest {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     OrderDao orderDao;
@@ -37,6 +43,10 @@ class OrderDAOImplementationTest {
         //  given
         ProductsOrder productsOrder = returnDefaultOrder();
         session = returnSession();
+        User user = new User(getDefaultString(), getDefaultString(),"manager", 100100100);
+        userService.addUser(user);
+        productsOrder.setCreatedBy(user);
+
 
         //  when
         orderDao.saveOrder(productsOrder);
@@ -125,6 +135,7 @@ class OrderDAOImplementationTest {
     private void resetDB(){
         cleanTable("DeliveryPoint");
         cleanTable("ProductsOrder");
+        cleanTable("User");
     }
 
     private void cleanTable(String tableName) {
@@ -141,5 +152,9 @@ class OrderDAOImplementationTest {
 
     private ProductsOrder returnDefaultOrder() {
         return new ProductsOrder(LocalDate.now(), OrderStatus.not_approved,"info about order");
+    }
+
+    private String getDefaultString() {
+        return new RandomString().nextString();
     }
 }

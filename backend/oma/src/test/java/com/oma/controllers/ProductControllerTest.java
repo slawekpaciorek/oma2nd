@@ -1,10 +1,9 @@
 package com.oma.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oma.model.Product;
-import com.oma.model.ProductsOrder;
 import com.oma.services.ProductService;
+import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -16,10 +15,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -167,6 +164,9 @@ public class ProductControllerTest {
     }
 
     private Product generateProduct(int counter) {
-        return new Product(counter + " .Product - " + hashCode(), String.valueOf(hashCode()), String.valueOf(hashCode()));
+        return new Product(counter + " .Product - " + hashCode(),
+                String.valueOf(hashCode()),
+                String.valueOf(hashCode()),
+                new RandomString().nextString());
     }
 }

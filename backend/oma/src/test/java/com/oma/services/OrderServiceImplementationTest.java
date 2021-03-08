@@ -175,18 +175,18 @@ class OrderServiceImplementationTest {
 
     private void setProductsForTest(){
         products = new ArrayList<>();
-        products.add(new Product("Plybuz 1l T201", "BUT201", "BUT201001"));
-        products.add(new Product("Perfekt 1l G444", "BUG444", "BUG444001"));
-        products.add(new Product("Aktiv 1l G433", "BUG433", "BUG433001"));
-        products.add(new Product("Bucasan Trendy 1l T464", "BUT464", "BUT464001"));
-        products.add(new Product("Erol 1l G490", "BUG490", "BUG490001"));
-        products.add(new Product("Erol Cid 1l G491", "BUG491", "BUG491001"));
-        products.add(new Product("Metapol G505", "BUG505", "BUG5050006"));
-        products.add(new Product("Metasoft G506", "BUG506", "BUG5060006"));
-        products.add(new Product("Vario Clean 1l T560", "BUT560", "BUT560001"));
-        products.add(new Product("Bistro G435", "BUG435", "BUG435001"));
-        products.add(new Product("Profiglass 600ml G522", "BUG522", "BUG5220006"));
-        products.add(new Product("Buzwindowmaster 1l G525", "BUG525", "BUG235001"));
+        products.add(new Product("Plybuz 1l T201", "BUT201", "BUT201001", "chemia prof"));
+        products.add(new Product("Perfekt 1l G444", "BUG444", "BUG444001", "chemia prof"));
+        products.add(new Product("Aktiv 1l G433", "BUG433", "BUG433001", "chemia prof"));
+        products.add(new Product("Bucasan Trendy 1l T464", "BUT464", "BUT464001", "chemia prof"));
+        products.add(new Product("Erol 1l G490", "BUG490", "BUG490001", "chemia prof"));
+        products.add(new Product("Erol Cid 1l G491", "BUG491", "BUG491001", "chemia prof"));
+        products.add(new Product("Metapol G505", "BUG505", "BUG5050006", "chemia prof"));
+        products.add(new Product("Metasoft G506", "BUG506", "BUG5060006", "chemia prof"));
+        products.add(new Product("Vario Clean 1l T560", "BUT560", "BUT560001", "chemia prof"));
+        products.add(new Product("Bistro G435", "BUG435", "BUG435001", "chemia prof"));
+        products.add(new Product("Profiglass 600ml G522", "BUG522", "BUG5220006", "chemia prof"));
+        products.add(new Product("Buzwindowmaster 1l G525", "BUG525", "BUG235001", "chemia prof"));
     }
 
     private Company generateRandomCompany(){

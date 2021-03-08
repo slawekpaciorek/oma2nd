@@ -138,7 +138,7 @@ public class ProductDAOImplementationTest {
     }
 
     private Product randomProduct(){
-        return new Product("Product-" + hashCode(),String.valueOf(hashCode()),String.valueOf(hashCode()));
+        return new Product("Product-" + hashCode(),String.valueOf(hashCode()),String.valueOf(hashCode()), "category");
     }
 
 }

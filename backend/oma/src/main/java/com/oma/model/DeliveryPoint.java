@@ -1,8 +1,10 @@
 package com.oma.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.Optional;
 @NoArgsConstructor
 //@RequiredArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class DeliveryPoint {
 
     @Id
@@ -40,6 +44,12 @@ public class DeliveryPoint {
     public DeliveryPoint(String name, Address address) {
         this.setName(name);
         this.setAddress(address);
+    }
+
+    public DeliveryPoint(String name, Address address, User user){
+        this.setName(name);
+        this.setAddress(address);
+        this.setCreatedBy(user);
     }
 
     public DeliveryPoint(String name) {
