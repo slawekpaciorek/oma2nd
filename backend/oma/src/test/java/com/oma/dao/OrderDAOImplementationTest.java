@@ -8,6 +8,7 @@ import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,16 +33,16 @@ class OrderDAOImplementationTest {
     private SessionFactory sessionFactory;
     private Session session;
 
-    @AfterEach
-    void tearDown() {
+    @BeforeEach
+    void setUp() {
         resetDB();
     }
 
     @Test
     void shouldSaveOrder() {
 
-        //  given
         ProductsOrder productsOrder = returnDefaultOrder();
+        //  given
         session = returnSession();
         User user = new User(getDefaultString(), getDefaultString(),"manager", 100100100);
         userService.addUser(user);
