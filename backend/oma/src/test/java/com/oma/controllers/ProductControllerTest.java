@@ -7,6 +7,7 @@ import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,8 +41,8 @@ public class ProductControllerTest {
     private Session session;
     private int expectedStatus = 200;
 
-    @AfterEach
-    public void tearDown(){
+    @BeforeEach
+    public void setUp(){
         resetDB("Product");
     }
 

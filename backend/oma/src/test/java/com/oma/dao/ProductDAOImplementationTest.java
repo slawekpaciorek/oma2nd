@@ -4,6 +4,7 @@ import com.oma.model.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,8 +25,8 @@ public class ProductDAOImplementationTest {
 
     private Session session;
 
-    @AfterEach
-    public void tearDown(){
+    @BeforeEach
+    public void setUp(){
         cleanDB();
     }
 
