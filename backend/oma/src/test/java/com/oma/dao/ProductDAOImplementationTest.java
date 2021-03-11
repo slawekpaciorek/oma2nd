@@ -1,6 +1,7 @@
 package com.oma.dao;
 
 import com.oma.model.Product;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -41,7 +42,7 @@ public class ProductDAOImplementationTest {
         long id = product.getId();
         session = returnSession();
         startTransaction(session);
-        List<Product> resultList = session.createQuery("from Product").getResultList();
+        List<Product> resultList = session.createQuery("from Product", Product.class).getResultList();
         commitTransaction(session);
         session.close();
 
@@ -130,16 +131,15 @@ public class ProductDAOImplementationTest {
         session.getTransaction().commit();
     }
 
-    private void cleanDB(){
-        session = returnSession();
-        startTransaction(session);
-        session.createQuery("delete Product").executeUpdate();
-        commitTransaction(session);
-        session.close();
-    }
-
     private Product randomProduct(){
         return new Product("Product-" + hashCode(),String.valueOf(hashCode()),String.valueOf(hashCode()), "category");
+    }
+
+    private void cleanDB(){
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Product"});
+        dbCleaner.cleanDB();
     }
 
 }

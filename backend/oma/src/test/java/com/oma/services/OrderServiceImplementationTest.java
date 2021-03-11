@@ -1,6 +1,7 @@
 package com.oma.services;
 
 import com.oma.model.*;
+import com.oma.utils.DBCleaner;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -151,16 +152,10 @@ class OrderServiceImplementationTest {
     }
 
     private void clearDB() {
-        Session session = sessionFactory.openSession();
-        clearTable(session, "Price");
-        clearTable(session, "Product");
-        clearTable(session, "User");
-        clearTable(session, "DeliveryPoint");
-        clearTable(session, "Company");
-        clearTable(session, "ProductsOrder");
-        clearTable(session, "OrderItem");
-        clearTable(session, "Address");
-        session.close();
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Price", "Product", "User", "DeliveryPoint", "Company", "ProductsOrder", "OrderItem", "Address"});
+        dbCleaner.cleanDB();
     }
 
     private void clearTable(Session session, String tableName){

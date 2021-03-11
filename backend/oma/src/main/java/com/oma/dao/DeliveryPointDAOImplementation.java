@@ -29,7 +29,7 @@ public class DeliveryPointDAOImplementation implements DeliveryPointDAO {
     @Transactional
     public List<DeliveryPoint> getAllDeliveryPoints() {
         Session session = getSession();
-        return session.createQuery("from DeliveryPoint ").getResultList();
+        return session.createQuery("from DeliveryPoint ", DeliveryPoint.class).getResultList();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.oma.model.User;
 import com.oma.model.OrderStatus;
 import com.oma.model.ProductsOrder;
 import com.oma.services.UserService;
+import com.oma.utils.DBCleaner;
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -74,7 +75,6 @@ class OrderDAOImplementationTest {
         //  then
         assertEquals(order, result);
 
-
     }
 
     @Test
@@ -134,17 +134,10 @@ class OrderDAOImplementationTest {
     }
 
     private void resetDB(){
-        cleanTable("DeliveryPoint");
-        cleanTable("ProductsOrder");
-        cleanTable("User");
-    }
-
-    private void cleanTable(String tableName) {
-        session = returnSession();
-        session.beginTransaction();
-        session.createQuery("delete " + tableName).executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"DeliveryPoint", "ProductsOrder", "User"});
+        dbCleaner.cleanDB();
     }
 
     private Session returnSession() {

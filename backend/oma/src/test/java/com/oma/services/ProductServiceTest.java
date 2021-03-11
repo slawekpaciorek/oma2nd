@@ -1,6 +1,7 @@
 package com.oma.services;
 
 import com.oma.model.Product;
+import com.oma.utils.DBCleaner;
 import org.assertj.core.util.Arrays;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,13 +29,11 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp(){
         session = sessionFactory.openSession();
+        cleanDB();
     }
 
     @AfterEach
-    public void cleanUp(){
-        session.beginTransaction();
-        session.createQuery("delete Product ").executeUpdate();
-        session.getTransaction().commit();
+    public void tearDown(){
         session.close();
     }
 
@@ -123,4 +122,11 @@ public class ProductServiceTest {
                 productService.getProductByCatNumber(product.getCatalogId()));
     }
 
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Product"});
+        dbCleaner.cleanDB();
+    }
 }
