@@ -10,6 +10,7 @@ import com.oma.model.Company;
 import com.oma.model.User;
 import com.oma.model.DeliveryPoint;
 import com.oma.services.*;
+import com.oma.utils.DBCleaner;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -58,12 +59,7 @@ class DeliveryPointControllerTest {
     @BeforeEach
     void tearDown() {
         counter = 0;
-        session = sessionFactory.openSession();
-        resetAddressTable(session);
-        resetUserTable(session);
-        resetDeliveryPointTable(session);
-        resetCompanyTable(session);
-        session.close();
+        cleanDB();
         Company company = new Company(getDefaultString(), getDefaultString(), new Address(getDefaultString(), getDefaultString(), getDefaultString()));
         User user = new User(getDefaultString(),getDefaultString(),"manager", 900900900);
         company.addUser(user);
@@ -168,30 +164,6 @@ class DeliveryPointControllerTest {
         return deliveryPoint;
     }
 
-    private void resetDeliveryPointTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete DeliveryPoint").executeUpdate();
-        session.getTransaction().commit();
-    }
-
-    private void resetAddressTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete Address ").executeUpdate();
-        session.getTransaction().commit();
-    }
-
-    private void resetUserTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete User").executeUpdate();
-        session.getTransaction().commit();
-    }
-
-    private void resetCompanyTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete Company ").executeUpdate();
-        session.getTransaction().commit();
-    }
-
     private <T>T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
         return new ObjectMapper().readValue(content, resultClass);
     }
@@ -202,5 +174,12 @@ class DeliveryPointControllerTest {
 
     private String getDefaultString() {
         return new RandomString().nextString();
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company", "User", "DeliveryPoint", "Address"});
+        dbCleaner.cleanDB();
     }
 }

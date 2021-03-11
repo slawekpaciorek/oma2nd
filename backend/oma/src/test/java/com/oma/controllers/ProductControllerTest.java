@@ -3,10 +3,10 @@ package com.oma.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oma.model.Product;
 import com.oma.services.ProductService;
+import com.oma.utils.DBCleaner;
 import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class ProductControllerTest {
 
     @BeforeEach
     public void setUp(){
-        resetDB("Product");
+        cleanDB();
     }
 
     @Test
@@ -130,13 +130,11 @@ public class ProductControllerTest {
         assertThrows(EmptyResultDataAccessException.class, () -> productService.getProductByID(id));
     }
 
-    private void resetDB(String tableName) {
-        session = returnSession();
-        startTransaction(session);
-        session.createQuery("delete " + tableName).executeUpdate();
-        commitTransaction(session);
-        session.close();
-
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Product"});
+        dbCleaner.cleanDB();
     }
 
     private void startTransaction(Session session) {

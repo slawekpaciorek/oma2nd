@@ -8,6 +8,7 @@ import com.oma.model.Address;
 import com.oma.model.Company;
 import com.oma.model.User;
 import com.oma.services.CompanyService;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -45,9 +46,7 @@ public class CompanyControllerTest {
     @BeforeEach
     void setUp() {
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Company").executeUpdate();
-        session.getTransaction().commit();
+        cleanDB();
     }
 
     @AfterEach
@@ -78,6 +77,13 @@ public class CompanyControllerTest {
             assertTrue(companies.contains(company));
         }
 
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company"});
+        dbCleaner.cleanDB();
     }
 
     @Test

@@ -10,6 +10,7 @@ import com.oma.model.Company;
 import com.oma.model.User;
 import com.oma.services.CompanyService;
 import com.oma.services.UserService;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,16 +55,7 @@ class UserControllerTest {
     void setUp() {
         user = new User("userName", "userName@user", "operator", 900900900);
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Company").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete Address").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete User").executeUpdate();
-        session.getTransaction().commit();
-//        session.getTransaction().commit();
+        cleanDB();
         companyService.saveCompany(
                 new Company("companyUserTest", "000000000", new Address("streetUserTest","zipCodeUserTest", "cityUserTest"))
         );
@@ -146,5 +138,12 @@ class UserControllerTest {
 
     private Company returnTestCompany(){
         return companyService.getAllWithAddresses().get(0);
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company", "User", "Address"});
+        dbCleaner.cleanDB();
     }
 }
