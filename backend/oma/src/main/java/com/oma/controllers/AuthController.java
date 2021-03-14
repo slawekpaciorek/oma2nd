@@ -1,6 +1,7 @@
 package com.oma.controllers;
 
 import com.oma.model.ERole;
+import com.oma.security.AuthenticationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
