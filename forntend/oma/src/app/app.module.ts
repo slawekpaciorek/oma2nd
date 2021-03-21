@@ -15,6 +15,8 @@ import { CompanyListComponent } from './component/company-list/company-list.comp
 import {CommonModule} from '@angular/common';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { DemoSetupComponent } from './component/demo-setup/demo-setup.component';
+import {ConfigurationService} from './services/configuration.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     FooterComponent,
     HeaderComponent,
     CompanyListComponent,
-    CompanyFormComponent
+    CompanyFormComponent,
+    DemoSetupComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +36,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
+      {path: '', component: MainViewComponent},
+      {path: 'demo', component: DemoSetupComponent},
       {path: 'user-view', component: UserViewComponent},
       {path: 'admin-view', component: AdminViewComponent},
       {path: 'company', component: CompanyListComponent},
@@ -41,7 +46,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     ]),
     HttpClientModule
   ],
-  providers: [CompanyService],
+  providers: [CompanyService, ConfigurationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
