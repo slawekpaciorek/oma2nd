@@ -14,7 +14,14 @@ import {CompanyService} from './services/company.service';
 import { CompanyListComponent } from './component/company-list/company-list.component';
 import {CommonModule} from '@angular/common';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoginComponent} from "./login/login.component";
+import {UserComponent} from "./user/user.component";
+import {RegisterComponent} from "./register/register.component";
+import {HomeComponent} from "./home/home.component";
+import {AdminComponent} from "./admin/admin.component";
+import {PmComponent} from "./pm/pm.component";
+import {httpInterceptorProviders} from "./auth/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -25,7 +32,13 @@ import {ReactiveFormsModule} from '@angular/forms';
     FooterComponent,
     HeaderComponent,
     CompanyListComponent,
-    CompanyFormComponent
+    CompanyFormComponent,
+    LoginComponent,
+    UserComponent,
+    RegisterComponent,
+    HomeComponent,
+    AdminComponent,
+    PmComponent
   ],
   imports: [
     CommonModule,
@@ -39,9 +52,13 @@ import {ReactiveFormsModule} from '@angular/forms';
       {path: 'company/all-companies', component: CompanyListComponent},
       {path: 'company/add', component: CompanyFormComponent}
     ]),
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
     HttpClientModule
   ],
-  providers: [CompanyService],
+  providers: [CompanyService, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
