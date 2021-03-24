@@ -21,6 +21,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
+          <factory-entry name="oma" value="b22084b4-1230-42be-82f6-d3206fa5414f" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
