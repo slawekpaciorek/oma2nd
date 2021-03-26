@@ -28,7 +28,7 @@ public class Product {
     @Column
     private String categoryName;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<Price> prices;
 
     public Product(String name, String tradeId, String catalogId, String categoryName) {

@@ -12,7 +12,7 @@ export class ConfigurationService {
   isConfigured: boolean = false;
 
   demoSetup(): void{
-    if(this.isConfigured===true) {
+    if(this.isConfigured===false) {
       console.log("start demo config");
       this.httpClient.get("http://localhost:8080/demo").subscribe();
       console.log("finish demo config");

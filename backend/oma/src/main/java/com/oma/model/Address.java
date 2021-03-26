@@ -44,6 +44,13 @@ public class Address {
         this.streetNameAndNumber = streetName;
     }
 
+    public Address(String street, String zipCode, String city, int mobilePhoneNumber) {
+        this.streetNameAndNumber = street;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
