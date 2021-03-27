@@ -2,8 +2,13 @@ package com.oma.dao;
 
 import com.oma.model.Address;
 import com.oma.model.DeliveryPoint;
+import com.oma.model.User;
+import com.oma.services.UserService;
+import com.oma.utils.DBCleaner;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,13 +35,16 @@ class DeliveryPointDAOImplementationTest {
     @Autowired
     DeliveryPointDAOImplementation deliveryPointDAOImplementation;
 
-    @AfterEach
-    void tearDown() {
-        Session session = getSession();
-        startTransaction(session);
-        session.createQuery("delete DeliveryPoint ").executeUpdate();
-        commitTransaction(session);
-        closeSession(session);
+    @Autowired
+    UserService userService;
+
+    private List<User> users;
+
+    @BeforeEach
+    void setUp() {
+        cleanDB();
+        userService.addUser(new User(RandomString.make(6),RandomString.make(6), "manager", 100100100 ));
+        users = userService.getAllUser();
     }
 
     @Test
@@ -67,6 +76,7 @@ class DeliveryPointDAOImplementationTest {
         deliveryPoints.add(temp3);
         deliveryPoints.add(temp2);
         for(DeliveryPoint deliveryPoint : deliveryPoints){
+            deliveryPoint.setCreatedBy(users.get(Math.abs(new Random().nextInt(users.size()))));
             startTransaction(session);
             session.saveOrUpdate(deliveryPoint);
             commitTransaction(session);
@@ -82,6 +92,7 @@ class DeliveryPointDAOImplementationTest {
 //        given
         DeliveryPoint deliveryPoint = new DeliveryPoint("savingDPTest");
 //        when
+        deliveryPoint.setCreatedBy(users.get(Math.abs(new Random().nextInt(users.size()))));
         deliveryPointDAOImplementation.saveDeliveryPoint(deliveryPoint);
         List<DeliveryPoint> resultList = deliveryPointDAOImplementation.getAllDeliveryPoints();
 //        then
@@ -130,5 +141,12 @@ class DeliveryPointDAOImplementationTest {
 
     private void commitTransaction(Session session){
         session.getTransaction().commit();
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"DeliveryPoint", "User"});
+        dbCleaner.cleanDB();
     }
 }

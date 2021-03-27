@@ -1,15 +1,15 @@
 package com.oma.services;
 
-import com.oma.model.ProductList;
+import com.oma.model.OrderItem;
 
 import java.util.List;
 
 public interface ProductListService {
 
-    ProductList getProductListById(long id);
-    List<ProductList> getProductsList();
-    void saveProductList(ProductList productList);
-    void updateProductList(long id, ProductList productList);
+    OrderItem getProductListById(long id);
+    List<OrderItem> getProductsList();
+    void saveProductList(OrderItem orderItem);
+    void updateProductList(long id, OrderItem orderItem);
     void removeProductList(long id);
 
 }

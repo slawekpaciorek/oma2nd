@@ -1,6 +1,7 @@
 package com.oma.services;
 
 import com.oma.model.Address;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -30,9 +31,10 @@ public class AddressServiceTest {
     @BeforeEach
     public void cleanDB(){
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Address ").executeUpdate();
-        session.getTransaction().commit();
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Address"});
+        dbCleaner.cleanDB();
     }
 
     @AfterEach

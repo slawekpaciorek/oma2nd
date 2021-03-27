@@ -15,8 +15,6 @@ import { CompanyListComponent } from './component/company-list/company-list.comp
 import {CommonModule} from '@angular/common';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import { LoginComponent } from './component/login/login.component';
-import {LoginService} from './service/login.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +26,8 @@ import {LoginService} from './service/login.service';
     HeaderComponent,
     CompanyListComponent,
     CompanyFormComponent,
+    DemoSetupComponent,
+    CompanyFormComponent,
     LoginComponent
   ],
   imports: [
@@ -37,6 +37,8 @@ import {LoginService} from './service/login.service';
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
+      {path: '', component: MainViewComponent},
+      {path: 'demo', component: DemoSetupComponent},
       {path: 'user-view', component: UserViewComponent},
       {path: 'admin-view', component: AdminViewComponent},
       {path: 'company', component: CompanyListComponent},
@@ -45,7 +47,7 @@ import {LoginService} from './service/login.service';
     ]),
     HttpClientModule
   ],
-  providers: [CompanyService, LoginService],
+  providers: [CompanyService, LoginService,ConfigurationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

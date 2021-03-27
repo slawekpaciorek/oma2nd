@@ -29,7 +29,7 @@ public class DeliveryPointDAOImplementation implements DeliveryPointDAO {
     @Transactional
     public List<DeliveryPoint> getAllDeliveryPoints() {
         Session session = getSession();
-        return session.createQuery("from DeliveryPoint ").getResultList();
+        return session.createQuery("from DeliveryPoint ", DeliveryPoint.class).getResultList();
     }
 
     @Override
@@ -55,6 +55,13 @@ public class DeliveryPointDAOImplementation implements DeliveryPointDAO {
         Session session = getSession();
         DeliveryPoint temp = findById(id);
         session.remove(temp);
+    }
+
+    @Override
+    @Transactional
+    public List<DeliveryPoint> getDeliveryPointsForUser(long id) {
+        Session session = getSession();
+        return session.createQuery("from DeliveryPoint d where d.createdBy.id = :userId").setParameter("userId" , id).getResultList();
     }
 
     protected Session getSession(){

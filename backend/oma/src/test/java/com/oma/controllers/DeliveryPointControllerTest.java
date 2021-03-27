@@ -1,17 +1,23 @@
 package com.oma.controllers;
 
+import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oma.model.Address;
+import com.oma.model.Company;
+import com.oma.model.User;
 import com.oma.model.DeliveryPoint;
-import com.oma.services.DeliveryPointService;
-import org.assertj.core.util.Arrays;
+import com.oma.services.*;
+import com.oma.utils.DBCleaner;
+import net.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
-import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,8 +28,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +43,12 @@ class DeliveryPointControllerTest {
     DeliveryPointService deliveryPointService;
 
     @Autowired
+    CompanyService companyService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
     private SessionFactory sessionFactory;
 
     private int expectedStatus = 200;
@@ -45,23 +56,26 @@ class DeliveryPointControllerTest {
     private Session session;
 
 
-    @AfterEach
+    @BeforeEach
     void tearDown() {
         counter = 0;
-        session = sessionFactory.openSession();
-        resetAddressTable(session);
-        resetDeliveryPointTable(session);
-        session.close();
+        cleanDB();
+        Company company = new Company(getDefaultString(), getDefaultString(), new Address(getDefaultString(), getDefaultString(), getDefaultString()));
+        User user = new User(getDefaultString(),getDefaultString(),"manager", 900900900);
+        company.addUser(user);
+        companyService.saveCompany(company);
     }
 
 
     @Test
     void shouldDisplayAllDeliveryPoints() throws Exception {
-
+//      given
+        List<User> users = userService.getAllUser();
         //  when
         DeliveryPoint[] deliveryPoints = new DeliveryPoint[3];
         for(int i = 0; i < deliveryPoints.length; i++){
             deliveryPoints[i] = returnDefaultDeliveryPoint();
+            deliveryPoints[i].setCreatedBy(users.get(Math.abs(new Random().nextInt(users.size()))));
             deliveryPointService.saveDeliveryPoint(deliveryPoints[i]);
         }
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/delivery-points/list")
@@ -150,23 +164,22 @@ class DeliveryPointControllerTest {
         return deliveryPoint;
     }
 
-    private void resetDeliveryPointTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete DeliveryPoint").executeUpdate();
-        session.getTransaction().commit();
-    }
-
-    private void resetAddressTable(Session session) {
-        session.beginTransaction();
-        session.createQuery("delete Address ").executeUpdate();
-        session.getTransaction().commit();
-    }
-
     private <T>T mapFromJson(String content, Class<T> resultClass) throws JsonParseException, JsonMappingException, IOException {
         return new ObjectMapper().readValue(content, resultClass);
     }
 
     private String mapObjectToJson(Object deliveryPoint) throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(deliveryPoint);
+    }
+
+    private String getDefaultString() {
+        return new RandomString().nextString();
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company", "User", "DeliveryPoint", "Address"});
+        dbCleaner.cleanDB();
     }
 }

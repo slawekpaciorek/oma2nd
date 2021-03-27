@@ -21,4 +21,6 @@ public interface UserDAO {
     void removeUser(long id, User user);
 
     List<User> findUserForCompany(long companyId);
+
+    List<User> getUsersForCompany(Long id);
 }
