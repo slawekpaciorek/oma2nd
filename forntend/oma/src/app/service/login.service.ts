@@ -12,14 +12,12 @@ export class LoginService {
 
   constructor(private httpClient : HttpClient, private router: Router) { }
 
-  logUser(name: String, pass: String) {
-    let url = 'localhost:8080/login'
-    this.httpClient.post<Observable<boolean>>(url, {
-        name, pass
-    }).subscribe(isValid => {
+  logUser(user: User) {
+    let url = 'http://localhost:8080/login';
+    this.httpClient.post(url, user).subscribe(isValid => {
       if(isValid){
         console.log('User logging...');
-        sessionStorage.setItem('token', btoa(name + ':' + pass));
+        sessionStorage.setItem('token', btoa(user.username + ':' + user.password));
         this.router.navigate(['/user-view']);
         console.log('User logged, token : ' + sessionStorage.getItem('token'))
       }else{

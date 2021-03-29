@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public interface UserDAO {
 
     List<User> user = new ArrayList<>();
@@ -23,4 +23,6 @@ public interface UserDAO {
     List<User> findUserForCompany(long companyId);
 
     List<User> getUsersForCompany(Long id);
+
+    User findUserByName(String username);
 }

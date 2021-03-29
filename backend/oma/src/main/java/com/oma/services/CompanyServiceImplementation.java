@@ -27,7 +27,7 @@ public class CompanyServiceImplementation implements CompanyService {
     private AddressDAO addressDAO;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserService userService;
 
     @Override
     @Transactional
@@ -38,7 +38,7 @@ public class CompanyServiceImplementation implements CompanyService {
         if(company.getUsers()!=null){
             List<User> users = company.getUsers();
             users.forEach(x->x.setCompany(company));
-            users.forEach(x->userDAO.saveUser(x));
+            users.forEach(x->userService.addUser(x));
         }
         return company;
 
@@ -85,6 +85,6 @@ public class CompanyServiceImplementation implements CompanyService {
     @Override
     @Transactional
     public List<User> getUsersForCompany(Long id) {
-        return userDAO.getUsersForCompany(id);
+        return userService.getUserForCompany(id);
     }
 }

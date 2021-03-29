@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class DemoStarter {
 
     public void setUpDemoDataInDB(){
         clearDB();
+        setRolesINDB();
         Provider provider = new Provider("Provider Company", "PL" + taxNumber(), new Address("Magnacka", "02-496", "Warszawa",500500500));
         provider.addAdmin(new User("ADMIN", "admin@provider.pl","administrator",100000100));
         providerService.saveProvider(provider);
@@ -76,6 +78,7 @@ public class DemoStarter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        company.getUsers().forEach(x -> x.setPassword("!Password1"));
         companyService.saveCompany(company);
         company.getUsers().forEach(user -> user.addDeliveryPoint(createDeliveryPont()));
         company.getUsers().forEach(user -> user.getDeliveryPoints().forEach(deliveryPoint -> company.addDeliveryPoint(deliveryPoint)));
@@ -146,7 +149,7 @@ public class DemoStarter {
     }
 
     private void clearDB(){
-        deleteDataFromTables(new String[]{"ProductsOrder", "OrderItem", "Price", "Product", "DeliveryPoint", "Address", "User", "Company"});
+        deleteDataFromTables(new String[]{"ProductsOrder", "OrderItem", "Price", "Product", "DeliveryPoint", "Address", "User", "Company", "Role"});
     }
 
     private void deleteDataFromTables(String[] tableNames){
@@ -156,6 +159,18 @@ public class DemoStarter {
             session.createQuery("delete " + tableName).executeUpdate();
             session.getTransaction().commit();
         }
+        session.close();
+    }
+
+    @Transactional
+    void setRolesINDB() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(new Role("ROLE_USER"));
+        session.getTransaction().commit();
+        session.beginTransaction();
+        session.saveOrUpdate(new Role("ROLE_ADMIN"));
+        session.getTransaction().commit();
         session.close();
     }
 }

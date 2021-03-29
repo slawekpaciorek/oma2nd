@@ -4,25 +4,42 @@ import com.oma.model.Address;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import javax.annotation.PostConstruct;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OrderManagementApplicationTests {
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
-    @BeforeEach
-    public void cleanUp(){
-        Session session = sessionFactory.openSession();
+    private static Session session;
+
+    @BeforeAll
+    public static void cleanDB(){
+        clearTable("Address");
+        clearTable("Company");
+        clearTable("User");
+        clearTable("Provider");
+        clearTable("ProductsOrder");
+        clearTable("Price");
+        clearTable( "OrderItem");
+        clearTable("DeliveryPoint");
+        clearTable("Product");
+    }
+
+    private static void clearTable(String tableName) {
         session.beginTransaction();
-        session.createQuery("delete Address ").executeUpdate();
+        session.createQuery("delete " + tableName).executeUpdate();
         session.getTransaction().commit();
     }
 
@@ -30,7 +47,6 @@ class OrderManagementApplicationTests {
     public void simpleOperationOnDB(){
 //        given
         Address address = new Address("street");
-        Session session = sessionFactory.openSession();
 //        when
         session.beginTransaction();
         session.saveOrUpdate(address);
@@ -41,5 +57,12 @@ class OrderManagementApplicationTests {
         assertTrue(addresses.contains(address));
 
     }
+
+    @PostConstruct
+    private void setSession(){
+        session = sessionFactory.openSession();
+    }
+
+
 }
 

@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -68,6 +69,7 @@ class DeliveryPointControllerTest {
 
 
     @Test
+    @WithMockUser("user")
     void shouldDisplayAllDeliveryPoints() throws Exception {
 //      given
         List<User> users = userService.getAllUser();
@@ -91,6 +93,7 @@ class DeliveryPointControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     void shouldAddDeliveryPoint() throws Exception {
 
         //  given
@@ -110,6 +113,7 @@ class DeliveryPointControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     void shouldUpdateDeliveryPoint() throws Exception {
 
         //  given
@@ -136,6 +140,7 @@ class DeliveryPointControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     void shouldRemoveDeliveryPoint() throws Exception {
 
         //  given

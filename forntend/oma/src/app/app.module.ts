@@ -15,6 +15,10 @@ import { CompanyListComponent } from './component/company-list/company-list.comp
 import {CommonModule} from '@angular/common';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {DemoSetupComponent} from './component/demo-setup/demo-setup.component';
+import {LoginComponent} from './component/login/login.component';
+import {LoginService} from './service/login.service';
+import {ConfigurationService} from './services/configuration.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     ]),
     HttpClientModule
   ],
-  providers: [CompanyService, LoginService,ConfigurationService],
+  providers: [CompanyService, LoginService, ConfigurationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

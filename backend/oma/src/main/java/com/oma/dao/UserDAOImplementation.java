@@ -80,4 +80,10 @@ public class UserDAOImplementation implements UserDAO{
         return session.createQuery("from User u where u.company.id = :companyId")
                 .setParameter("companyId", id).getResultList();
     }
+
+    @Override
+    public User findUserByName(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from User user where user.username = :username", User.class).setParameter("username", username).getSingleResult();
+    }
 }

@@ -44,11 +44,11 @@ class SecuringWebApplicationTests {
             .andExpect(unauthenticated());
     }
 
-    @Test
+/*    @Test
     public void accessUnsecuredResourceThenOk() throws Exception {
         mockMvc.perform(get("/"))
             .andExpect(status().isOk());
-    }
+    }*/
 
     @Test
     public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
@@ -57,10 +57,10 @@ class SecuringWebApplicationTests {
             .andExpect(redirectedUrlPattern("**/login"));
     }
 
-    @Test
+/*    @Test
     @WithMockUser
     public void accessSecuredResourceAuthenticatedThenOk() throws Exception {
         mockMvc.perform(get("/hello"))
             .andExpect(status().isOk());
-    }
+    }*/
 }

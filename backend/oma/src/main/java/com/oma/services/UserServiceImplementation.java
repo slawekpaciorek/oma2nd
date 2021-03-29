@@ -1,13 +1,27 @@
 package com.oma.services;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
+import com.oma.dao.RoleDAO;
 import com.oma.dao.UserDAO;
+import com.oma.model.Role;
 import com.oma.model.User;
+import com.oma.model.UserPrivileges;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImplementation implements UserService{
@@ -17,10 +31,22 @@ public class UserServiceImplementation implements UserService{
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleDAO roleDAO;
+
     @Override
     @Transactional
     public void addUser(User user) {
          logger.warn("Save user from service layer");
+         String temp = passwordEncoder.encode(user.getPassword());
+         user.setPassword(temp);
+         if(user.getPrivileges().equals(UserPrivileges.operator) || user.getPrivileges().equals(UserPrivileges.manager))
+             user.setRoles(Arrays.asList((roleDAO.findRoleByName("ROLE_USER"))));
+         if(user.getPrivileges().equals(UserPrivileges.administrator))
+             user.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_ADMIN")));
          userDAO.saveUser(user);
     }
 
@@ -56,6 +82,20 @@ public class UserServiceImplementation implements UserService{
     @Transactional
     public List<User> getUserForCompany(long companyId) {
         return userDAO.findUserForCompany(companyId);
+    }
+
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.findUserByName(username);
+        if(user == null){
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
 }

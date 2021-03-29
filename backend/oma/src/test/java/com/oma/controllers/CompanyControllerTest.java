@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc()
 public class CompanyControllerTest {
 
     @Autowired
@@ -56,6 +58,7 @@ public class CompanyControllerTest {
 
 
     @Test
+    @WithMockUser("user")
     void shouldReturnOkForCompanyList() throws Exception {
 
         //  given
@@ -79,14 +82,8 @@ public class CompanyControllerTest {
 
     }
 
-    private void cleanDB() {
-        DBCleaner dbCleaner = new DBCleaner();
-        dbCleaner.setSessionFactory(sessionFactory);
-        dbCleaner.setTableNames(new String[]{"Company"});
-        dbCleaner.cleanDB();
-    }
-
     @Test
+    @WithMockUser("user")
     void shouldSaveSimpleCompanyInDB()throws Exception{
 //        given
         Company company = new Company("CompanyName", "taxIdNumber", new Address());
@@ -107,6 +104,7 @@ public class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     public void shouldSaveCompanyWithUserAndAddress() throws Exception {
 //        given
         Company company = new Company("ComapnyNameTest", "testNIP", new Address("testStreet", "testCode", "testCity"));
@@ -125,6 +123,7 @@ public class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     public void shouldUpdateCompanyWithNewData() throws Exception{
 //        given
         Company company = new Company("ComapnyNameTest", "testNIP", new Address("testStreet", "testCode", "testCity"));
@@ -154,5 +153,11 @@ public class CompanyControllerTest {
         return mapper.writeValueAsString(object);
     }
 
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company"});
+        dbCleaner.cleanDB();
+    }
 }
 

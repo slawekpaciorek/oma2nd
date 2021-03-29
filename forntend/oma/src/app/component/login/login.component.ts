@@ -25,9 +25,10 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin(): void{
-    let username = this.userForm.get('user').value.username;
-    let password = this.userForm.get('user').value.password
-    this.loginService.logUser(username,password);
+    let username = this.userForm.get('user').value.userName;
+    let password = this.userForm.get('user').value.password;
+    let user = new User(null,username,null,password,null, null);
+    this.loginService.logUser(user);
   }
 
 }
