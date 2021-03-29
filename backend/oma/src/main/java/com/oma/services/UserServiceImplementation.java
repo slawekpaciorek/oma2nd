@@ -41,11 +41,13 @@ public class UserServiceImplementation implements UserService{
     @Transactional
     public void addUser(User user) {
          logger.warn("Save user from service layer");
-         String temp = passwordEncoder.encode(user.getPassword());
-         user.setPassword(temp);
-         if(user.getPrivileges().equals(UserPrivileges.operator) || user.getPrivileges().equals(UserPrivileges.manager))
+         if(user.getPassword()!=null) {
+             String temp = passwordEncoder.encode(user.getPassword());
+             user.setPassword(temp);
+         }
+         if(user.getDeliveryPoints()!= null && (user.getPrivileges().equals(UserPrivileges.operator) || user.getPrivileges().equals(UserPrivileges.manager)))
              user.setRoles(Arrays.asList((roleDAO.findRoleByName("ROLE_USER"))));
-         if(user.getPrivileges().equals(UserPrivileges.administrator))
+         if(user.getDeliveryPoints()!= null && (user.getPrivileges().equals(UserPrivileges.administrator)))
              user.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_ADMIN")));
          userDAO.saveUser(user);
     }
