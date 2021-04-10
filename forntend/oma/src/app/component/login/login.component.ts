@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  submitLogin(): void{
+  submitLogin(): any{
     let username = this.userForm.get('user').value.userName;
     let password = this.userForm.get('user').value.password;
     let user = new User(null,username,null,password,null, null);
-    this.loginService.logUser(user);
+    return this.loginService.logUser(user).subscribe(data => console.log(data));
   }
 
 }

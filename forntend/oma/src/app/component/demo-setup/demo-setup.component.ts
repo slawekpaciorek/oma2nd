@@ -18,7 +18,7 @@ export class DemoSetupComponent implements OnInit {
     if(this.configuration.isConfigured===false) {
       this.configuration.demoSetup();
     }else{
-      this.router.navigate(['admin-view']);
+      this.router.navigate(["login"]);
     }
   }
 

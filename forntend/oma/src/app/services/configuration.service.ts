@@ -18,7 +18,7 @@ export class ConfigurationService {
       console.log("finish demo config");
       this.isConfigured = true;
     }
-    this.router.navigate(["/admin-view"]);
+    this.router.navigate(["login"]);
   }
 
 
