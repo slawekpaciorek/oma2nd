@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@AutoConfigureMockMvc()
+@AutoConfigureMockMvc(addFilters = false)
 public class CompanyControllerTest {
 
     @Autowired

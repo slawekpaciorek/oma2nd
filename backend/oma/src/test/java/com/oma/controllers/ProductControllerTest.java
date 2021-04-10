@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 //@CrossOrigin({"localhost:4200", "localhost:5550"})
 public class ProductControllerTest {
 
