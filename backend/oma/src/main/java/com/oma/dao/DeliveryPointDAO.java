@@ -13,5 +13,5 @@ public interface DeliveryPointDAO {
     void saveDeliveryPoint(DeliveryPoint deliveryPoint);
     void updateDeliveryPoint(long id, DeliveryPoint deliveryPoint);
     void removeDeliveryPoint(long id);
-
+    List<DeliveryPoint> getDeliveryPointsForUser(long id);
 }

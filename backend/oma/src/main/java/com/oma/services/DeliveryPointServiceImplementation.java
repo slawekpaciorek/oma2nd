@@ -47,4 +47,9 @@ public class DeliveryPointServiceImplementation implements DeliveryPointService{
     public void removeDeliveryPoint(long id) {
         deliveryPointDAO.removeDeliveryPoint(id);
     }
+
+    @Override
+    public List<DeliveryPoint> getGetDeliveryPointsForUser(long id) {
+        return deliveryPointDAO.getDeliveryPointsForUser(id);
+    }
 }

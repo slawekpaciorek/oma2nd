@@ -1,10 +1,15 @@
 package com.oma.dao;
 
+import com.oma.model.User;
 import com.oma.model.OrderStatus;
 import com.oma.model.ProductsOrder;
+import com.oma.services.UserService;
+import com.oma.utils.DBCleaner;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,23 +25,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderDAOImplementationTest {
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     OrderDao orderDao;
 
     @Autowired
     private SessionFactory sessionFactory;
     private Session session;
 
-    @AfterEach
-    void tearDown() {
+    @BeforeEach
+    void setUp() {
         resetDB();
     }
 
     @Test
     void shouldSaveOrder() {
 
-        //  given
         ProductsOrder productsOrder = returnDefaultOrder();
+        //  given
         session = returnSession();
+        User user = new User(getDefaultString(), getDefaultString(),"manager", 100100100);
+        userService.addUser(user);
+        productsOrder.setCreatedBy(user);
+
 
         //  when
         orderDao.saveOrder(productsOrder);
@@ -62,7 +74,6 @@ class OrderDAOImplementationTest {
 
         //  then
         assertEquals(order, result);
-
 
     }
 
@@ -94,9 +105,7 @@ class OrderDAOImplementationTest {
         ProductsOrder expectedAfterUpdate = returnDefaultOrder();
 
         //  when
-        if(order.equals(expectedAfterUpdate)){
-            shouldUpdateOrder();
-        }
+        expectedAfterUpdate.setStatus(OrderStatus.approved);
         orderDao.saveOrder(order);
         long id = order.getId();
         orderDao.updateOrder(id, expectedAfterUpdate);
@@ -125,16 +134,10 @@ class OrderDAOImplementationTest {
     }
 
     private void resetDB(){
-        cleanTable("DeliveryPoint");
-        cleanTable("ProductsOrder");
-    }
-
-    private void cleanTable(String tableName) {
-        session = returnSession();
-        session.beginTransaction();
-        session.createQuery("delete " + tableName).executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"DeliveryPoint", "ProductsOrder", "User"});
+        dbCleaner.cleanDB();
     }
 
     private Session returnSession() {
@@ -142,6 +145,10 @@ class OrderDAOImplementationTest {
     }
 
     private ProductsOrder returnDefaultOrder() {
-        return new ProductsOrder(LocalDate.now(), OrderStatus.not_approved,"info about order", new Random().nextInt(1000));
+        return new ProductsOrder(LocalDate.now(), OrderStatus.not_approved,"info about order");
+    }
+
+    private String getDefaultString() {
+        return new RandomString().nextString();
     }
 }

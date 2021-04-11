@@ -10,6 +10,8 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +56,12 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "createdBy")
     private List<ProductsOrder> ordersCreated;
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="users_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     public User(String name, String username, String privileges, int mobilePhone) {
         this.name = name;
@@ -87,5 +95,14 @@ public class User implements Serializable {
                 ", privileges=" + privileges +
                 ", company name=" + company.getName() +
                 '}';
+    }
+
+    public void addDeliveryPoint(DeliveryPoint deliveryPoint) {
+        if(deliveryPoints==null) {
+            deliveryPoints = new ArrayList<>();
+        }
+        deliveryPoint.setCompany(this.company);
+        deliveryPoint.setCreatedBy(this);
+        deliveryPoints.add(deliveryPoint);
     }
 }

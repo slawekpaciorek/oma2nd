@@ -10,6 +10,7 @@ import com.oma.model.Company;
 import com.oma.model.User;
 import com.oma.services.CompanyService;
 import com.oma.services.UserService;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,7 +32,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest {
 
     @Autowired
@@ -54,22 +56,14 @@ class UserControllerTest {
     void setUp() {
         user = new User("userName", "userName@user", "operator", 900900900);
         session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.createQuery("delete Company").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete Address").executeUpdate();
-        session.getTransaction().commit();
-        session.beginTransaction();
-        session.createQuery("delete User").executeUpdate();
-        session.getTransaction().commit();
-//        session.getTransaction().commit();
+        cleanDB();
         companyService.saveCompany(
                 new Company("companyUserTest", "000000000", new Address("streetUserTest","zipCodeUserTest", "cityUserTest"))
         );
     }
 
     @Test
+    @WithMockUser("user")
     void shouldDisplayUsers() throws Exception {
 //        when
         userService.addUser(user);
@@ -85,6 +79,7 @@ class UserControllerTest {
 
     @Test
     @Transactional
+    @WithMockUser("user")
     void shouldAddUser() throws Exception {
 //        when
         user.setCompany(returnTestCompany());
@@ -101,6 +96,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     void shouldUpdateUser() throws Exception {
 //        given
         User update = new User("updateName", "updateUserName", "operator", 900100100);
@@ -120,6 +116,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser("user")
     void shouldRemoveUser() throws Exception {
         user.setCompany(returnTestCompany());
         userService.addUser(user);
@@ -146,5 +143,12 @@ class UserControllerTest {
 
     private Company returnTestCompany(){
         return companyService.getAllWithAddresses().get(0);
+    }
+
+    private void cleanDB() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Company", "User", "Address"});
+        dbCleaner.cleanDB();
     }
 }

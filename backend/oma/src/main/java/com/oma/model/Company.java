@@ -37,12 +37,15 @@ public class Company implements Serializable {
     private List<User> users;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<ProductsOrder> orders;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<DeliveryPoint> deliveryPoints;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<Price> priceList;
 
     public void addUser(User user) {
@@ -94,5 +97,11 @@ public class Company implements Serializable {
                 ", taxNumberId='" + taxNumberId + '\'' +
                 ", address=" + address +
                 '}';
+    }
+
+    public void addDeliveryPoint(DeliveryPoint deliveryPoint) {
+        if(deliveryPoints==null)
+            deliveryPoints = new ArrayList<>();
+        deliveryPoints.add(deliveryPoint);
     }
 }

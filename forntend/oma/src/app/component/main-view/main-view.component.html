@@ -1,8 +1,15 @@
-<ul class="list list-inline text-right bg-dark text-light p-3">
-  <li class="list-inline-item mx-2">
-    <a class="text-light" routerLink="/admin-view">Admin</a>
-  </li>
-  <li class="list-inline-item mx-2">
-    <a class="text-light" routerLink="/user-view">User</a>
-  </li>
-</ul>
+<div class="container-fluid py-5">
+  <div class="row no-gutters py-2 justify-content-center">
+    <div class="" *ngIf="!checkConfiguration();then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <div class="">
+        <div class="d-flex mx-auto shadow border-rounded border-secondary main-button">
+          <a routerLink="/demo" class="text-dark align-self-center mx-auto text-center">Wersja demo</a>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #elseBlock>
+      <div class="">Application is running in the demo version. Please <a routerLink="/login">LogIn</a></div>
+    </ng-template>
+  </div>
+</div>

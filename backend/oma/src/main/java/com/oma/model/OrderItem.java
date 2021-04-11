@@ -5,17 +5,18 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class ProductList {
+public class OrderItem {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "basket")
     private List<ProductsOrder> order;
 
     @ManyToOne
@@ -26,6 +27,11 @@ public class ProductList {
     private int quantity;
 
     @Column
-    private int summaryValue;
+    private double summaryValue;
 
+    public OrderItem(Price price, int quantity) {
+        this.product = price.getProduct();
+        this.quantity = quantity;
+        this.summaryValue = quantity * price.getValue();
+    }
 }

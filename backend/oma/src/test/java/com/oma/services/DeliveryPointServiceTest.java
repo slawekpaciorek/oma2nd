@@ -2,9 +2,11 @@ package com.oma.services;
 
 import com.oma.model.Address;
 import com.oma.model.DeliveryPoint;
+import com.oma.utils.DBCleaner;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,17 +28,12 @@ class DeliveryPointServiceTest {
     @Autowired
     DeliveryPointService deliveryPointService;
 
-    @AfterEach
-    void tearDown() {
-        Session session = getSession();
-        beginTransaction(session);
-        session.createQuery("delete Address ").executeUpdate();
-        commitTransaction(session);
-        beginTransaction(session);
-        session.createQuery("delete DeliveryPoint").executeUpdate();
-        commitTransaction(session);
-        closeSession(session);
-        counter = 0;
+    @BeforeEach
+    void setUp() {
+        DBCleaner dbCleaner = new DBCleaner();
+        dbCleaner.setSessionFactory(sessionFactory);
+        dbCleaner.setTableNames(new String[]{"Address", "DeliveryPoint"});
+        dbCleaner.cleanDB();
     }
 
     @Test
