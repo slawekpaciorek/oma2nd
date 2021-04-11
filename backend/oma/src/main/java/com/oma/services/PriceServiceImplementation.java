@@ -2,6 +2,7 @@ package com.oma.services;
 
 import com.oma.dao.PriceDAO;
 import com.oma.model.Price;
+import com.oma.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ public class PriceServiceImplementation implements PriceService {
 
     @Autowired
     PriceDAO priceDAO;
+
+    @Autowired
+    ProductService productService;
 
     @Override
     public Price getPriceById(long id) {
@@ -25,6 +29,12 @@ public class PriceServiceImplementation implements PriceService {
 
     @Override
     public void savePrice(Price price) {
+        Product product = price.getProduct();
+        if(product!=null){
+            List<Product> products = productService.getProducts();
+            if(!products.contains(product))
+                productService.saveProduct(product);
+        }
         priceDAO.savePrice(price);
     }
 

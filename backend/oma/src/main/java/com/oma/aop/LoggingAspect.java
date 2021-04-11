@@ -14,16 +14,17 @@ import org.springframework.stereotype.Component;
 @EnableAspectJAutoProxy
 @Slf4j
 public class LoggingAspect {
-
+    /*
     @Pointcut("execution(* com.oma..*(..))")
     private void anyPublicMethod(){
     }
-    @Before("anyPublicMethod()")
-    public void beforeAnyPublicMethod(JoinPoint joinPoint){
-        log.info(" :: before :: " + joinPoint.getSignature().getName());
-    }
+
     @After("anyPublicMethod()")
     public void afterAnyPublicMethod(JoinPoint joinPoint){
         log.info(" :: after :: " + joinPoint.getSignature().getName());
     }
+    @Before("anyPublicMethod()")
+    public void beforeAnyPublicMethod(JoinPoint joinPoint){
+        log.info(" :: before :: " + joinPoint.getSignature().getName());
+    }*/
 }

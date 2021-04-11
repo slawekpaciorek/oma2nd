@@ -2,6 +2,7 @@ package com.oma.services;
 
 import com.oma.model.Address;
 import com.oma.model.Company;
+import com.oma.model.User;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ public interface CompanyService {
 
     void removeCompany(long id, Company company);
 
+    List<User> getUsersForCompany(Long id);
+
     default List<Company> getDefaultCompanies(){
 
         List<Company>companies = new ArrayList<>();
@@ -32,5 +35,4 @@ public interface CompanyService {
 
         return companies;
     }
-
 }

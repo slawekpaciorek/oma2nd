@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ConfigurationService} from '../../services/configuration.service';
 
 @Component({
   selector: 'app-main-view',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(configurationService: ConfigurationService) {
+    this.configurationService = configurationService;
+  }
+
+  private configured: boolean;
+  private configurationService : ConfigurationService
 
   ngOnInit(): void {
+    this.configured = this.configurationService.isConfigured;
   }
+
+  checkConfiguration(){
+    return this.configured;
+  }
+
 
 }

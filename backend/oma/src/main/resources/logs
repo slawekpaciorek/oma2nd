@@ -1,0 +1,33 @@
+[ERROR] Failures:
+[ERROR]   CompanyControllerTest.shouldUpdateCompanyWithNewData:142 expected: <Company{id=null, name='UpdateCompanyName', taxNumberId='updatedNIP', address=Address(id=0, streetNameAndNumber=updatedStreet, zipCode=updatedCode, city=up
+datedCity, mobilePhoneNumber=0)}> but was: <com.oma.model.Company@52e5ad71>
+
+[ERROR]   DeliveryPointControllerTest.shouldRemoveDeliveryPoint:159 Expected org.springframework.dao.EmptyResultDataAccessException to be thrown, but nothing was thrown.
+
+[ERROR]   DeliveryPointControllerTest.shouldUpdateDeliveryPoint:137 expected: <DeliveryPoint{name='defaultDeliveryPoint1', address=Address(id=0, streetNameAndNumber=defaultStreetName1, zipCode=defaultZipCode1, city=defaultCity1, mob
+ilePhoneNumber=0), company=Optional.empty}> but was: <DeliveryPoint{name='defaultDeliveryPoint0', address=Address(id=35583, streetNameAndNumber=defaultStreetName0, zipCode=defaultZipCode0, city=defaultCity0, mobilePhoneNumber=0), co
+mpany=Optional.empty}>
+
+[ERROR]   ProductControllerTest.shouldRemoveProduct:135 Expected org.springframework.dao.EmptyResultDataAccessException to be thrown, but nothing was thrown.
+
+[ERROR]   ProductControllerTest.shouldSaveProduct:89 expected: <true> but was: <false>
+
+[ERROR]   ProductControllerTest.shouldUpdateProduct:114 expected: <com.oma.model.Product@763a72da> but was: <Product(id=0, name=1 .Product - 959116000, tradeId=959116000, catalogId=959116000, categoryName=JturjGMg, prices=null)>
+
+[ERROR]   UserControllerTest.shouldAddUser:95 expected: <true> but was: <false>
+
+[ERROR]   UserControllerTest.shouldRemoveUser:131 Expected org.springframework.dao.EmptyResultDataAccessException to be thrown, but nothing was thrown.
+
+[ERROR]   UserControllerTest.shouldUpdateUser:114 expected: <true> but was: <false>
+
+[ERROR] Errors:
+
+[ERROR]   CompanyControllerTest.shouldReturnOkForCompanyList:75->mapFromJson:148 » MismatchedInput
+
+[ERROR]   CompanyControllerTest.shouldSaveSimpleCompanyInDB:102 » NoSuchElement No value...
+
+[ERROR]   DeliveryPointControllerTest.shouldDisplayAllDeliveryPoints:86->mapFromJson:173 » MismatchedInput
+
+[ERROR]   ProductControllerTest.shouldDisplayListOfProducts:61 » MismatchedInput No cont...
+
+[ERROR]   UserControllerTest.shouldDisplayUsers:74->mapFromJson:136 » MismatchedInput No...

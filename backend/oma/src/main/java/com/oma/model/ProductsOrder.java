@@ -39,7 +39,7 @@ public class ProductsOrder {
     @JoinTable(name = "Orders_Products",
             joinColumns = {@JoinColumn(name = "productsOrder_id")},
             inverseJoinColumns = {@JoinColumn(name = "productList_id")})
-    private List<ProductList> products;
+    private List<OrderItem> basket;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,
@@ -71,11 +71,10 @@ public class ProductsOrder {
     @Column
     private String info;
 
-    public ProductsOrder(LocalDate creationDate, OrderStatus orderStatus, String orderInfo, double summaryValue) {
+    public ProductsOrder(LocalDate creationDate, OrderStatus orderStatus, String orderInfo) {
         this.createdAt = creationDate;
         this.status = orderStatus;
         this.info = orderInfo;
-        this.summaryValue = summaryValue;
     }
 
     @Override
@@ -84,7 +83,7 @@ public class ProductsOrder {
                 "id=" + id +
                 ", company=" + company +
                 ", deliveryPoint=" + deliveryPoint +
-                ", products=" + products +
+                ", products=" + basket +
                 ", createdBy=" + createdBy +
                 ", approvedBy=" + approvedBy +
                 ", status=" + status +
@@ -99,11 +98,39 @@ public class ProductsOrder {
         if (this == o) return true;
         if (!(o instanceof ProductsOrder)) return false;
         ProductsOrder order = (ProductsOrder) o;
-        return Double.compare(order.summaryValue, summaryValue) == 0 && Objects.equals(deliveryPoint, order.deliveryPoint) && Objects.equals(createdBy, order.createdBy) && Objects.equals(approvedBy, order.approvedBy) && status == order.status && Objects.equals(createdAt, order.createdAt) && Objects.equals(info, order.info);
+        return
+                Double.compare(order.summaryValue, summaryValue) == 0
+                        && Objects.equals(deliveryPoint, order.deliveryPoint)
+                        && Objects.equals(createdBy, order.createdBy)
+                        && Objects.equals(approvedBy, order.approvedBy)
+                        && status == order.status
+                        && Objects.equals(createdAt, order.createdAt)
+                        && Objects.equals(info, order.info);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(deliveryPoint, createdBy, approvedBy, status, createdAt, summaryValue, info);
+    }
+
+    public void setBasket(List<OrderItem> basket) {
+        this.basket = basket;
+        summaryValue = basket.stream().mapToDouble(OrderItem::getSummaryValue).sum();
+    }
+
+    public void addProductToProducts(OrderItem orderItem){
+        basket.add(orderItem);
+        summaryValue += orderItem.getSummaryValue();
+    }
+
+    public void setCreatedBy(User user){
+        this.createdBy = user;
+        if(user.getPrivileges().equals(UserPrivileges.manager)){
+            this.approvedBy = user;
+            this.status = OrderStatus.approved;
+        }else{
+            this.approvedBy = null;
+            this.status = OrderStatus.not_approved;
+        }
     }
 }

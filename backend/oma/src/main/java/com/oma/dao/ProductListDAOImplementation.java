@@ -1,13 +1,12 @@
 package com.oma.dao;
 
-import com.oma.model.ProductList;
+import com.oma.model.OrderItem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,34 +20,34 @@ public class ProductListDAOImplementation implements ProductListDAO {
 
     @Transactional
     @Override
-    public ProductList getProductFromProductsById(long id) {
+    public OrderItem getProductFromProductsById(long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from ProductList p where p.id = :id", ProductList.class).getSingleResult();
+        return session.createQuery("from ProductList p where p.id = :id", OrderItem.class).getSingleResult();
     }
 
     @Transactional
     @Override
-    public List<ProductList> getListOfProducts() {
+    public List<OrderItem> getListOfProducts() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from ProductList ").getResultList();
+        return session.createQuery("from OrderItem ").getResultList();
     }
 
     @Transactional
     @Override
-    public void saveProductList(ProductList products) {
+    public void saveProductList(OrderItem products) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(products);
     }
 
     @Transactional
     @Override
-    public void updateProducts(long id, ProductList products) {
-        ProductList productList = getProductFromProductsById(id);
-        if(!productList.equals(products)){
+    public void updateProducts(long id, OrderItem products) {
+        OrderItem orderItem = getProductFromProductsById(id);
+        if(!orderItem.equals(products)){
             Session session = sessionFactory.getCurrentSession();
-            if(productList.getQuantity()!=products.getQuantity())
-                productList.setQuantity(products.getQuantity());
-            session.update(productList);
+            if(orderItem.getQuantity()!=products.getQuantity())
+                orderItem.setQuantity(products.getQuantity());
+            session.update(orderItem);
         }
         log.info("Objects are the same");
     }
@@ -56,8 +55,8 @@ public class ProductListDAOImplementation implements ProductListDAO {
     @Transactional
     @Override
     public void removeProducts(long id) {
-        ProductList productList = getProductFromProductsById(id);
+        OrderItem orderItem = getProductFromProductsById(id);
         Session session = sessionFactory.getCurrentSession();
-        session.remove(productList);
+        session.remove(orderItem);
     }
 }

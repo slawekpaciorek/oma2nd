@@ -1,7 +1,7 @@
 package com.oma.services;
 
 import com.oma.dao.ProductListDAO;
-import com.oma.model.ProductList;
+import com.oma.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -12,23 +12,23 @@ public class ProductListServiceImplementation implements ProductListService {
     ProductListDAO productListDAO;
 
     @Override
-    public ProductList getProductListById(long id) {
+    public OrderItem getProductListById(long id) {
         return productListDAO.getProductFromProductsById(id);
     }
 
     @Override
-    public List<ProductList> getProductsList() {
+    public List<OrderItem> getProductsList() {
         return productListDAO.getListOfProducts();
     }
 
     @Override
-    public void saveProductList(ProductList productList) {
-        productListDAO.saveProductList(productList);
+    public void saveProductList(OrderItem orderItem) {
+        productListDAO.saveProductList(orderItem);
     }
 
     @Override
-    public void updateProductList(long id, ProductList productList) {
-        productListDAO.updateProducts(id, productList);
+    public void updateProductList(long id, OrderItem orderItem) {
+        productListDAO.updateProducts(id, orderItem);
     }
 
     @Override

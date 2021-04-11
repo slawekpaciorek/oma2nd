@@ -1,10 +1,10 @@
 .main-button{
-  min-height: 45vh;
-  width: 80%;
+
 }
 
 .main-button a{
   font-size: 1.4rem ;
+  padding: 2em;
 }
 
 .main-button:hover{

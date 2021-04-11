@@ -1,0 +1,20 @@
+<div class="container-fluid py-5">
+  <div class="row no-gutters py-2">
+    <h3 class="text-center w-100">Logowanie do aplikacji</h3>
+    <form [formGroup]="userForm" class="mx-auto mt-4" (ngSubmit)="submitLogin()">
+      <div formGroupName="user">
+        <div class="form-group">
+        <label for="userName">Nazwa użytkownika</label>
+        <input type="text" formControlName="userName" id="userName" class="form-control" aria-describedby="userNameHelp">
+        <small id="userNameHelp" class="form-text text-muted">Nazwa użytkownika, adres email</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Hasło</label>
+          <input type="text" formControlName="password" id="password" class="form-control" aria-describedby="passwordHelp">
+          <small id="passwordHelp" class="form-text text-muted">Wprowadź hasło użytkownika</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Zaloguj</button>
+      </div>
+    </form>
+  </div>
+</div>

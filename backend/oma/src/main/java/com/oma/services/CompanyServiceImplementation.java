@@ -6,6 +6,7 @@ import com.oma.dao.UserDAO;
 import com.oma.dao.UserDAOImplementation;
 import com.oma.model.Address;
 import com.oma.model.Company;
+import com.oma.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class CompanyServiceImplementation implements CompanyService {
     private AddressDAO addressDAO;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserService userService;
 
     @Override
     @Transactional
@@ -35,8 +36,9 @@ public class CompanyServiceImplementation implements CompanyService {
             addressDAO.saveAddress(company.getAddress());
         companyDAO.save(company);
         if(company.getUsers()!=null){
-            company.getUsers().forEach(x->x.setCompany(company));
-            company.getUsers().forEach(x->userDAO.saveUser(x));
+            List<User> users = company.getUsers();
+            users.forEach(x->x.setCompany(company));
+            users.forEach(x->userService.addUser(x));
         }
         return company;
 
@@ -80,4 +82,9 @@ public class CompanyServiceImplementation implements CompanyService {
         return companyDAO.getAllWithAddresses();
     }
 
+    @Override
+    @Transactional
+    public List<User> getUsersForCompany(Long id) {
+        return userService.getUserForCompany(id);
+    }
 }
