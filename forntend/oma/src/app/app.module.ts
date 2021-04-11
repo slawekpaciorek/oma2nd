@@ -17,7 +17,7 @@ import { CompanyFormComponent } from './component/company-form/company-form.comp
 import {ReactiveFormsModule} from '@angular/forms';
 import {DemoSetupComponent} from './component/demo-setup/demo-setup.component';
 import {LoginComponent} from './component/login/login.component';
-import {LoginService} from './service/login.service';
+import {LoginService} from './services/login.service';
 import {ConfigurationService} from './services/configuration.service';
 import {AuthenticationIntereceptorService} from './services/authentication-intereceptor.service';
 
