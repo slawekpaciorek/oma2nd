@@ -20,10 +20,6 @@ import {LoginComponent} from './component/login/login.component';
 import {LoginService} from './services/login.service';
 import {ConfigurationService} from './services/configuration.service';
 import {AuthenticationIntereceptorService} from './services/authentication-intereceptor.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 
 @NgModule({
