@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @ConfigurationProperties(prefix = "file")
 @Entity
 @Table(name = "merchant_documents")
+public
 class DocumnentStorageProperties {
 
     @Id
