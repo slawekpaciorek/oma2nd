@@ -20,6 +20,7 @@ import {LoginComponent} from './component/login/login.component';
 import {LoginService} from './services/login.service';
 import {ConfigurationService} from './services/configuration.service';
 import {AuthenticationIntereceptorService} from './services/authentication-intereceptor.service';
+import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import {AuthenticationIntereceptorService} from './services/authentication-inter
     CompanyFormComponent,
     DemoSetupComponent,
     CompanyFormComponent,
-    LoginComponent
+    LoginComponent,
+    AppComponent,
+    UploadFilesComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +55,8 @@ import {AuthenticationIntereceptorService} from './services/authentication-inter
     ]),
     HttpClientModule
   ],
-  providers: [CompanyService, LoginService, ConfigurationService, {provide: HTTP_INTERCEPTORS, useClass:AuthenticationIntereceptorService, multi: true}],
+  providers: [CompanyService, LoginService, ConfigurationService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationIntereceptorService, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
