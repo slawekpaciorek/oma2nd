@@ -1,4 +1,4 @@
-package com.oma.services;
+package com.oma.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "merchant_documents")
 class DocumnentStorageProperties {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
